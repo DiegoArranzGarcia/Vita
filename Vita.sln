@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vita.API", "Vita.API\Vita.API.csproj", "{82649291-C622-4B89-9254-CAFE2A1651E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82649291-C622-4B89-9254-CAFE2A1651E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82649291-C622-4B89-9254-CAFE2A1651E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82649291-C622-4B89-9254-CAFE2A1651E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82649291-C622-4B89-9254-CAFE2A1651E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9BA39A1B-5F34-4CC4-AA3F-ED14F85A1A61}
+	EndGlobalSection
+EndGlobal
