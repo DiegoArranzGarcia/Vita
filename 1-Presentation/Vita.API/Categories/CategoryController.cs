@@ -6,21 +6,20 @@ using Vita.Application.Categories;
 
 namespace Vita.API.Categories
 {
-    [Route("api/categories")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private ICategoriesService CategoriesService { get; set; }
+        private ICategoryService CategoriesService { get; set; }
         private IMapper Mapper { get; set; }
 
-        public CategoryController(ICategoriesService categoriesService, IMapper mapper)
+        public CategoryController(ICategoryService categoriesService, IMapper mapper)
         {
             CategoriesService = categoriesService;
             Mapper = mapper;
         }
 
-
         [HttpGet]
+        [Route("api/categories")]
         public IEnumerable<CategoryDto> GetAllCategories()
         {
             return Mapper.ProjectTo<CategoryDto>(CategoriesService.GetAllCategories().AsQueryable());

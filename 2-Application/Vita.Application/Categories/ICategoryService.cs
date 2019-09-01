@@ -3,8 +3,9 @@ using Vita.Domain.Categories;
 
 namespace Vita.Application.Categories
 {
-    public interface ICategoriesService
+    public interface ICategoryService
     {
         IEnumerable<Category> GetAllCategories();
+        IEnumerable<Category> GetDefaultCategories();
     }
 }

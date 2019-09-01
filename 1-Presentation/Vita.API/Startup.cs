@@ -9,6 +9,13 @@ using Vita.Application.Categories;
 using Vita.Persistance.Categories;
 using Vita.Persistance.Sql;
 using Vita.Domain.Categories;
+using System;
+using Vita.Application.Users;
+using Vita.Application.UsersCategories;
+using Vita.Domain.UsersCategories;
+using Vita.Persistance.Sql.UserCategories;
+using Vita.Persistance.Sql.Users;
+using Vita.Domain.Users;
 
 namespace Vita.API
 {
@@ -19,11 +26,26 @@ namespace Vita.API
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<VitaDbContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Vita.Development;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
-            services.AddScoped<ICategoriesService, CategoryService>();
-            services.AddTransient<ICategoryRepository, SQLCategoryRepository>();
+            AddApplicationBootstrapping(services);
+            AddPersistanceBootstrapping(services);
 
             AddAutomapperProfiles(services);
+        }
+
+        private void AddApplicationBootstrapping(IServiceCollection services)
+        {
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserCategoryService, UserCategoryService>();
+        }
+
+        private static void AddPersistanceBootstrapping(IServiceCollection services)
+        {
+            services.AddDbContext<VitaDbContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Vita.Development;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+                                                                   .UseLazyLoadingProxies());
+            services.AddTransient<ICategoryRepository, SqlCategoryRepository>();
+            services.AddTransient<IUserCategoryRepository, SqlUserCategoryRepository>();
+            services.AddTransient<IUserRepository, SqlUserRepository>();
         }
 
         private void AddAutomapperProfiles(IServiceCollection services)
@@ -50,7 +72,7 @@ namespace Vita.API
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

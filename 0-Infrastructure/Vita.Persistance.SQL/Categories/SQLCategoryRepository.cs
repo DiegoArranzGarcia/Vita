@@ -4,11 +4,11 @@ using Vita.Domain.Categories;
 
 namespace Vita.Persistance.Categories
 {
-    public class SQLCategoryRepository : ICategoryRepository
+    public class SqlCategoryRepository : ICategoryRepository
     {
         private VitaDbContext VitaDbContext { get; set; }
 
-        public SQLCategoryRepository(VitaDbContext vitaDbContext)
+        public SqlCategoryRepository(VitaDbContext vitaDbContext)
         {
             VitaDbContext = vitaDbContext;
         }
