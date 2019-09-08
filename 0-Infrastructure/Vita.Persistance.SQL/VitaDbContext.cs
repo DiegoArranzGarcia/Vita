@@ -4,7 +4,9 @@ using Vita.Domain.Categories;
 using Vita.Domain.UsersCategories;
 using Vita.Domain.Users;
 using Vita.Persistance.Sql.Users;
-using Vita.Persistance.Sql.UserCategories;
+using Vita.Persistance.Sql.UsersCategories;
+using System.Collections.Generic;
+using Vita.Domain.UsersGoals;
 
 namespace Vita.Persistance.Sql
 {
@@ -13,6 +15,7 @@ namespace Vita.Persistance.Sql
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserCategory> UsersCategories { get; set; }
+        public DbSet<UserGoal> UsersGoals { get; internal set; }
 
         public VitaDbContext(DbContextOptions<VitaDbContext> options) : base(options)
         {

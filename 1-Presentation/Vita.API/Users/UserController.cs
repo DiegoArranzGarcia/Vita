@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Vita.API.Users.Dtos;
 using Vita.Application.Categories.Queries;
-using Vita.Application.UserCategories.Commands;
+using Vita.Application.UsersCategories.Commands;
 using Vita.Application.Users.Commands;
 using Vita.Domain.Users;
 

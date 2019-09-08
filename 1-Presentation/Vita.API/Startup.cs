@@ -9,13 +9,15 @@ using Vita.Persistance.Categories;
 using Vita.Persistance.Sql;
 using Vita.Domain.Categories;
 using Vita.Domain.UsersCategories;
-using Vita.Persistance.Sql.UserCategories;
+using Vita.Persistance.Sql.UsersCategories;
 using Vita.Persistance.Sql.Users;
 using Vita.Domain.Users;
 using Vita.Application.Users.Commands;
 using Vita.Application.UserCategories.Commands;
 using Vita.Application.Categories.Queries;
 using Vita.Application.UserCategories.Queries;
+using Vita.Application.UsersGoals.Queries;
+using Vita.Domain.UsersGoals;
 
 namespace Vita.API
 {
@@ -39,6 +41,7 @@ namespace Vita.API
             services.AddScoped<ICreateUserCategoriesCommand, CreateUserCategoriesCommand>();
             services.AddScoped<ICreateUserCommand, CreateUserCommand>();
             services.AddScoped<IGetAllUserCategoriesForUserQuery, GetAllUserCategoriesForUserQuery>();
+            services.AddScoped<IGetAllUserGoalForUserQuery, GetAllUserGoalForUserQuery>();
         }
 
         private static void AddPersistanceBootstrapping(IServiceCollection services)
@@ -48,6 +51,7 @@ namespace Vita.API
             services.AddTransient<ICategoryRepository, SqlCategoryRepository>();
             services.AddTransient<IUserCategoryRepository, SqlUserCategoryRepository>();
             services.AddTransient<IUserRepository, SqlUserRepository>();
+            services.AddTransient<IUserGoalRepository, SqlUserRepository>();
         }
 
         private void AddAutomapperProfiles(IServiceCollection services)

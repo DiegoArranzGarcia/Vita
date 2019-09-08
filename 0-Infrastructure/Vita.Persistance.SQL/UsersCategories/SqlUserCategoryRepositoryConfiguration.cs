@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Vita.Domain.UsersCategories;
 
-namespace Vita.Persistance.Sql.UserCategories
+namespace Vita.Persistance.Sql.UsersCategories
 {
     public class SqlUserCategoryRepositoryConfiguration : IEntityTypeConfiguration<UserCategory>
     {

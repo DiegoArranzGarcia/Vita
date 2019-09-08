@@ -8,20 +8,20 @@ namespace Vita.API.UsersCategories
 {
     public class UserCategoryController : ControllerBase
     {
-        private IGetAllUserCategoriesForUserQuery GetAllUserCategoriesForUserQuery { get; set; }
+        private IGetAllUserCategoriesForUserQuery GetAllUserGoalForUserQuery { get; set; }
         private IMapper Mapper { get; set; }
 
-        public UserCategoryController(IGetAllUserCategoriesForUserQuery getAllUserCategoriesForUserQuery, IMapper mapper)
+        public UserCategoryController(IGetAllUserCategoriesForUserQuery getAllUserGoalForUserQuery, IMapper mapper)
         {
-            GetAllUserCategoriesForUserQuery = getAllUserCategoriesForUserQuery;
+            GetAllUserGoalForUserQuery = getAllUserGoalForUserQuery;
             Mapper = mapper;
         }
 
         [HttpGet]
-        [Route("api/users/{userId}/categories")]
-        public IEnumerable<UserCategoryDto> GetUserCategories(long userId)
+        [Route("api/users/{userId}/goals")]
+        public IEnumerable<UserGoalDto> GetUserGoals(long userId)
         {
-            return Mapper.ProjectTo<UserCategoryDto>(GetAllUserCategoriesForUserQuery.Execute(userId).AsQueryable());
+            return Mapper.ProjectTo<UserGoalDto>(GetAllUserGoalForUserQuery.Execute(userId).AsQueryable());
         }
     }
 }

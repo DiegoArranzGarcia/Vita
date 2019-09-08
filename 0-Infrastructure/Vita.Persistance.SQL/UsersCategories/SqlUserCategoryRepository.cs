@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Vita.Domain.UsersCategories;
 
-namespace Vita.Persistance.Sql.UserCategories
+namespace Vita.Persistance.Sql.UsersCategories
 {
     public class SqlUserCategoryRepository : IUserCategoryRepository
     {
