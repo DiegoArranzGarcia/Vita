@@ -7,6 +7,6 @@ namespace Vita.Domain.UsersCategories
     public interface IUserCategoryRepository : IRepository
     {
         IEnumerable<UserCategory> GetAllUsersCategories();
-        void CreateUserCategory(UserCategory userCategory);
+        void Add(UserCategory userCategory);
     }
 }

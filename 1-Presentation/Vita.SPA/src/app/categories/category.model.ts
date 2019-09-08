@@ -1,6 +1,6 @@
-export class Category
-{
+export class Category {
+    public id: number;
     public name: string;
     public color: string;
-    public isDefaultCategory : boolean;
+    public isDefaultCategory: boolean;
 }

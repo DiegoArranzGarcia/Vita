@@ -18,7 +18,7 @@ namespace Vita.Persistance.Sql.UserCategories
             return VitaDbContext.UsersCategories;
         }
 
-        public void CreateUserCategory(UserCategory userCategory)
+        public void Add(UserCategory userCategory)
         {
             VitaDbContext.UsersCategories.Add(userCategory);
         }

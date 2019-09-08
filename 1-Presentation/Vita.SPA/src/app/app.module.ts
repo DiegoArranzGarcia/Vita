@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { GoalsModule } from './goals/goals.module';
-import { CategoriesModule } from './categories/categories.module';
+import { UsersCategoriesModule } from './users-categories/users-categories.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { CategoriesModule } from './categories/categories.module';
     AppRoutingModule,
     SharedModule,
     GoalsModule,
-    CategoriesModule
+    UsersCategoriesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

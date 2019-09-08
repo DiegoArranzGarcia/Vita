@@ -1,5 +1,5 @@
 ﻿using Vita.API.Categories;
-using Vita.API.Users;
+using Vita.API.Users.Dtos;
 
 namespace Vita.API.UsersCategories
 {

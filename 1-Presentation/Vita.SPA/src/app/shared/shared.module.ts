@@ -5,7 +5,6 @@ import { VitaApiClient } from './vita-api/vita-api-client';
 import { HttpClientModule } from '@angular/common/http';
 
 
-
 @NgModule({
   declarations: [
     NavBarComponent
@@ -17,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
   exports: [
     NavBarComponent
   ],
-  providers: [
+  providers: [    
     VitaApiClient
   ]
 })

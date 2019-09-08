@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Vita.API.Categories;
-using Vita.API.Users;
+using Vita.API.Users.Dtos;
 using Vita.API.UsersCategories;
 using Vita.Domain.Categories;
 using Vita.Domain.Users;

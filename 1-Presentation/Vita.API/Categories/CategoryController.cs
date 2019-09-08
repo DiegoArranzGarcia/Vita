@@ -2,19 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using Vita.Application.Categories;
+using Vita.Application.Categories.Queries;
 
 namespace Vita.API.Categories
 {
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private ICategoryService CategoriesService { get; set; }
+        private IGetAllCategoriesQuery GetAllCategoriesQuery { get; set; }
         private IMapper Mapper { get; set; }
 
-        public CategoryController(ICategoryService categoriesService, IMapper mapper)
+        public CategoryController(IGetAllCategoriesQuery getAllCategoriesQuery, IMapper mapper)
         {
-            CategoriesService = categoriesService;
+            GetAllCategoriesQuery = getAllCategoriesQuery;
             Mapper = mapper;
         }
 
@@ -22,7 +22,7 @@ namespace Vita.API.Categories
         [Route("api/categories")]
         public IEnumerable<CategoryDto> GetAllCategories()
         {
-            return Mapper.ProjectTo<CategoryDto>(CategoriesService.GetAllCategories().AsQueryable());
+            return Mapper.ProjectTo<CategoryDto>(GetAllCategoriesQuery.Execute().AsQueryable());
         }
     }
 }

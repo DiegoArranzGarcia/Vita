@@ -1,4 +1,4 @@
-﻿namespace Vita.API.Users
+﻿namespace Vita.API.Users.Dtos
 {
     public class CreateUserDto
     {

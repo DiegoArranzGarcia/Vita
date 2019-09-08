@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Vita.API.Core;
-using Vita.Application.Categories;
 using Vita.Persistance.Categories;
 using Vita.Persistance.Sql;
 using Vita.Domain.Categories;
-using System;
-using Vita.Application.Users;
-using Vita.Application.UsersCategories;
 using Vita.Domain.UsersCategories;
 using Vita.Persistance.Sql.UserCategories;
 using Vita.Persistance.Sql.Users;
 using Vita.Domain.Users;
+using Vita.Application.Users.Commands;
+using Vita.Application.UserCategories.Commands;
+using Vita.Application.Categories.Queries;
+using Vita.Application.UserCategories.Queries;
 
 namespace Vita.API
 {
@@ -34,9 +34,11 @@ namespace Vita.API
 
         private void AddApplicationBootstrapping(IServiceCollection services)
         {
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserCategoryService, UserCategoryService>();
+            services.AddScoped<IGetAllDefaultCategoriesQuery, GetAllDefaultCategoriesQuery>();
+            services.AddScoped<IGetAllCategoriesQuery, GetAllCategoriesQuery>();
+            services.AddScoped<ICreateUserCategoriesCommand, CreateUserCategoriesCommand>();
+            services.AddScoped<ICreateUserCommand, CreateUserCommand>();
+            services.AddScoped<IGetAllUserCategoriesForUserQuery, GetAllUserCategoriesForUserQuery>();
         }
 
         private static void AddPersistanceBootstrapping(IServiceCollection services)

@@ -1,17 +1,28 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Vita.Application.Users;
+using Vita.API.Users.Dtos;
+using Vita.Application.Categories.Queries;
+using Vita.Application.UserCategories.Commands;
+using Vita.Application.Users.Commands;
+using Vita.Domain.Users;
 
 namespace Vita.API.Users
 {
     public class UserController : ControllerBase
     {
-        private IUserService UserService { get; set; }
+        private ICreateUserCommand CreateUserCommand { get; set; }
+        private ICreateUserCategoriesCommand CreateUserCategoriesCommand { get; set; }
+        private IGetAllDefaultCategoriesQuery GetAllDefaultCategoriesQuery { get; set; }
         private IMapper Mapper { get; set; }
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(ICreateUserCommand createUserCommand,
+                              ICreateUserCategoriesCommand createUserCategoriesCommand,
+                              IGetAllDefaultCategoriesQuery getAllDefaultCategoriesQuery, 
+                              IMapper mapper)
         {
-            UserService = userService;
+            CreateUserCommand = createUserCommand;
+            CreateUserCategoriesCommand = createUserCategoriesCommand;
+            GetAllDefaultCategoriesQuery = getAllDefaultCategoriesQuery;
             Mapper = mapper;
         }
 
@@ -20,7 +31,12 @@ namespace Vita.API.Users
         [Route("api/users")]
         public UserDto CreateUser(CreateUserDto createUserDto)
         {
-            return Mapper.Map<UserDto>(UserService.CreateUser(createUserDto.UserName, createUserDto.Email));
+            User user = CreateUserCommand.Execute(createUserDto.UserName, createUserDto.Email);
+
+            var defaultCategories = GetAllDefaultCategoriesQuery.Execute();
+            CreateUserCategoriesCommand.Execute(defaultCategories, user);
+
+            return Mapper.Map<UserDto>(user);
         }
     }
 }
