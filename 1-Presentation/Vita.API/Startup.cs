@@ -13,9 +13,9 @@ using Vita.Persistance.Sql.UsersCategories;
 using Vita.Persistance.Sql.Users;
 using Vita.Domain.Users;
 using Vita.Application.Users.Commands;
-using Vita.Application.UserCategories.Commands;
+using Vita.Application.UsersCategories.Commands;
 using Vita.Application.Categories.Queries;
-using Vita.Application.UserCategories.Queries;
+using Vita.Application.UsersCategories.Queries;
 using Vita.Application.UsersGoals.Queries;
 using Vita.Domain.UsersGoals;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Vita.Domain.UsersCategories;
 
-namespace Vita.Application.UserCategories.Queries
+namespace Vita.Application.UsersCategories.Queries
 {
     public class GetAllUserCategoriesForUserQuery : IGetAllUserCategoriesForUserQuery
     {

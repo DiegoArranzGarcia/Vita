@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Vita.Domain.UsersCategories;
 
-namespace Vita.Application.UserCategories.Queries
+namespace Vita.Application.UsersCategories.Queries
 {
     public interface IGetAllUserCategoriesForUserQuery
     {

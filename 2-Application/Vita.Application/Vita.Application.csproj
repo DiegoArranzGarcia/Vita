@@ -8,8 +8,4 @@
     <ProjectReference Include="..\..\3-Domain\Vita.Domain\Vita.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UsersGoals\Commands\" />
-  </ItemGroup>
-
 </Project>

@@ -2,26 +2,26 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using Vita.Application.UserCategories.Queries;
+using Vita.Application.UsersCategories.Queries;
 
 namespace Vita.API.UsersCategories
 {
     public class UserCategoryController : ControllerBase
     {
-        private IGetAllUserCategoriesForUserQuery GetAllUserGoalForUserQuery { get; set; }
+        private IGetAllUserCategoriesForUserQuery GetAllUserCategoriesForUserQuery { get; set; }
         private IMapper Mapper { get; set; }
 
-        public UserCategoryController(IGetAllUserCategoriesForUserQuery getAllUserGoalForUserQuery, IMapper mapper)
+        public UserCategoryController(IGetAllUserCategoriesForUserQuery getAllUserCategoriesForUserQuery, IMapper mapper)
         {
-            GetAllUserGoalForUserQuery = getAllUserGoalForUserQuery;
+            GetAllUserCategoriesForUserQuery = getAllUserCategoriesForUserQuery;
             Mapper = mapper;
         }
 
         [HttpGet]
-        [Route("api/users/{userId}/goals")]
-        public IEnumerable<UserGoalDto> GetUserGoals(long userId)
+        [Route("api/users/{userId}/categories")]
+        public IEnumerable<UserCategoryDto> GetUserCategories(long userId)
         {
-            return Mapper.ProjectTo<UserGoalDto>(GetAllUserGoalForUserQuery.Execute(userId).AsQueryable());
+            return Mapper.ProjectTo<UserCategoryDto>(GetAllUserCategoriesForUserQuery.Execute(userId).AsQueryable());
         }
     }
 }

@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Vita.API.Users.Dtos;
 using Vita.Application.Categories.Queries;
-using Vita.Application.UsersCategories.Commands;
 using Vita.Application.Users.Commands;
 using Vita.Domain.Users;
+using Vita.Application.UsersCategories.Commands;
 
 namespace Vita.API.Users
 {

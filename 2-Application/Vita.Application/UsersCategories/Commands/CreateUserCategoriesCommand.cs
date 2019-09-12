@@ -4,7 +4,7 @@ using Vita.Domain.Categories;
 using Vita.Domain.Users;
 using Vita.Domain.UsersCategories;
 
-namespace Vita.Application.UserCategories.Commands
+namespace Vita.Application.UsersCategories.Commands
 {
     public class CreateUserCategoriesCommand : ICreateUserCategoriesCommand
     {
