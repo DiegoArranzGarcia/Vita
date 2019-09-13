@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Vita.Domain.UsersCategories;
+using Vita.Domain.Models;
+using Vita.Persistance.Abstractions;
 
 namespace Vita.Application.UserCategories.Queries
 {
     public class GetAllUserCategoriesForUserQuery : IGetAllUserCategoriesForUserQuery
     {
-        private IUserCategoryRepository UserCategoryRepository { get; set; }
+        private IUnitOfWork UnitOfWork { get; set; }
 
-        public GetAllUserCategoriesForUserQuery(IUserCategoryRepository userCategoryRepository)
+        public GetAllUserCategoriesForUserQuery(IUnitOfWork unitOfWork)
         {
-            UserCategoryRepository = userCategoryRepository;
+            UnitOfWork = unitOfWork;
         }
 
         public IEnumerable<UserCategory> Execute(long userId)
         {
-            return UserCategoryRepository.GetAllUsersCategories().Where(x => x.UserId == userId);
+            return UnitOfWork.UserCategoryRepository.GetAll().Where(x => x.UserId == userId);
         }
 
 

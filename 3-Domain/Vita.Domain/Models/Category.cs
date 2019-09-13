@@ -1,4 +1,4 @@
-﻿namespace Vita.Domain.Categories
+﻿namespace Vita.Domain.Models
 {
     public class Category
     {

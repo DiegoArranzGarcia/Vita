@@ -4,7 +4,7 @@ using Vita.API.Users.Dtos;
 using Vita.Application.Categories.Queries;
 using Vita.Application.UserCategories.Commands;
 using Vita.Application.Users.Commands;
-using Vita.Domain.Users;
+using Vita.Domain.Models;
 
 namespace Vita.API.Users
 {

@@ -5,17 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Vita.API.Core;
-using Vita.Persistance.Categories;
 using Vita.Persistance.Sql;
-using Vita.Domain.Categories;
-using Vita.Domain.UsersCategories;
-using Vita.Persistance.Sql.UserCategories;
-using Vita.Persistance.Sql.Users;
-using Vita.Domain.Users;
 using Vita.Application.Users.Commands;
 using Vita.Application.UserCategories.Commands;
 using Vita.Application.Categories.Queries;
 using Vita.Application.UserCategories.Queries;
+using Vita.Persistance.Abstractions;
 
 namespace Vita.API
 {
@@ -45,9 +40,7 @@ namespace Vita.API
         {
             services.AddDbContext<VitaDbContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Vita.Development;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
                                                                    .UseLazyLoadingProxies());
-            services.AddTransient<ICategoryRepository, SqlCategoryRepository>();
-            services.AddTransient<IUserCategoryRepository, SqlUserCategoryRepository>();
-            services.AddTransient<IUserRepository, SqlUserRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         private void AddAutomapperProfiles(IServiceCollection services)

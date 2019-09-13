@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Vita.Domain.Categories;
-using Vita.Domain.Users;
-using Vita.Domain.UsersCategories;
+using Vita.Domain.Models;
+using Vita.Persistance.Abstractions;
 
 namespace Vita.Application.UserCategories.Commands
 {
     public class CreateUserCategoriesCommand : ICreateUserCategoriesCommand
     {
-        private IUserCategoryRepository UserCategoryRepository { get; set; }
+        private IUnitOfWork UnitOfWork { get; set; }
 
-        public CreateUserCategoriesCommand(IUserCategoryRepository userCategoryRepository)
+        public CreateUserCategoriesCommand(IUnitOfWork unitOfWork)
         {
-            UserCategoryRepository = userCategoryRepository;
+            UnitOfWork = unitOfWork;
         }
 
         public IEnumerable<UserCategory> Execute(IEnumerable<Category> categories, User user)
@@ -25,10 +24,10 @@ namespace Vita.Application.UserCategories.Commands
 
             foreach (var usercategory in userCategories)
             {
-                UserCategoryRepository.Add(usercategory);
+                UnitOfWork.UserCategoryRepository.Add(usercategory);
             }
 
-            UserCategoryRepository.Save();
+            UnitOfWork.SaveChanges();
 
             return userCategories;
         }

@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Vita.Persistance.Sql.Categories;
-using Vita.Domain.Categories;
-using Vita.Domain.UsersCategories;
-using Vita.Domain.Users;
 using Vita.Persistance.Sql.Users;
-using Vita.Persistance.Sql.UserCategories;
+using Vita.Domain.Models;
+using Vita.Persistance.Sql.Configurations;
 
 namespace Vita.Persistance.Sql
 {
@@ -21,9 +18,9 @@ namespace Vita.Persistance.Sql
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new SqlCategoryRepositoryConfiguration());
-            modelBuilder.ApplyConfiguration(new SqlUserRepositoryConfiguration());
-            modelBuilder.ApplyConfiguration(new SqlUserCategoryRepositoryConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryTableConfiguration());
+            modelBuilder.ApplyConfiguration(new SqlUserTableConfiguration());
+            modelBuilder.ApplyConfiguration(new UserCategoryTableConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

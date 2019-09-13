@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Vita.Domain.Categories;
+using Vita.Domain.Models;
+using Vita.Persistance.Abstractions;
 
 namespace Vita.Application.Categories.Queries
 {
     public class GetAllDefaultCategoriesQuery : IGetAllDefaultCategoriesQuery
     {
-        private ICategoryRepository CategoryRepository { get; set; }
+        private IUnitOfWork UnitOfWork { get; set; }
 
-        public GetAllDefaultCategoriesQuery(ICategoryRepository categoryRepository)
+        public GetAllDefaultCategoriesQuery(IUnitOfWork unitOfWork)
         {
-            CategoryRepository = categoryRepository;
+            UnitOfWork = unitOfWork;
         }
 
         public IEnumerable<Category> Execute()
         {
-            return CategoryRepository.GetAllCategories().Where(x => x.IsDefault);
+            return UnitOfWork.CategoryRepository.GetAll().Where(x => x.IsDefault);
         }
     }
 }

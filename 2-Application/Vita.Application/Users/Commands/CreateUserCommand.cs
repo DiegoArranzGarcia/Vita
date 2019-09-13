@@ -1,14 +1,15 @@
-﻿using Vita.Domain.Users;
+﻿using Vita.Domain.Models;
+using Vita.Persistance.Abstractions;
 
 namespace Vita.Application.Users.Commands
 {
     public class CreateUserCommand : ICreateUserCommand
     {
-        private IUserRepository UserRepository { get; set; }
+        private IUnitOfWork UnitOfWork { get; set; }
 
-        public CreateUserCommand(IUserRepository userRepository)
+        public CreateUserCommand(IUnitOfWork unitOfWork)
         {
-            UserRepository = userRepository;
+            UnitOfWork = unitOfWork;
         }
 
         public User Execute(string name, string email)
@@ -19,8 +20,10 @@ namespace Vita.Application.Users.Commands
                 Name = name
             };
 
-            UserRepository.Add(user);
-            UserRepository.Save();
+
+
+            UnitOfWork.UserRepository.Add(user);
+            UnitOfWork.SaveChanges();
 
             return user;
         }

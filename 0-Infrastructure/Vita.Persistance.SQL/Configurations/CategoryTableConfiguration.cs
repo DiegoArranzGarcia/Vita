@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Vita.Domain.Categories;
+using Vita.Domain.Models;
 
-namespace Vita.Persistance.Sql.Categories
+namespace Vita.Persistance.Sql.Configurations
 {
-    public class SqlCategoryRepositoryConfiguration : IEntityTypeConfiguration<Category>
+    public class CategoryTableConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {

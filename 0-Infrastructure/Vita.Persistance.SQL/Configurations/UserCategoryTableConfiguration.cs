@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Vita.Domain.UsersCategories;
+using Vita.Domain.Models;
 
-namespace Vita.Persistance.Sql.UserCategories
+namespace Vita.Persistance.Sql.Configurations
 {
-    public class SqlUserCategoryRepositoryConfiguration : IEntityTypeConfiguration<UserCategory>
+    public class UserCategoryTableConfiguration : IEntityTypeConfiguration<UserCategory>
     {
         public void Configure(EntityTypeBuilder<UserCategory> builder)
         {

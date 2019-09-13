@@ -1,8 +1,4 @@
-﻿using System;
-using Vita.Domain.Categories;
-using Vita.Domain.Users;
-
-namespace Vita.Domain.UsersCategories
+﻿namespace Vita.Domain.Models
 {
     public class UserCategory
     {

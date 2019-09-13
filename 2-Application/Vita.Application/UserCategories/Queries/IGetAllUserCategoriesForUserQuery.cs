@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Vita.Domain.UsersCategories;
+using Vita.Domain.Models;
 
 namespace Vita.Application.UserCategories.Queries
 {

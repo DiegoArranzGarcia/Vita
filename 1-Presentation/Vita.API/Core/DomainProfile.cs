@@ -2,9 +2,7 @@
 using Vita.API.Categories;
 using Vita.API.Users.Dtos;
 using Vita.API.UsersCategories;
-using Vita.Domain.Categories;
-using Vita.Domain.Users;
-using Vita.Domain.UsersCategories;
+using Vita.Domain.Models;
 
 namespace Vita.API.Core
 {

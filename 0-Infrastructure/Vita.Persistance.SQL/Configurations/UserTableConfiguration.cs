@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Vita.Domain.Users;
-using Vita.Domain.UsersCategories;
+using Vita.Domain.Models;
 
 namespace Vita.Persistance.Sql.Users
 {
-    public class SqlUserRepositoryConfiguration : IEntityTypeConfiguration<User>
+    public class SqlUserTableConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {

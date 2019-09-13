@@ -1,4 +1,4 @@
-﻿namespace Vita.Domain.Users
+﻿namespace Vita.Domain.Models
 {
     public class User
     {
