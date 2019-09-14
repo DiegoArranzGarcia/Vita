@@ -10,11 +10,15 @@ namespace Vita.API.Categories
     public class CategoryController : ControllerBase
     {
         private IGetAllCategoriesQuery GetAllCategoriesQuery { get; set; }
+        private IGetAllCategoriesOfUserQuery GetAllCategoriesOfUserQuery { get; set; }
         private IMapper Mapper { get; set; }
 
-        public CategoryController(IGetAllCategoriesQuery getAllCategoriesQuery, IMapper mapper)
+        public CategoryController(IGetAllCategoriesQuery getAllCategoriesQuery,
+                                  IGetAllCategoriesOfUserQuery getAllCategoriesOfUserQuery,
+                                  IMapper mapper)
         {
             GetAllCategoriesQuery = getAllCategoriesQuery;
+            GetAllCategoriesOfUserQuery = getAllCategoriesOfUserQuery;
             Mapper = mapper;
         }
 
@@ -23,6 +27,13 @@ namespace Vita.API.Categories
         public IEnumerable<CategoryDto> GetAllCategories()
         {
             return Mapper.ProjectTo<CategoryDto>(GetAllCategoriesQuery.Execute().AsQueryable());
+        }
+
+        [HttpGet]
+        [Route("api/users/{userId}/categories")]
+        public IEnumerable<CategoryDto> GetUserCategories(long userId)
+        {
+            return Mapper.ProjectTo<CategoryDto>(GetAllCategoriesOfUserQuery.Execute(userId).AsQueryable());
         }
     }
 }

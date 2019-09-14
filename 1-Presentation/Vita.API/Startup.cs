@@ -9,7 +9,6 @@ using Vita.Persistance.Sql;
 using Vita.Application.Users.Commands;
 using Vita.Application.UserCategories.Commands;
 using Vita.Application.Categories.Queries;
-using Vita.Application.UserCategories.Queries;
 using Vita.Persistance.Abstractions;
 
 namespace Vita.API
@@ -33,7 +32,7 @@ namespace Vita.API
             services.AddScoped<IGetAllCategoriesQuery, GetAllCategoriesQuery>();
             services.AddScoped<ICreateUserCategoriesCommand, CreateUserCategoriesCommand>();
             services.AddScoped<ICreateUserCommand, CreateUserCommand>();
-            services.AddScoped<IGetAllUserCategoriesForUserQuery, GetAllUserCategoriesForUserQuery>();
+            services.AddScoped<IGetAllCategoriesOfUserQuery, GetAllUserCategoriesOfUserQuery>();
         }
 
         private static void AddPersistanceBootstrapping(IServiceCollection services)

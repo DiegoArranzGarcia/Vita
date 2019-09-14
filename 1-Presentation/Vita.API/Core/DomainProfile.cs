@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Vita.API.Categories;
 using Vita.API.Users.Dtos;
-using Vita.API.UsersCategories;
 using Vita.Domain.Models;
 
 namespace Vita.API.Core
@@ -12,7 +11,6 @@ namespace Vita.API.Core
         {
             CreateMap<Category, CategoryDto>();
             CreateMap<User, UserDto>();
-            CreateMap<UserCategory, UserCategoryDto>();
         }
 
     }
