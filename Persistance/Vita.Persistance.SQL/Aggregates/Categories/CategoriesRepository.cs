@@ -1,10 +1,10 @@
-﻿using CodeReview.Domain.Abstractions.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using Vita.Domain.Abstractions.Repositories;
 using Vita.Domain.Aggregates.Categories;
 
-namespace Vita.Persistance.Sql.Repositories
+namespace Vita.Persistance.Sql.Aggregates.Categories
 {
     public class CategoriesRepository : ICategoriesRepository
     {

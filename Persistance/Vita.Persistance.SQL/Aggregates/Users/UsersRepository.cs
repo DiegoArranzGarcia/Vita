@@ -1,10 +1,10 @@
-﻿using CodeReview.Domain.Abstractions.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using Vita.Domain.Abstractions.Repositories;
 using Vita.Domain.Aggregates.Users;
 
-namespace Vita.Persistance.Sql.Repositories
+namespace Vita.Persistance.Sql.Aggregates.Users
 {
     public class UsersRepository : IUsersRepository
     {
@@ -14,7 +14,7 @@ namespace Vita.Persistance.Sql.Repositories
         public UsersRepository(VitaDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-        }        
+        }
 
         public Task<User> Add(User user)
         {

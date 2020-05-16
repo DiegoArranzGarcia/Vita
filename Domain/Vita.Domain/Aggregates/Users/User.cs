@@ -1,6 +1,5 @@
 ﻿using System;
-using Vita.Domain.Abstrations.Entities;
-using Vita.Domain.Abstrations.Repositories;
+using Vita.Domain.Abstractions.Repositories;
 
 namespace Vita.Domain.Aggregates.Users
 {

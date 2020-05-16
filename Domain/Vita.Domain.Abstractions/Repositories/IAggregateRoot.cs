@@ -1,4 +1,4 @@
-﻿namespace Vita.Domain.Abstrations.Repositories
+﻿namespace Vita.Domain.Abstractions.Repositories
 {
     public interface IAggregateRoot
     {

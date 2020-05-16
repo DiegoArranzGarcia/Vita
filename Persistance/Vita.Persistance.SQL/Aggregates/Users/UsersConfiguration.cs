@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Vita.Domain.Aggregates.Users;
 
-namespace Vita.Persistance.Sql.Users
+namespace Vita.Persistance.Sql.Aggregates.Users
 {
     public class UsersConfiguration : IEntityTypeConfiguration<User>
     {

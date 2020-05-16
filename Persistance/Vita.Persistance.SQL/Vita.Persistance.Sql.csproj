@@ -14,12 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\Vita.Domain\Vita.Domain.csproj" />
-    <ProjectReference Include="..\..\Vita.Core\Vita.Domain.Abstrations.csproj" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\..\Domain\Vita.Domain\Vita.Domain.csproj" />
   </ItemGroup>
 
 </Project>

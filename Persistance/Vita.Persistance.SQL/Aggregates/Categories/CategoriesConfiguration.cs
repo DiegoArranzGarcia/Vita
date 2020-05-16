@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Vita.Domain.Aggregates.Categories;
 using Vita.Domain.Aggregates.Users;
 
-namespace Vita.Persistance.Sql.Configurations
+namespace Vita.Persistance.Sql.Aggregates.Categories
 {
     public class CategoriesConfiguration : IEntityTypeConfiguration<Category>
     {

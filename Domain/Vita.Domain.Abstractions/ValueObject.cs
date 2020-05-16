@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Vita.Domain.Abstrations
+namespace Vita.Domain.Abstractions
 {
     public abstract class ValueObject
     {

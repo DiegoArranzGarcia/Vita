@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vita.Domain.Abstrations.Entities
+namespace Vita.Domain.Abstractions.Repositories
 {
 
     public abstract class Entity

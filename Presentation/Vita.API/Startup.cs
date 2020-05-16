@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Vita.Application.Categories.Commands;
 using MediatR;
-using Vita.Persistance.Sql.Repositories;
 using Vita.Domain.Aggregates.Categories;
 using Vita.Domain.Aggregates.Users;
 using Microsoft.Extensions.Configuration;
 using Vita.Application.Users.Queries;
 using Vita.Application.Categories.Queries;
+using Vita.Persistance.Sql.Aggregates.Categories;
+using Vita.Persistance.Sql.Aggregates.Users;
 
 namespace Vita.API
 {

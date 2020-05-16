@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Vita.Persistance.Sql.Users;
-using Vita.Persistance.Sql.Configurations;
-using CodeReview.Domain.Abstractions.Repositories;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
+using Vita.Domain.Abstractions.Repositories;
 using Vita.Domain.Aggregates.Categories;
 using Vita.Domain.Aggregates.Users;
+using Vita.Persistance.Sql.Aggregates.Categories;
+using Vita.Persistance.Sql.Aggregates.Users;
 
 namespace Vita.Persistance.Sql
 {
@@ -16,7 +16,7 @@ namespace Vita.Persistance.Sql
 
         public VitaDbContext(DbContextOptions<VitaDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

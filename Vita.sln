@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{CF9B9C9B-23F8-4B7B-997D-D0B27AD80C07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vita.Domain.Abstrations", "Vita.Core\Vita.Domain.Abstrations.csproj", "{BBABF505-43B2-4A5E-AC8B-ABEA3A898596}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vita.Domain.Abstractions", "Domain\Vita.Domain.Abstractions\Vita.Domain.Abstractions.csproj", "{BBABF505-43B2-4A5E-AC8B-ABEA3A898596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

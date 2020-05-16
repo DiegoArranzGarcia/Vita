@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Vita.Core\Vita.Domain.Abstrations.csproj" />
+    <ProjectReference Include="..\Vita.Domain.Abstractions\Vita.Domain.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

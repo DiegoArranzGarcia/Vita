@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Vita.Domain.Abstrations.Repositories;
+using Vita.Domain.Abstractions.Repositories;
 
 namespace Vita.Domain.Aggregates.Users
 {

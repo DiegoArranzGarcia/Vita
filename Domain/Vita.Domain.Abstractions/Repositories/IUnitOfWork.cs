@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeReview.Domain.Abstractions.Repositories
+namespace Vita.Domain.Abstractions.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
