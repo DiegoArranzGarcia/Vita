@@ -1,42 +1,42 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Vita.API.Users.Dtos;
-using Vita.Application.Categories.Queries;
+﻿using Microsoft.AspNetCore.Mvc;
 using Vita.Application.Users.Commands;
-using Vita.Domain.Models;
-using Vita.Application.UsersCategories.Commands;
+using MediatR;
+using System.Threading.Tasks;
+using Vita.Application.Users.Queries;
+using System;
 
 namespace Vita.API.Users
 {
+    [ApiController]
     public class UserController : ControllerBase
     {
-        private ICreateUserCommand CreateUserCommand { get; set; }
-        private ICreateUserCategoriesCommand CreateUserCategoriesCommand { get; set; }
-        private IGetAllDefaultCategoriesQuery GetAllDefaultCategoriesQuery { get; set; }
-        private IMapper Mapper { get; set; }
+        private readonly IMediator _mediator;
+        private readonly IUserQueries _userQueries;
 
-        public UserController(ICreateUserCommand createUserCommand,
-                              ICreateUserCategoriesCommand createUserCategoriesCommand,
-                              IGetAllDefaultCategoriesQuery getAllDefaultCategoriesQuery, 
-                              IMapper mapper)
+        public UserController(IMediator mediator, IUserQueries userQueries)
         {
-            CreateUserCommand = createUserCommand;
-            CreateUserCategoriesCommand = createUserCategoriesCommand;
-            GetAllDefaultCategoriesQuery = getAllDefaultCategoriesQuery;
-            Mapper = mapper;
+            _mediator = mediator;
+            _userQueries = userQueries;
         }
 
+        [HttpGet]
+        [Route("api/users/{id}")]
+        public async Task<IActionResult> GetUserAsync(Guid id)
+        {
+            var user = await _userQueries.GetUserByIdAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
 
         [HttpPost]
-        [Route("api/users")]
-        public UserDto CreateUser(CreateUserDto createUserDto)
+        [Route("api/users", Name="CreateUser")]
+        public async Task<IActionResult> CreateUserAsync(CreateUserCommand createUserCommand)
         {
-            User user = CreateUserCommand.Execute(createUserDto.UserName, createUserDto.Email);
-
-            var defaultCategories = GetAllDefaultCategoriesQuery.Execute();
-            CreateUserCategoriesCommand.Execute(defaultCategories, user);
-
-            return Mapper.Map<UserDto>(user);
+            var hasBeenCreated = await _mediator.Send<bool>(createUserCommand);
+            return Ok();
         }
     }
 }

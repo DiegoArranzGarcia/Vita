@@ -1,32 +1,10 @@
-﻿using Vita.Domain.Models;
-using Vita.Persistance.Abstractions;
+﻿using MediatR;
 
 namespace Vita.Application.Users.Commands
 {
-    public class CreateUserCommand : ICreateUserCommand
+    public class CreateUserCommand : IRequest<bool>
     {
-        private IUnitOfWork UnitOfWork { get; set; }
-
-        public CreateUserCommand(IUnitOfWork unitOfWork)
-        {
-            UnitOfWork = unitOfWork;
-        }
-
-        public User Execute(string name, string email)
-        {
-            var user = new User()
-            {
-                Email = email,
-                Name = name
-            };
-
-
-
-            UnitOfWork.UserRepository.Add(user);
-            UnitOfWork.SaveChanges();
-
-            return user;
-        }
-
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }

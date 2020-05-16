@@ -4,6 +4,7 @@ import { CategoryListComponent } from './category-list.component';
 import { CategoryListItemComponent } from './category-list-item.component';
 import { CategoryService } from './category.service';
 import { SharedModule } from '../shared/shared.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { SharedModule } from '../shared/shared.module';
   ],  
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   exports: [
     CategoryListComponent,

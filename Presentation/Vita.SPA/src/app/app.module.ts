@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { GoalsModule } from './goals/goals.module';
 import { CategoryModule } from './categories/category.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,

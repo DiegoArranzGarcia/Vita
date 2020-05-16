@@ -1,0 +1,15 @@
+<div class="media text-muted pt-2">
+    <div class="media-body pb-2 mb-0 lh-100 border-bottom border-gray bd-highlight">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Title" required="true" autofocus="">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Description" required="" autofocus="">
+        <div class="btn-group dropright pt-2">
+            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <fa-icon [icon]="selectedCategoryIcon" class="far fa-1x" [style.color]="selectedCategory.color"></fa-icon>
+                {{ selectedCategory ? selectedCategory.name : "Select a category" }}
+            </button>
+            <div class="dropdown-menu">
+                <a *ngFor="let category of this.categories" class="dropdown-item" (click)="onSelectedCategory(category)">{{category.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>
