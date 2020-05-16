@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Vita.Domain.Aggregates.Users;
 
 namespace Vita.Application.Users.Commands
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     {
         private readonly IUsersRepository _usersRepository;
 
@@ -14,13 +15,14 @@ namespace Vita.Application.Users.Commands
             _usersRepository = usersRepository ?? throw new System.ArgumentNullException(nameof(usersRepository));
         }
 
-        public async Task<bool> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             var user = new User(command.Name, command.Email);
 
             await _usersRepository.Add(user);
-            return await _usersRepository.UnitOfWork.SaveEntitiesAsync();
+            await _usersRepository.UnitOfWork.SaveEntitiesAsync();
 
+            return user.Id;
         }
     }
 }

@@ -8,5 +8,6 @@ namespace Vita.Application.Categories.Queries
     {
         Task<IEnumerable<CategoryDto>> GetAllCategoriesCreatedByUser(Guid userId);
         Task<IEnumerable<CategoryDto>> GetAllCategories();
+        Task<CategoryDto> GetCategory(Guid id);
     }
 }

@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Application\Vita.Application\Vita.Application.csproj" />
     <ProjectReference Include="..\..\Domain\Vita.Domain\Vita.Domain.csproj" />
     <ProjectReference Include="..\..\Persistance\Vita.Persistance.Sql\Vita.Persistance.Sql.csproj" />

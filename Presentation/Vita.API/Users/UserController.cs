@@ -8,6 +8,7 @@ using System;
 namespace Vita.API.Users
 {
     [ApiController]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -20,7 +21,7 @@ namespace Vita.API.Users
         }
 
         [HttpGet]
-        [Route("api/users/{id}")]
+        [Route("{id}", Name = nameof(GetUserAsync))]
         public async Task<IActionResult> GetUserAsync(Guid id)
         {
             var user = await _userQueries.GetUserByIdAsync(id);
@@ -32,11 +33,10 @@ namespace Vita.API.Users
         }
 
         [HttpPost]
-        [Route("api/users", Name="CreateUser")]
         public async Task<IActionResult> CreateUserAsync(CreateUserCommand createUserCommand)
         {
-            var hasBeenCreated = await _mediator.Send<bool>(createUserCommand);
-            return Ok();
+            var createdUser = await _mediator.Send(createUserCommand);
+            return CreatedAtRoute(routeName: nameof(GetUserAsync), routeValues: new { id = createdUser }, value: null );
         }
     }
 }

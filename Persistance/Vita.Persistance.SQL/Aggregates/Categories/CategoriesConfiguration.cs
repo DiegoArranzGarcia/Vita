@@ -27,7 +27,7 @@ namespace Vita.Persistance.Sql.Configurations
                    .WithMany()
                    .HasForeignKey(c => c.CreatedBy);
 
-            builder.HasData(GetDefaultCategories());
+            //builder.HasData(GetDefaultCategories());
         }
 
         private Category[] GetDefaultCategories()

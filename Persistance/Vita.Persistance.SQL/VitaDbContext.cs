@@ -11,8 +11,8 @@ namespace Vita.Persistance.Sql
 {
     public class VitaDbContext : DbContext, IUnitOfWork
     {
-        public DbSet<User> Users { get; }
-        public DbSet<Category> Categories { get; }
+        public DbSet<User> Users { get; private set; }
+        public DbSet<Category> Categories { get; private set; }
 
         public VitaDbContext(DbContextOptions<VitaDbContext> options) : base(options)
         {

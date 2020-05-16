@@ -17,7 +17,7 @@ namespace Vita.Application.Categories.Queries
 
         public async Task<IEnumerable<CategoryDto>> GetAllCategories()
         {
-            string sql = "Select Id, Name, Color from Category";
+            string sql = "Select Id, Name, Color from Categories";
 
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -27,12 +27,22 @@ namespace Vita.Application.Categories.Queries
 
         public async Task<IEnumerable<CategoryDto>> GetAllCategoriesCreatedByUser(Guid userId)
         {
-            string sql = "Select Id, Name, Color from Category where CreateBy = @UserId";
+            string sql = "Select Id, Name, Color from Categories where CreatedBy = @UserId";
 
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
             return await connection.QueryAsync<CategoryDto>(sql, new { UserId = userId });
+        }
+
+        public async Task<CategoryDto> GetCategory(Guid id)
+        {
+            string sql = "Select Id, Name, Color from Categories where Id = @Id";
+
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            return await connection.QueryFirstOrDefaultAsync<CategoryDto>(sql, new { Id = id });
         }
     }
 }
