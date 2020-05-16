@@ -55,10 +55,9 @@ namespace Vita.API
                 app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());            
             app.UseRouting();
-            app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers() );
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod());
         }
     }
 }
