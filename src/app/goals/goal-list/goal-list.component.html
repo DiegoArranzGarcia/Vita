@@ -1,0 +1,18 @@
+<!-- <div class="container border-bottom border-gray pb-2 mb-0"> -->
+<div class="container border-bottom border-gray pb-2 mb-0" style="max-width: 100%">
+    <div class="row">
+        <div class="col">
+            <h6 class="pt-3">Goals</h6>
+        </div>
+        <div class="col-6">
+        </div>
+        <div class="col-0" style="text-align: left">
+            <fa-icon [icon]="createItemIcon" (click)="onClickCreateButton()" style="color: dodgerblue; font-size: 24px"></fa-icon>
+        </div>
+    </div>
+</div>
+<goal-list-create-item *ngIf="this.showCreateItem"></goal-list-create-item>
+<goal-list-item *ngFor="let goal of this.goals" [goal]="goal"></goal-list-item>
+<small class="d-block text-right mt-3">
+    <a href="#">See more goals</a>
+</small>
