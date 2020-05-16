@@ -10,8 +10,8 @@ export class CategoryService {
 
   }
 
-  public getAllCategoriesOfUser(userId: number) : Observable<Category[]>  {
-    return this._vitaApiClient.get<Category[]>(`/users/${userId}/categories`);
+  public getCategories() : Observable<Category[]>  {
+    return this._vitaApiClient.get<Category[]>(`/categories`);
   }
 
 }

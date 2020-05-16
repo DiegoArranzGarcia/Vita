@@ -9,7 +9,7 @@ export class VitaApiClient {
 
     constructor(private _httpClient: HttpClient)
     {
-        this._apiServerUrl = "http://localhost:52895";
+        this._apiServerUrl = "https://localhost:44311";
         this._apiUrl = `${this._apiServerUrl}/api`;
     }
 
