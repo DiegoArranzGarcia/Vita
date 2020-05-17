@@ -14,6 +14,8 @@ using Vita.Application.Users.Queries;
 using Vita.Application.Categories.Queries;
 using Vita.Persistance.Sql.Aggregates.Categories;
 using Vita.Persistance.Sql.Aggregates.Users;
+using Vita.Application.Abstractions.Pagination;
+using Vita.Application.Configuration;
 
 namespace Vita.API
 {
@@ -38,8 +40,7 @@ namespace Vita.API
         private void AddApplicationBootstrapping(IServiceCollection services)
         {
             services.AddMediatR(typeof(CreateCategoryCommand));
-            services.AddScoped<IUserQueries, UserQueries>(factory => new UserQueries(Configuration.GetConnectionString("Vita.DbContext")));
-            services.AddScoped<ICategoryQueries, CategoryQueries>(factory => new CategoryQueries(Configuration.GetConnectionString("Vita.DbContext")));
+            services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("Vita.DbContext")));
         }
 
         private void AddPersistanceBootstrapping(IServiceCollection services)

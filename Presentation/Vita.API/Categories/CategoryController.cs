@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Vita.API.Headers.Pagination;
 using Vita.Application.Categories.Commands;
 using Vita.Application.Categories.Queries;
 
@@ -12,26 +13,29 @@ namespace Vita.API.Categories
     [Route("api/categories")]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryQueries _categoryQueries;
         private readonly IMediator _mediator;
 
-        public CategoryController(IMediator mediator, ICategoryQueries CategoryQueries)
+        public CategoryController(IMediator mediator)
         {
-            _categoryQueries = CategoryQueries;
             _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
         {
-            return await _categoryQueries.GetAllCategoriesCreatedByUser(new Guid("40ff4a45-35b0-4897-6fd6-08d7f97a645b"));
+            var getCategoriesCreatedByUserQuery = new GetCategoriesCreatedByUserQuery() { CreatedBy = new Guid("40ff4a45-35b0-4897-6fd6-08d7f97a645b") };
+            var categories = await _mediator.Send(getCategoriesCreatedByUserQuery);
+
+            Response.AddPaginationMetadata(categories);
+
+            return categories;
         }
 
         [HttpGet]
         [Route("{id}", Name = nameof(GetCategoryAsync))]
-        public async Task<IActionResult> GetCategoryAsync(Guid id)
+        public async Task<IActionResult> GetCategoryAsync(GetCategoryByIdQuery query)
         {
-            var category = await _categoryQueries.GetCategory(id);
+            var category = await _mediator.Send(query);
             if (category == null)
                 return NotFound();
 

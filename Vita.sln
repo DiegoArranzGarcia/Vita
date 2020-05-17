@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vita.Application.Abstractions", "Vita.Application.Abstractions\Vita.Application.Abstractions.csproj", "{D5F298A7-3D3B-4F68-95AF-5E634B172CB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{BBABF505-43B2-4A5E-AC8B-ABEA3A898596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBABF505-43B2-4A5E-AC8B-ABEA3A898596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBABF505-43B2-4A5E-AC8B-ABEA3A898596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F298A7-3D3B-4F68-95AF-5E634B172CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F298A7-3D3B-4F68-95AF-5E634B172CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F298A7-3D3B-4F68-95AF-5E634B172CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F298A7-3D3B-4F68-95AF-5E634B172CB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{7ACDD6BD-2415-4325-8F6D-ED7C77B36C91} = {7F35CE04-37D0-4042-BEA0-2670645C0F14}
 		{DC1C093D-32C2-4C22-B29A-593BA868DBCD} = {083A1B45-11B0-4502-BDD3-82FC2C34B795}
 		{BBABF505-43B2-4A5E-AC8B-ABEA3A898596} = {083A1B45-11B0-4502-BDD3-82FC2C34B795}
+		{D5F298A7-3D3B-4F68-95AF-5E634B172CB5} = {45ECFBAA-E1FC-4D6F-85AD-51FA8832F606}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9BA39A1B-5F34-4CC4-AA3F-ED14F85A1A61}

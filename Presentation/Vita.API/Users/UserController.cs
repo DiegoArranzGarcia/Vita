@@ -2,8 +2,8 @@
 using Vita.Application.Users.Commands;
 using MediatR;
 using System.Threading.Tasks;
-using Vita.Application.Users.Queries;
 using System;
+using Vita.Application.Users.Queries;
 
 namespace Vita.API.Users
 {
@@ -12,19 +12,17 @@ namespace Vita.API.Users
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IUserQueries _userQueries;
 
-        public UserController(IMediator mediator, IUserQueries userQueries)
+        public UserController(IMediator mediator)
         {
             _mediator = mediator;
-            _userQueries = userQueries;
         }
 
         [HttpGet]
         [Route("{id}", Name = nameof(GetUserAsync))]
-        public async Task<IActionResult> GetUserAsync(Guid id)
+        public async Task<IActionResult> GetUserAsync(GetUserByIdQuery query)
         {
-            var user = await _userQueries.GetUserByIdAsync(id);
+            var user = await _mediator.Send(query);
 
             if (user == null)
                 return NotFound();

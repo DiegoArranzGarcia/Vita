@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Vita.Domain\Vita.Domain.csproj" />
+    <ProjectReference Include="..\..\Vita.Application.Abstractions\Vita.Application.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
