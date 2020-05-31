@@ -4,8 +4,8 @@ using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Core.Pagination;
 using Vita.Api.Application.Configuration;
+using Vita.Core.Pagination;
 
 namespace Vita.Api.Application.Categories.Queries
 {

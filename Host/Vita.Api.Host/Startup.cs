@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Vita.Api.Application.Categories.Commands;
 using Vita.Api.Application.Configuration;
 using Vita.Api.Domain.Aggregates.Categories;
-using Vita.Api.Persistance.Sql.Aggregates.Categories;
 using Vita.Api.Persistance.Sql;
+using Vita.Api.Persistance.Sql.Aggregates.Categories;
 
 namespace Vita.Api.Host
 {
