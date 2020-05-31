@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace Vita.Application.Categories.Commands
+namespace Vita.Api.Application.Categories.Commands
 {
     public class CreateCategoryCommand : IRequest<Guid>
     {

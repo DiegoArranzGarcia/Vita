@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Vita.Application.Categories.Commands;
-using Vita.Application.Categories.Queries;
+using Vita.Api.Application.Categories.Commands;
+using Vita.Api.Application.Categories.Queries;
 using Vita.Core.Pagination.Http.Headers;
 
-namespace Vita.API.Categories
+namespace Vita.Api.Host.Categories
 {
     [ApiController]
     [Route("api/categories")]

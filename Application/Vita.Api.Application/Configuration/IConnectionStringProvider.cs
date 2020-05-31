@@ -1,4 +1,4 @@
-﻿namespace Vita.Application.Configuration
+﻿namespace Vita.Api.Application.Configuration
 {
     public interface IConnectionStringProvider
     {

@@ -5,9 +5,9 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using Vita.Core.Pagination;
-using Vita.Application.Configuration;
+using Vita.Api.Application.Configuration;
 
-namespace Vita.Application.Categories.Queries
+namespace Vita.Api.Application.Categories.Queries
 {
     public class GetCategoriesCreatedByUserQueryHandler : IRequestHandler<GetCategoriesCreatedByUserQuery, PagedList<CategoryDto>>
     {

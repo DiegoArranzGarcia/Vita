@@ -1,7 +1,7 @@
 ﻿using System;
 using Vita.Core.Domain.Repositories;
 
-namespace Vita.Domain.Aggregates.Categories
+namespace Vita.Api.Domain.Aggregates.Categories
 {
     public class Category : Entity, IAggregateRoot
     {

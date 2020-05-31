@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace Vita.Application.Categories.Queries
+namespace Vita.Api.Application.Categories.Queries
 {
     public class GetCategoryByIdQuery : IRequest<CategoryDto>
     {

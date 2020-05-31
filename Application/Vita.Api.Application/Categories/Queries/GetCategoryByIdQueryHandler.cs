@@ -4,9 +4,9 @@ using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Application.Configuration;
+using Vita.Api.Application.Configuration;
 
-namespace Vita.Application.Categories.Queries
+namespace Vita.Api.Application.Categories.Queries
 {
     public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQuery, CategoryDto>
     {
@@ -23,7 +23,7 @@ namespace Vita.Application.Categories.Queries
             using var connection = new SqlConnection(_connectionStringProvider.ConnectionString);
             connection.Open();
 
-            return await connection.QueryFirstOrDefaultAsync<CategoryDto>(sql, new { Id = request.Id });
+            return await connection.QueryFirstOrDefaultAsync<CategoryDto>(sql, new { request.Id });
         }
     }
 }

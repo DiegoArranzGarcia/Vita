@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Vita.Persistance.Sql;
+using Vita.Api.Persistance.Sql;
 
 namespace Vita.Persistance.Sql.Migrations
 {
-    [DbContext(typeof(VitaDbContext))]
+    [DbContext(typeof(VitaApiDbContext))]
     [Migration("20200515232545_Initial Database")]
     partial class InitialDatabase
     {

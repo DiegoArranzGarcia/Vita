@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Vita.Core.Domain.Repositories;
 
-namespace Vita.Domain.Aggregates.Categories
+namespace Vita.Api.Domain.Aggregates.Categories
 {
     public interface ICategoriesRepository : IRepository<Category>
     {

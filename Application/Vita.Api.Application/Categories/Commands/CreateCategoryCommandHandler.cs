@@ -2,9 +2,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Domain.Aggregates.Categories;
+using Vita.Api.Domain.Aggregates.Categories;
 
-namespace Vita.Application.Categories.Commands
+namespace Vita.Api.Application.Categories.Commands
 {
     public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
     {

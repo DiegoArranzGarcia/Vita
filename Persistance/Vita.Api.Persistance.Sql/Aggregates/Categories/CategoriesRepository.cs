@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using Vita.Api.Domain.Aggregates.Categories;
 using Vita.Core.Domain.Repositories;
-using Vita.Domain.Aggregates.Categories;
 
-namespace Vita.Persistance.Sql.Aggregates.Categories
+namespace Vita.Api.Persistance.Sql.Aggregates.Categories
 {
     public class CategoriesRepository : ICategoriesRepository
     {
-        private readonly VitaDbContext _context;
+        private readonly VitaApiDbContext _context;
         public IUnitOfWork UnitOfWork => _context;
 
-        public CategoriesRepository(VitaDbContext context)
+        public CategoriesRepository(VitaApiDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

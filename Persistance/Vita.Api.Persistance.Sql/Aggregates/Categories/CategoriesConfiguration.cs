@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Vita.Domain.Aggregates.Categories;
-using Vita.Domain.Aggregates.Users;
+using Vita.Api.Domain.Aggregates.Categories;
 
-namespace Vita.Persistance.Sql.Aggregates.Categories
+namespace Vita.Api.Persistance.Sql.Aggregates.Categories
 {
     public class CategoriesConfiguration : IEntityTypeConfiguration<Category>
     {
@@ -22,10 +21,6 @@ namespace Vita.Persistance.Sql.Aggregates.Categories
 
             builder.Property(c => c.CreatedBy)
                    .IsRequired(false);
-
-            builder.HasOne<User>()
-                   .WithMany()
-                   .HasForeignKey(c => c.CreatedBy);
 
             //builder.HasData(GetDefaultCategories());
         }

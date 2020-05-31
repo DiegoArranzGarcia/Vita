@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Vita.Persistance.Sql
+namespace Vita.Api.Persistance.Sql
 {
-    public class VitaContextFactory : IDesignTimeDbContextFactory<VitaDbContext>
+    public class VitaApiDbContextFactory : IDesignTimeDbContextFactory<VitaApiDbContext>
     {
-        public VitaDbContext CreateDbContext(string[] args)
+        public VitaApiDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<VitaDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<VitaApiDbContext>();
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Vita.Development;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
-            return new VitaDbContext(optionsBuilder.Options);
+            return new VitaApiDbContext(optionsBuilder.Options);
         }
     }
 }

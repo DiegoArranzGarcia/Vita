@@ -3,12 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Vita.Persistance.Sql;
+using Vita.Api.Persistance.Sql;
 
 namespace Vita.Persistance.Sql.Migrations
 {
-    [DbContext(typeof(VitaDbContext))]
+    [DbContext(typeof(VitaApiDbContext))]
     partial class VitaDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

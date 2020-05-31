@@ -3,7 +3,7 @@ using System;
 using Vita.Api.Application.Pagination;
 using Vita.Core.Pagination;
 
-namespace Vita.Application.Categories.Queries
+namespace Vita.Api.Application.Categories.Queries
 {
     public class GetCategoriesCreatedByUserQuery : QueryPaginationParameters, IRequest<PagedList<CategoryDto>>
     {
