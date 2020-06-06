@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ namespace Vita.Identity.Application.Users.Commands
             if (user == null)
                 return false;
 
-            return _passwordService.VerifyHashedPassword(user.PasswordHash, query.Password) != PasswordVerificationResult.Failed;
+            return _passwordService.VerifyHashedPassword(user.PasswordHash, query.Password);
         }
     }
 }
