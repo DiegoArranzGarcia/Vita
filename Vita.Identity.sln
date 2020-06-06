@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vita.Identity.Host", "Host\Vita.Identity.Host\Vita.Identity.Host.csproj", "{2569C962-3744-4DD2-B140-AC67D8D69A55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AE8EC71-1A50-46D0-8B7C-184277701258}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vita.Identity.Persistance.Sql", "Persistance\Vita.Identity.Persistance\Vita.Identity.Persistance.Sql.csproj", "{DE78169B-6AF4-4360-AA14-E756A2D2DAAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vita.Identity.Application", "Application\Vita.Identity.Application\Vita.Identity.Application.csproj", "{7D99C2D5-1358-4990-AA70-A65674B5AE7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vita.Identity.Domain", "Domain\Vita.Identity.Domain\Vita.Identity.Domain.csproj", "{04BD4F97-8B59-4DF2-AFD1-1C56F3CF2843}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{5CD3B619-F203-4007-ABFB-379BFA84481E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{37937012-9032-47F4-A560-E74454DE092B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{357692B5-00E8-44DF-865E-BB47595A8338}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistance", "Persistance", "{C5EEA926-2F66-48F4-9A83-887786879FA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2569C962-3744-4DD2-B140-AC67D8D69A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2569C962-3744-4DD2-B140-AC67D8D69A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2569C962-3744-4DD2-B140-AC67D8D69A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2569C962-3744-4DD2-B140-AC67D8D69A55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE78169B-6AF4-4360-AA14-E756A2D2DAAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE78169B-6AF4-4360-AA14-E756A2D2DAAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE78169B-6AF4-4360-AA14-E756A2D2DAAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE78169B-6AF4-4360-AA14-E756A2D2DAAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D99C2D5-1358-4990-AA70-A65674B5AE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D99C2D5-1358-4990-AA70-A65674B5AE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D99C2D5-1358-4990-AA70-A65674B5AE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D99C2D5-1358-4990-AA70-A65674B5AE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04BD4F97-8B59-4DF2-AFD1-1C56F3CF2843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04BD4F97-8B59-4DF2-AFD1-1C56F3CF2843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04BD4F97-8B59-4DF2-AFD1-1C56F3CF2843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04BD4F97-8B59-4DF2-AFD1-1C56F3CF2843}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2569C962-3744-4DD2-B140-AC67D8D69A55} = {5CD3B619-F203-4007-ABFB-379BFA84481E}
+		{DE78169B-6AF4-4360-AA14-E756A2D2DAAF} = {C5EEA926-2F66-48F4-9A83-887786879FA0}
+		{7D99C2D5-1358-4990-AA70-A65674B5AE7D} = {37937012-9032-47F4-A560-E74454DE092B}
+		{04BD4F97-8B59-4DF2-AFD1-1C56F3CF2843} = {357692B5-00E8-44DF-865E-BB47595A8338}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29CFAE50-33E6-4AAA-BA75-836AAEDF451B}
+	EndGlobalSection
+EndGlobal
