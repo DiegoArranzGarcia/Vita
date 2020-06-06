@@ -34,13 +34,13 @@ namespace Vita.Api.Host
         private void AddApplicationBootstrapping(IServiceCollection services)
         {
             services.AddMediatR(typeof(CreateCategoryCommand));
-            services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("Vita.DbContext")));
+            services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("Vita.Api.DbContext")));
         }
 
         private void AddPersistanceBootstrapping(IServiceCollection services)
         {
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
-            services.AddDbContext<VitaApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Vita.DbContext")));
+            services.AddDbContext<VitaApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Vita.Api.DbContext")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
