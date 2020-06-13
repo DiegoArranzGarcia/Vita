@@ -22,9 +22,9 @@ namespace Vita.Identity.Persistance.Sql.Aggregates.Users
             return Task.FromResult(entry.Entity);
         }
 
-        public Task<User> FindByIdAsync(Guid id)
+        public async Task<User> FindByIdAsync(Guid id)
         {
-            return _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Users.FindAsync(id).ConfigureAwait(false);
         }
 
         public Task<User> FindByEmailAsync(string email)

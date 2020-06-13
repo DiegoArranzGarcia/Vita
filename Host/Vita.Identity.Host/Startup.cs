@@ -3,11 +3,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using Vita.Identity.Application.Configuration;
 using Vita.Identity.Application.Users.Queries;
 using Vita.Identity.Domain.Aggregates.Users;
 using Vita.Identity.Domain.Services;
+using Vita.Identity.Host.Claims;
 using Vita.Identity.Persistance.Sql;
 using Vita.Identity.Persistance.Sql.Aggregates.Users;
 
@@ -38,7 +42,7 @@ namespace Vita.Identity
             }).AddInMemoryApiResources(Config.GetApis())
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
               .AddInMemoryClients(Config.GetClients())
-              .AddDeveloperSigningCredential(persistKey: false);
+              .AddProfileService<ProfileService>();
 
             services.AddCors(options =>
             {
@@ -68,15 +72,13 @@ namespace Vita.Identity
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseCookiePolicy();
             app.UseSerilogRequestLogging();
             app.UseDeveloperExceptionPage();
 
+            app.UseStaticFiles();
+            app.UseRouting();
             app.UseCors("api");
 
-            app.UseStaticFiles();
-
-            app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
 

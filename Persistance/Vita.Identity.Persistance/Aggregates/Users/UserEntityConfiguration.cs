@@ -4,7 +4,7 @@ using Vita.Identity.Domain.Aggregates.Users;
 
 namespace Vita.Identity.Persistance.Sql.Aggregates.Users
 {
-    public class UsersConfiguration : IEntityTypeConfiguration<User>
+    public class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {

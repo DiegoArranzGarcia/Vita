@@ -1,5 +1,8 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityModel;
+using IdentityServer4;
+using IdentityServer4.Models;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Vita.Identity
 {
@@ -11,7 +14,6 @@ namespace Vita.Identity
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email(),
             };
         }
 
@@ -19,10 +21,7 @@ namespace Vita.Identity
         {
             return new List<ApiResource>
             {
-                new ApiResource("api", "Demo API")
-                {
-
-                }
+                new ApiResource("api", "Vita API")
             };
         }
 
@@ -43,10 +42,14 @@ namespace Vita.Identity
                     PostLogoutRedirectUris = { },
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    AllowedScopes = { "openid", "profile", "email", "api" },
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api" 
+                    },
 
                     AllowOfflineAccess = true,
-                    RefreshTokenUsage = TokenUsage.ReUse
+                    RefreshTokenUsage = TokenUsage.ReUse,
                 }
             };
         }

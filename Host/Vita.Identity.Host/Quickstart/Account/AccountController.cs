@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Vita.Identity.Application.Users.Commands;
 using Vita.Identity.Application.Users.Queries;
@@ -122,7 +124,7 @@ namespace Vita.Identity.Quickstart.UI
                     // issue authentication cookie with subject ID and username
                     var isuser = new IdentityServerUser(user.Id.ToString())
                     {
-                        DisplayName = user.Name
+                        DisplayName = user.Name,
                     };
 
                     await HttpContext.SignInAsync(isuser, props);

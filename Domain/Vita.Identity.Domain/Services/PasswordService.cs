@@ -4,6 +4,7 @@
 using System;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.Extensions.Options;
 
 namespace Vita.Identity.Domain.Services
 {
@@ -12,13 +13,15 @@ namespace Vita.Identity.Domain.Services
         private readonly int _iterCount;
         private readonly RandomNumberGenerator _rng;
 
-        public PasswordService(int iterationCount = 1, RandomNumberGenerator rng = null)
+        public PasswordService(IOptions<PasswordServiceOptions> optionsAccessor = null)
         {
-            if (_iterCount < 1)
+            var options = optionsAccessor?.Value ?? new PasswordServiceOptions();
+
+            if (options.IterationCount < 1)
                 throw new InvalidOperationException(Resources.InvalidPasswordHasherIterationCount);
 
-            _iterCount = iterationCount;
-            _rng = rng ?? RandomNumberGenerator.Create();
+            _iterCount = options.IterationCount;
+            _rng = options.Rng;
         }
 
         public virtual string HashPassword(string password)

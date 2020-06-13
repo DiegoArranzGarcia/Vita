@@ -1,30 +1,37 @@
-﻿using Dapper;
-using MediatR;
+﻿using MediatR;
 using System;
-using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Identity.Application.Configuration;
+using Vita.Identity.Domain.Aggregates.Users;
 
 namespace Vita.Identity.Application.Users.Queries
 {
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDto>
     {
-        private const string sql = "Select Id, Email from Users where Id = @UserId;";
+        private readonly IUsersRepository _usersRepository;
 
-        private readonly IConnectionStringProvider _connectionStringProvider;
-
-        public GetUserByIdQueryHandler(IConnectionStringProvider connectionStringProvider)
+        public GetUserByIdQueryHandler(IUsersRepository usersRepository)
         {
-            _connectionStringProvider = connectionStringProvider ?? throw new ArgumentNullException(nameof(connectionStringProvider));
+            _usersRepository = usersRepository ?? throw new ArgumentNullException(nameof(usersRepository));
         }
 
         public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            using var connection = new SqlConnection(_connectionStringProvider.ConnectionString);
-            connection.Open();
+            var user = await _usersRepository.FindByIdAsync(request.Id);
+            return ToUserDto(user);
+        }
 
-            return await connection.QueryFirstOrDefaultAsync<UserDto>(sql, new { UserId = request.Id });
+        private UserDto ToUserDto(User user)
+        {
+            if (user == null)
+                return null;
+
+            return new UserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Name = "Dummy Name",
+            };
         }
     }
 }
