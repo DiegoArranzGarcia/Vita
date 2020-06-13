@@ -1,7 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
-using System;
+﻿using System;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Options;
@@ -43,13 +40,12 @@ namespace Vita.Identity.Domain.Services
 
         private static byte[] HashPasswordV3(string password, RandomNumberGenerator rng, KeyDerivationPrf prf, int iterCount, int saltSize, int numBytesRequested)
         {
-            // Produce a version 3 (see comment above) text hash.
             byte[] salt = new byte[saltSize];
             rng.GetBytes(salt);
             byte[] subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
 
             var outputBytes = new byte[13 + salt.Length + subkey.Length];
-            outputBytes[0] = 0x01; // format marker
+            outputBytes[0] = 0x01;
             WriteNetworkByteOrder(outputBytes, 1, (uint)prf);
             WriteNetworkByteOrder(outputBytes, 5, (uint)iterCount);
             WriteNetworkByteOrder(outputBytes, 9, (uint)saltSize);
@@ -75,7 +71,6 @@ namespace Vita.Identity.Domain.Services
 
             byte[] decodedHashedPassword = Convert.FromBase64String(hashedPassword);
 
-            // read the format marker from the hashed password
             if (decodedHashedPassword.Length == 0)
                 return false;
 
@@ -84,9 +79,7 @@ namespace Vita.Identity.Domain.Services
                 case 0x01:
                     int embeddedIterCount;
                     return VerifyHashedPasswordV3(decodedHashedPassword, providedPassword, out embeddedIterCount);
-                    //return embeddedIterCount < _iterCount
-                    //    ? PasswordVerificationResult.SuccessRehashNeeded
-                    //    : PasswordVerificationResult.Success;
+
                 default:
                     return false;
             }
@@ -98,33 +91,26 @@ namespace Vita.Identity.Domain.Services
 
             try
             {
-                // Read header information
                 var prf = (KeyDerivationPrf)ReadNetworkByteOrder(hashedPassword, 1);
                 iterCount = (int)ReadNetworkByteOrder(hashedPassword, 5);
                 int saltLength = (int)ReadNetworkByteOrder(hashedPassword, 9);
 
-                // Read the salt: must be >= 128 bits
                 if (saltLength < 128 / 8)
                     return false;
                 byte[] salt = new byte[saltLength];
                 Buffer.BlockCopy(hashedPassword, 13, salt, 0, salt.Length);
 
-                // Read the subkey (the rest of the payload): must be >= 128 bits
                 int subkeyLength = hashedPassword.Length - 13 - salt.Length;
                 if (subkeyLength < 128 / 8)
                     return false;
                 byte[] expectedSubkey = new byte[subkeyLength];
                 Buffer.BlockCopy(hashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
 
-                // Hash the incoming password and verify it
                 byte[] actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
                 return CryptographicOperations.FixedTimeEquals(actualSubkey, expectedSubkey);
             }
             catch
             {
-                // This should never occur except in the case of a malformed payload, where
-                // we might go off the end of the array. Regardless, a malformed payload
-                // implies verification failed.
                 return false;
             }
         }

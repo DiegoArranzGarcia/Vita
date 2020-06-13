@@ -30,14 +30,6 @@ namespace Vita.Identity.Host
                     if (ctx.HostingEnvironment.IsDevelopment())
                         config.WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}");
                 })
-                //.ConfigureAppConfiguration((ctx, builder) =>
-                // {
-                //     var config = builder.Build();
-                //     var tokenProvider = new AzureServiceTokenProvider();
-                //     var kvClient = new KeyVaultClient((authority, resource, scope) => tokenProvider.KeyVaultTokenCallback(authority, resource, scope));
-
-                //     builder.AddAzureKeyVault(config["KeyVault:BaseUrl"], kvClient, new DefaultKeyVaultSecretManager());
-                // })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
