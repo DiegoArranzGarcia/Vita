@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vita.Identity.Quickstart.UI
+namespace Vita.Identity.Host.Controllers.Account
 {
     public static class AccountOptions
     {

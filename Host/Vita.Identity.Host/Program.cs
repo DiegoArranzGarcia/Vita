@@ -4,7 +4,7 @@ using Serilog;
 using Serilog.Events;
 using System;
 
-namespace Vita.Identity
+namespace Vita.Identity.Host
 {
     public static class Program
     {
@@ -28,9 +28,7 @@ namespace Vita.Identity
                         .Enrich.FromLogContext();
 
                     if (ctx.HostingEnvironment.IsDevelopment())
-                    {
                         config.WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}");
-                    }
                 })
                 //.ConfigureAppConfiguration((ctx, builder) =>
                 // {

@@ -1,10 +1,8 @@
-﻿using IdentityModel;
-using IdentityServer4;
+﻿using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
-using System.Security.Claims;
 
-namespace Vita.Identity
+namespace Vita.Identity.Host
 {
     public static class Config
     {
@@ -45,7 +43,7 @@ namespace Vita.Identity
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api" 
+                        "api"
                     },
 
                     AllowOfflineAccess = true,

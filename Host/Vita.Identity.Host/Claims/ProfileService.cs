@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Vita.Identity.Application.Users.Queries;
-using Vita.Identity.Domain.Aggregates.Users;
 
 namespace Vita.Identity.Host.Claims
 {
@@ -35,9 +34,13 @@ namespace Vita.Identity.Host.Claims
             //var principal = await ClaimsFactory.CreateAsync(user);
             //if (principal == null) throw new Exception("ClaimsFactory failed to create a principal");
 
-            //context.AddRequestedClaims(new List<Claim>() { new Claim(JwtClaimTypes.Email, user.Email) });
+            var claims = new List<Claim>
+            {
+                new Claim(JwtClaimTypes.Email, user.Email),
+                new Claim(JwtClaimTypes.Name, user.Name)
+            };
 
-            context.IssuedClaims.Add(new Claim(JwtClaimTypes.Email, user.Email));
+            context.IssuedClaims.AddRange(claims);
         }
 
         public async Task IsActiveAsync(IsActiveContext context)

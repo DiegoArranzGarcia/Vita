@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using Vita.Identity.Application.Configuration;
 using Vita.Identity.Application.Users.Queries;
 using Vita.Identity.Domain.Aggregates.Users;
@@ -15,7 +12,7 @@ using Vita.Identity.Host.Claims;
 using Vita.Identity.Persistance.Sql;
 using Vita.Identity.Persistance.Sql.Aggregates.Users;
 
-namespace Vita.Identity
+namespace Vita.Identity.Host
 {
     public class Startup
     {
@@ -42,7 +39,8 @@ namespace Vita.Identity
             }).AddInMemoryApiResources(Config.GetApis())
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
               .AddInMemoryClients(Config.GetClients())
-              .AddProfileService<ProfileService>();
+              .AddProfileService<ProfileService>()
+              .AddDeveloperSigningCredential();
 
             services.AddCors(options =>
             {
