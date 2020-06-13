@@ -2,7 +2,7 @@
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace Vita.Identity.Host
+namespace Vita.Identity
 {
     public static class Config
     {
