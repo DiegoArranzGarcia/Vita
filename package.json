@@ -19,13 +19,14 @@
     "@angular/platform-browser": "~9.1.6",
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
-    "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "@fortawesome/free-solid-svg-icons": "^5.10.1",
+    "@fortawesome/angular-fontawesome": "0.5.0",
     "@fortawesome/fontawesome-svg-core": "1.2.25",
     "@fortawesome/free-regular-svg-icons": "5.11.2",
-    "@fortawesome/angular-fontawesome": "0.5.0"
+    "@fortawesome/free-solid-svg-icons": "^5.10.1",
+    "angular-auth-oidc-client": "^11.1.1",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",

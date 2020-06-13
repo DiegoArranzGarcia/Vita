@@ -1,0 +1,44 @@
+@import '../../styles'
+    
+div.container
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    text-align: center
+    height: 100%
+
+    h1
+        color: $font-secondary
+        width: 100%
+        font-size: 5em
+        animation-name: fadein
+        animation-duration: 2s
+
+    h2 
+        color: $font-secondary
+        width: 100%
+        font-size: xx-large
+        animation-name: fadein
+        animation-duration: 2s
+        animation-delay: 1s
+        opacity: 0
+        animation-fill-mode: forwards
+
+    div.container__first-column__buttons
+        margin-top: 1em
+
+        button
+            width: 10em
+            animation-name: fadein
+            animation-duration: 2s
+            animation-delay: 2s
+            opacity: 0
+            animation-fill-mode: forwards
+            color: $font-primary
+
+@keyframes fadein 
+    from 
+        opacity: 0 
+    to   
+        opacity: 1
