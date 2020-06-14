@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Vita.IdentityServer/bin/Debug/netcoreapp3.1/Vita.Identity.dll",
+            "program": "${workspaceFolder}/Host/Vita.Identity.Host/bin/Debug/netcoreapp3.1/Vita.Identity.Host.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Vita.IdentityServer",
+            "cwd": "${workspaceFolder}/Host/Vita.Identity.Host",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
