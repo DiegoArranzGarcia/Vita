@@ -30,10 +30,10 @@ namespace Vita.Api.Host
             services.AddAuthentication("Bearer")
                     .AddJwtBearer("Bearer", options =>
                     {
-                        //options.Authority = "https://localhost:44360";
-                        //options.RequireHttpsMetadata = true;
+                        options.Authority = "https://localhost:44360";
+                        options.RequireHttpsMetadata = false;
 
-                        //options.Audience = "api";
+                        options.Audience = "api";
                     });
 
             AddApplicationBootstrapping(services);
