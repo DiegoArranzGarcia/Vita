@@ -1,0 +1,11 @@
+<div *ngIf="isAuthenticated" class="user__container">
+  <div class="user__container__header">
+    <div class="header__username">{{ userName }}</div>
+    <div class="header__email">{{ email }}</div>
+  </div>
+  <img src="assets/default-avatar.jpg" height="48" width="48" />
+</div>
+
+<button *ngIf="!isAuthenticated" class="primary" (click)="login()">
+  Sign in
+</button>
