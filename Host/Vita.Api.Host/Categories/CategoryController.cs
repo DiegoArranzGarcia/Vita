@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using Vita.Core.Pagination.Http.Headers;
 namespace Vita.Api.Host.Categories
 {
     [ApiController]
+    [Authorize]
     [Route("api/categories")]
     public class CategoryController : ControllerBase
     {

@@ -27,6 +27,15 @@ namespace Vita.Api.Host
             services.AddControllers();
             services.AddCors();
 
+            services.AddAuthentication("Bearer")
+                    .AddJwtBearer("Bearer", options =>
+                    {
+                        //options.Authority = "https://localhost:44360";
+                        //options.RequireHttpsMetadata = true;
+
+                        //options.Audience = "api";
+                    });
+
             AddApplicationBootstrapping(services);
             AddPersistanceBootstrapping(services);
         }
@@ -48,9 +57,13 @@ namespace Vita.Api.Host
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseHttpsRedirection();
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }

@@ -4,7 +4,7 @@ using Vita.Api.Host;
 
 namespace Vita.API
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
