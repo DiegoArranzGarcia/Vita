@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Vita.Identity.Application.Users.Commands;
 using Vita.Identity.Application.Users.Queries;
 using Vita.Identity.Host.Shared;
-using Vita.Identity.Quickstart.UI;
 
 namespace Vita.Identity.Host.Controllers.Account
 {
