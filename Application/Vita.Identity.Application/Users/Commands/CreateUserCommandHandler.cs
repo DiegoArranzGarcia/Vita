@@ -20,7 +20,7 @@ namespace Vita.Identity.Application.Users.Commands
 
         public async Task<Guid> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
-            var user = new User(command.Email, _passwordService.HashPassword(command.Password));
+            var user = new User(command.Email, command.FirstName, command.LastName, _passwordService.HashPassword(command.Password));
 
             await _usersRepository.Add(user);
             await _usersRepository.UnitOfWork.SaveEntitiesAsync();

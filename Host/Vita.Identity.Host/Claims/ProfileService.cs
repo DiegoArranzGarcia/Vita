@@ -37,7 +37,8 @@ namespace Vita.Identity.Host.Claims
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Email, user.Email),
-                new Claim(JwtClaimTypes.Name, user.Name)
+                new Claim(JwtClaimTypes.GivenName, user.GivenName),
+                new Claim(JwtClaimTypes.FamilyName, user.FamilyName),
             };
 
             context.IssuedClaims.AddRange(claims);

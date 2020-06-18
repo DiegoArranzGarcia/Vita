@@ -37,7 +37,5 @@ namespace Vita.Identity.Persistance.Sql.Aggregates.Users
             var entry = _context.Users.Update(user);
             return Task.FromResult(entry.Entity);
         }
-
-
     }
 }

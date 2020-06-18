@@ -63,7 +63,7 @@ namespace Vita.Identity.Host.Controllers.Account
                     var query = new GetUserByEmailQuery() { Email = model.Email };
                     UserDto user = await _mediator.Send(query);
 
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(username: user.Name, subjectId: user.Id.ToString(), name: user.Name, clientId: context?.ClientId));
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(username: user.UserName, subjectId: user.Id.ToString(), name: user.GivenName, clientId: context?.ClientId));
 
                     AuthenticationProperties props = null;
                     if (model.RememberLogin)
@@ -77,7 +77,7 @@ namespace Vita.Identity.Host.Controllers.Account
 
                     var isuser = new IdentityServerUser(user.Id.ToString())
                     {
-                        DisplayName = user.Name,
+                        DisplayName = $"{user.GivenName} {user.FamilyName}".Trim(),
                     };
 
                     await HttpContext.SignInAsync(isuser, props);

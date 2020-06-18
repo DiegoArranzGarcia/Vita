@@ -30,7 +30,9 @@ namespace Vita.Identity.Application.Users.Queries
             {
                 Id = user.Id,
                 Email = user.Email,
-                Name = "Dummy Name",
+                GivenName = user.GivenName,
+                FamilyName = user.FamilyName,
+                UserName = user.GetUserName(),
             };
         }
     }

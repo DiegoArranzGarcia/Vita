@@ -19,6 +19,12 @@ namespace Vita.Identity.Persistance.Sql.Aggregates.Users
             builder.Property(u => u.Email)
                    .IsRequired();
 
+            builder.Property(u => u.GivenName)
+                   .IsRequired();
+
+            builder.Property(u => u.FamilyName)
+                   .IsRequired();
+
             builder.HasIndex(u => u.Email)
                    .IsUnique();
         }
