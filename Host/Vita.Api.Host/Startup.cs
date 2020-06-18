@@ -8,8 +8,10 @@ using Microsoft.Extensions.Hosting;
 using Vita.Api.Application.Categories.Commands;
 using Vita.Api.Application.Configuration;
 using Vita.Api.Domain.Aggregates.Categories;
+using Vita.Api.Domain.Aggregates.Goals;
 using Vita.Api.Persistance.Sql;
 using Vita.Api.Persistance.Sql.Aggregates.Categories;
+using Vita.Api.Persistance.Sql.Aggregates.Goals;
 
 namespace Vita.Api.Host
 {
@@ -49,6 +51,7 @@ namespace Vita.Api.Host
         private void AddPersistanceBootstrapping(IServiceCollection services)
         {
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IGoalsRepository, GoalsRepository>();
             services.AddDbContext<VitaApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Vita.Api.DbContext")));
         }
 
