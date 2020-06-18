@@ -12,8 +12,8 @@ export class SingInComponent implements OnInit, OnDestroy {
   // isAuthenticated$: Observable<boolean>;
   isAuthenticated: boolean;
   userId: string;
-  email: string = "nathan.drake@gmail.com";
-  userName: string = "Nathan";
+  email: string;
+  userName: string;
 
   constructor(public oidcSecurityService: OidcSecurityService) {}
 
@@ -26,7 +26,7 @@ export class SingInComponent implements OnInit, OnDestroy {
       if (!data) return;
 
       this.email = data.email;
-      this.userName = data.name;
+      this.userName = `${data.given_name} ${data.family_name}`;
       this.userId = data.sub;
     });
   }
