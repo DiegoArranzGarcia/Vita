@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'unauthorized',
+  selector: 'vita-unauthorized',
   templateUrl: './unauthorized.component.html',
-  styleUrls: ['./unauthorized.component.sass']
+  styleUrls: ['./unauthorized.component.sass'],
 })
-
-export class UnauthorizedComponent {
-
-}
+export class UnauthorizedComponent {}

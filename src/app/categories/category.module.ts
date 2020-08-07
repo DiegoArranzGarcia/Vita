@@ -1,26 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CategoryListComponent } from './category-list/category-list.component';
-import { CategoryListItemComponent } from './category-list/item/category-list-item.component';
-import { CategoryService } from './category.service';
+import { CategoryRoutingModule } from './category-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CategoryService } from './category.service';
 
 @NgModule({
-  declarations: [
-    CategoryListComponent, 
-    CategoryListItemComponent,
-  ],  
-  imports: [
-    CommonModule,
-    SharedModule,
-    FontAwesomeModule
-  ],
-  exports: [
-    CategoryListComponent,
-  ],
-  providers: [
-    CategoryService
-  ]
+  imports: [CommonModule, SharedModule, FontAwesomeModule, CategoryRoutingModule],
+  providers: [CategoryService],
+  declarations: [CategoryRoutingModule.components],
 })
-export class CategoryModule { }
+export class CategoryModule {}

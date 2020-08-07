@@ -1,0 +1,4 @@
+{
+  "vitaApiEndpoint": "https://localhost:44311/api",
+  "oidcEndpoint": "https://localhost:44360"
+}

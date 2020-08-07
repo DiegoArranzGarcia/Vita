@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { OidcSecurityService } from "angular-auth-oidc-client";
-import { Observable } from "rxjs";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
-  selector: "sign-in",
-  templateUrl: "./sign-in.component.html",
-  styleUrls: ["./sign-in.component.sass"],
+  selector: 'vita-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.sass'],
 })
 export class SingInComponent implements OnInit, OnDestroy {
   // userData$: Observable<any>;
@@ -18,11 +17,10 @@ export class SingInComponent implements OnInit, OnDestroy {
   constructor(public oidcSecurityService: OidcSecurityService) {}
 
   ngOnInit() {
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe((isAuthenticated) => (this.isAuthenticated = isAuthenticated));
+    this.oidcSecurityService.checkAuth().subscribe((isAuthenticated) => (this.isAuthenticated = isAuthenticated));
 
     this.oidcSecurityService.userData$.subscribe((data) => {
+      // tslint:disable-next-line: curly
       if (!data) return;
 
       this.email = data.email;

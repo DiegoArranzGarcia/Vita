@@ -1,7 +1,7 @@
-import { NgModule } from "@angular/core";
-import { UnauthorizedComponent } from "./unauthorized-page/unauthorized.component";
-import { SingInComponent } from "./sign-in/sign-in.component";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { UnauthorizedComponent } from './unauthorized-page/unauthorized.component';
+import { SingInComponent } from './sign-in/sign-in.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [UnauthorizedComponent, SingInComponent],

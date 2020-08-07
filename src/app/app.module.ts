@@ -1,50 +1,30 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { APP_INITIALIZER, NgModule } from "@angular/core";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, InjectionToken } from '@angular/core';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { SharedModule } from "./shared/shared.module";
-import { CategoryModule } from "./categories/category.module";
-import {
-  OidcConfigService,
-  LogLevel,
-  AuthModule,
-} from "angular-auth-oidc-client";
-import { UserHomeComponent } from "./users/home/user-home.component";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
+import { CategoryModule } from './categories/category.module';
+import { AuthModule } from 'angular-auth-oidc-client';
+import { CoreModule } from './core/core.module';
 
-export function configureAuth(oidcConfigService: OidcConfigService) {
-  return () =>
-    oidcConfigService.withConfig({
-      stsServer: "https://localhost:44360",
-      redirectUrl: window.location.origin,
-      postLogoutRedirectUri: window.location.origin,
-      clientId: "vita.spa",
-      scope: "openid profile api offline_access",
-      responseType: "code",
-      silentRenew: true,
-      useRefreshToken: true,
-      logLevel: LogLevel.Debug,
-    });
+export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+
+export class AppConfig {
+  apiEndpoint: string;
 }
 
 @NgModule({
-  declarations: [AppComponent, UserHomeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule.forRoot(),
-    SharedModule,
+    CoreModule, // Singletone objects (service, componets that are loaded)
+    SharedModule, // Shared (multi-instance) objects
+    AuthModule.forRoot(), //login module
     CategoryModule,
   ],
-  providers: [
-    OidcConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: configureAuth,
-      deps: [OidcConfigService],
-      multi: true,
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
