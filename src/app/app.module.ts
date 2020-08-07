@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { CategoryModule } from './categories/category.module';
 import { AuthModule } from 'angular-auth-oidc-client';
 import { CoreModule } from './core/core.module';
+import { GoalModule } from './goals/goal.module';
 
 export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
@@ -23,6 +24,7 @@ export class AppConfig {
     SharedModule, // Shared (multi-instance) objects
     AuthModule.forRoot(), //login module
     CategoryModule,
+    GoalModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

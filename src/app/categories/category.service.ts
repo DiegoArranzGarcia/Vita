@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Category } from './category.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { OidcConfigService } from 'angular-auth-oidc-client';
 import { environment } from 'src/environments/environment';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryHomeComponent } from './category-home.component';
+import { CategoryHomeComponent } from './category-home/category-home.component';
 import { CategoryListComponent } from './category-list/category-list.component';
-import { CategoryListItemComponent } from './category-list/item/category-list-item.component';
+import { CategoryItemComponent } from './category-item/category-item.component';
 
 const routes: Routes = [{ path: '', component: CategoryHomeComponent }];
 
@@ -11,5 +11,5 @@ const routes: Routes = [{ path: '', component: CategoryHomeComponent }];
   exports: [RouterModule],
 })
 export class CategoryRoutingModule {
-  static components = [CategoryHomeComponent, CategoryListComponent, CategoryListItemComponent];
+  static components = [CategoryHomeComponent, CategoryListComponent, CategoryItemComponent];
 }

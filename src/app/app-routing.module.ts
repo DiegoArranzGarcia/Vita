@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UnauthorizedComponent } from './shared/auth/unauthorized-page/unauthorized.component';
 import { CategoryModule } from './categories/category.module';
+import { GoalModule } from './goals/goal.module';
 
 const routes: Routes = [];
 
@@ -11,6 +12,7 @@ const routes: Routes = [];
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'categories', loadChildren: () => CategoryModule },
+      { path: 'goals', loadChildren: () => GoalModule },
       { path: 'home', component: HomeComponent },
       { path: 'forbidden', component: UnauthorizedComponent },
       { path: 'unauthorized', component: UnauthorizedComponent },
