@@ -17,7 +17,7 @@ namespace Vita.Api.Application.Goals.Commands
 
         public async Task<Guid> Handle(CreateGoalCommand request, CancellationToken cancellationToken)
         {
-            var goal = new Goal(request.Name, request.CreatedBy);
+            var goal = new Goal(request.Title, request.Description, request.CreatedBy);
 
             await _goalsRepository.Add(goal);
             await _goalsRepository.UnitOfWork.SaveEntitiesAsync();

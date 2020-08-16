@@ -28,9 +28,9 @@ namespace Vita.Api.Host.Goals
         [HttpGet]
         public async Task<IActionResult> GetGoalsAsync()
         {
-             if(!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
+            if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
                 return Unauthorized();
-                
+
             var getGoalsCreatedByUserQuery = new GetGoalsCreatedByUserQuery() { CreatedBy = userId };
             var goals = await _mediator.Send(getGoalsCreatedByUserQuery);
 
@@ -53,14 +53,21 @@ namespace Vita.Api.Host.Goals
 
         [HttpPost]
         public async Task<IActionResult> CreateGoal(CreateGoalCommand createGoalCommand)
-        {       
-            if(!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
+        {
+            if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
                 return Unauthorized();
 
             if (userId != createGoalCommand.CreatedBy)
                 return Forbid();
 
+            if (string.IsNullOrEmpty(createGoalCommand.Title))
+                return BadRequest("The title cannot be empty");
+
             var createdGoal = await _mediator.Send(createGoalCommand);
+
+            Response.Headers.Add("Access-Control-Allow-Headers", "Location");
+            Response.Headers.Add("Access-Control-Expose-Headers", "Location");
+
             return CreatedAtRoute(routeName: nameof(GetGoalAsync), routeValues: new { id = createdGoal }, value: null);
         }
     }

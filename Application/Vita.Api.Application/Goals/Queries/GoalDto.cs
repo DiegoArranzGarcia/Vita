@@ -6,5 +6,7 @@ namespace Vita.Api.Application.Goals.Queries
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Vita.Api.Application.Goals.Queries
 {
     public class GetGoalsCreatedByUserQueryHandler : IRequestHandler<GetGoalsCreatedByUserQuery, PagedList<GoalDto>>
     {
-        private const string sql = "Select Id, Title from Goals where CreatedBy = @UserId";
+        private const string sql = "Select Id, Title, Description, CreatedOn from Goals where CreatedBy = @UserId";
         private readonly IConnectionStringProvider _connectionStringProvider;
 
         public GetGoalsCreatedByUserQueryHandler(IConnectionStringProvider connectionStringProvider)

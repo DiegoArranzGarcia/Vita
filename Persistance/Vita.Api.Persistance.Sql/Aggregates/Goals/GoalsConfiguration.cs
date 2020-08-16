@@ -9,14 +9,22 @@ namespace Vita.Api.Persistance.Sql.Aggregates.Goals
         {
             builder.ToTable("Goals");
 
-            builder.HasKey(c => c.Id);
+            builder.HasKey(g => g.Id);
 
-            builder.Property(c => c.Title)
+            builder.Property(g => g.Title)
                    .IsRequired()
                    .HasMaxLength(256);
 
-            builder.Property(c => c.CreatedBy)
+            builder.Property(g => g.CreatedBy)
                    .IsRequired();
+
+            builder.Property(g => g.CreatedOn)
+                   .HasColumnType("datetimeoffset(0)")
+                   .IsRequired();
+
+            builder.Property(g => g.Description)
+                   .IsRequired(false)
+                   .HasMaxLength(255);
         }
     }
 }
