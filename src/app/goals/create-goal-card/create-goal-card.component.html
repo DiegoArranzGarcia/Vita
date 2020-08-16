@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card__main">
+    <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
+      <input class="main__header" placeholder="Add a task!" formControlName="titleControl" />
+      <textarea class="main__content" formControlName="descriptionControl"></textarea>
+      <div class="card__footer">
+        <button type="submit" *ngIf="goalForm.valid">
+          <fa-icon [icon]="addIcon" size="lg"></fa-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,10 +1,9 @@
 import { Optional, SkipSelf, NgModule, APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OidcConfigService, OidcSecurityService, LogLevel } from 'angular-auth-oidc-client';
-import { CorsInterceptor } from './interceptors/cors.interceptor';
 import { ApiAuthInterceptor } from './interceptors/api-auth.interceptor';
 import { environment } from 'src/environments/environment';
-import { of } from 'rxjs';
+import { UserService } from './user/user.service';
 
 // export function initializeApp(startupService: StartUpService) {
 //   return () => startupService.initializeApp().toPromise();
@@ -33,6 +32,7 @@ export function initializeApp(_oidcConfigService: OidcConfigService, _oidcSecuri
   providers: [
     OidcConfigService,
     OidcSecurityService,
+    UserService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,

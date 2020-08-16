@@ -1,0 +1,4 @@
+<div class="goals__container-list">
+  <vita-goal-card *ngFor="let goal of this.goals" [goal]="goal"></vita-goal-card>
+  <vita-create-goal-card *ngIf="canCreateGoal" (created)="handleOnCreated($event)"></vita-create-goal-card>
+</div>

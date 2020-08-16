@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GoalHomeComponent } from './goal-home/goal-home.component';
-import { GoalListComponent } from './goal-list/goal-list.component';
-import { GoalItemComponent } from './goal-item/goal-item.component';
+import { GoalCardListComponent } from './goal-card-list/goal-card-list.component';
+import { GoalCardComponent } from './goal-card/goal-card.component';
+import { CreateGoalCardComponent } from './create-goal-card/create-goal-card.component';
 
 const routes: Routes = [{ path: '', component: GoalHomeComponent }];
 
@@ -11,5 +12,5 @@ const routes: Routes = [{ path: '', component: GoalHomeComponent }];
   exports: [RouterModule],
 })
 export class GoalRoutingModule {
-  static components = [GoalHomeComponent, GoalListComponent, GoalItemComponent];
+  static components = [GoalHomeComponent, GoalCardListComponent, GoalCardComponent, CreateGoalCardComponent];
 }
