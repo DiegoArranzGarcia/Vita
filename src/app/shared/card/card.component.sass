@@ -1,0 +1,48 @@
+@import '../../../styles'
+
+div.card
+
+    display: flex
+    flex-direction: column
+    max-width: 100%
+    position: relative
+    width: 18em
+    min-height: 9em
+    margin: 1em 0.75em
+    padding: 0
+
+    background-color: $bg-secondary    
+    border-radius: 0.5em
+
+    div.card__main
+        min-height: 75%
+        padding: 1em 1.25em 0.75em 1.25em 
+        
+        div.main__header > input
+            background-color: $bg-secondary
+            border: none
+            font-size: 1.3em
+            color: $bg-primary
+
+        div.main__meta
+            color: $font-primary
+            font-size: 0.7em
+            padding-bottom: 0.75em                
+            
+        div.main__content > textarea
+            background-color: $bg-secondary
+            border: none
+            font-size: 0.9em
+            resize: none
+            max-width: 100%
+            width: 100%
+            color: $font-primary
+            padding-right: 5px
+        
+        input, textarea
+            &:focus, &:active
+                outline: none
+
+    div.card__footer
+        padding: 0.5em 1.25em 0.75em 1.25em
+

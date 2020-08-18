@@ -1,7 +1,1 @@
-<div class="card">
-  <div class="card__main">
-    <div class="main__header">{{ goal.title }}</div>
-    <div class="main__meta">{{ goal.createdOn | prettyDate: 'yyyy-MM-ddThh:mm:ssZ' }}</div>
-    <div class="main__content">{{ goal.description }}</div>
-  </div>
-</div>
+<vita-card [header]="goal.title" meta="{{ goal.createdOn | prettyDate: 'yyyy-MM-dd' }}" [content]="goal.description"> </vita-card>

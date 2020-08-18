@@ -1,56 +1,17 @@
 @import '../../../styles'
+    
+div.card__footer
+    font-size: 0.9em
+    display: flex
+    align-items: center
+    justify-content: flex-end
 
-div.card
+    button[type=submit]
+        height: auto
+        width: auto
+        margin: 0
+        padding: 0
+        background: none
 
-    min-height: 7.5em
-    width: 18em
-    margin: 0.5em 0.75em
-    background-color: $bg-secondary
-    color: $font-primary
-    border-radius: 0.5em
-
-    > div 
-        padding: 0.8em 1.25em
-
-    div.card__main        
-        display: flex
-        flex-direction: column
-        align-items: flex-start
-        justify-content: flex-start
-        
-        input.main__header
-            background-color: $bg-secondary           
-            border: none
-            font-size: 1.3em      
+        > fa-icon
             color: $bg-primary
-           
-        textarea.main__content
-            background-color: $bg-secondary           
-            border: none
-            font-size: 0.9em
-            resize: none
-            width: 100%
-            color: $font-primary
-        
-        input, textarea
-            &:focus, &:active
-                outline: none
-
-    div.card__footer
-        font-size: 0.9em
-        width: 100%
-        height: 100%
-        display: flex
-        align-items: center
-        justify-content: flex-end
-
-        button[type=submit]
-            height: auto
-            width: auto
-            margin: 0
-            padding: 0
-            background: none
-
-            > fa-icon
-                color: $bg-primary
-

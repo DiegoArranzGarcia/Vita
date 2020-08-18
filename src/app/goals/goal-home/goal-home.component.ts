@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faRocket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'vita-goal-home',
@@ -7,7 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./goal-home.component.sass'],
 })
 export class GoalHomeComponent implements OnInit {
-  plusIcon = faPlus;
+  goalsIcon = faRocket;
 
   constructor() {}
 
