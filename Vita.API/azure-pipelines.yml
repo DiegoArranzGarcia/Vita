@@ -4,9 +4,15 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- develop
-- master
-- feature/*
+  branches:
+    include:
+    - develop
+    - master
+    - feature/*
+  paths:
+    exclude:
+    - Vita.Identity/*
+    - Vita.SPA/*
 
 pool:
   vmImage: 'windows-latest'
