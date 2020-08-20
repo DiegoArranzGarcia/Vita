@@ -3,16 +3,24 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+name: Vita.API
+
 trigger:
-- develop
-- master
-- feature/*
+  branches:
+    include:
+    - develop
+    - master
+    - feature/*
+  paths:
+    exclude:
+    - Vita.Identity/*
+    - Vita.SPA/*
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: 'Vita.API/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
