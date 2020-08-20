@@ -1,21 +1,39 @@
+name: Vita.Identity
+
 trigger:
-- master
-
+  branches:
+    include:
+    - develop
+    - master
+    - feature/*
+  paths:
+    exclude:
+    - Vita.API/*
+    - Vita.SPA/*
+    
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
+variables:
+  solution: 'Vita.Identity/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 steps:
-- task: UseDotNet@2
-  displayName: 'Install .NET Core SDK'
+- task: NuGetCommand@2
   inputs:
-    packageType: 'sdk'
-    useGlobalJson: true
-- script: dotnet publish IdentityServer4Demo.sln -c Release --self-contained -r win-x86 -o publish
-  displayName: 'build and publish'
-- task: AzureRmWebAppDeployment@4
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: 'select'
+    vstsFeed: 'd4d4328d-23fb-4700-a85b-694186019d4e/5bee72dc-d135-4e9c-84ec-df7c2fe16086'
+
+- task: VSBuild@1
   inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'leastprivilege(b4f1893e-53e4-474d-aee5-7c0db5668eee)'
-    appType: 'webApp'
-    WebAppName: 'identityserver4demo'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/publish'
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
