@@ -1,6 +1,15 @@
-trigger:
-- master
+name:  Vita.Identity
 
+trigger:
+  branches:
+    include:
+    - develop
+    - master
+    - feature/*
+  paths:
+    exclude:
+    - Vita.API/*
+    - Vita.SPA/*
 pool:
   vmImage: 'ubuntu-latest'
 
