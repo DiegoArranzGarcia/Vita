@@ -11,8 +11,8 @@ trigger:
     - feature/*
   paths:
     exclude:
-    - Vita.Identity/*
-    - Vita.SPA/*
+    - Vita.Identity/**
+    - Vita.SPA/**
 
 pool:
   vmImage: 'windows-latest'
