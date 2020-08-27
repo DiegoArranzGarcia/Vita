@@ -7,8 +7,19 @@ import { UnauthorizedComponent } from './auth/unauthorized-page/unauthorized.com
 import { SingInComponent } from './auth/sign-in/sign-in.component';
 import { FooterComponent } from './footer/footer.component';
 import { CardComponent } from './card/card.component';
+import { LoadingComponent } from './loading/loading.component';
+import { MenuComponent } from './menu/menu.component';
 
-const declarables = [HomeComponent, CardComponent, UnauthorizedComponent, SingInComponent, NavBarComponent, FooterComponent];
+const declarables = [
+  HomeComponent,
+  CardComponent,
+  UnauthorizedComponent,
+  SingInComponent,
+  NavBarComponent,
+  FooterComponent,
+  LoadingComponent,
+  MenuComponent,
+];
 
 @NgModule({
   declarations: declarables,

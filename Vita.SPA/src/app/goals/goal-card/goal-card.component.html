@@ -1,1 +1,9 @@
-<vita-card [header]="goal.title" meta="{{ goal.createdOn | prettyDate: 'yyyy-MM-dd' }}" [content]="goal.description"> </vita-card>
+<vita-card meta="{{ goal.createdOn | prettyDate: 'yyyy-MM-dd' }}" [content]="goal.description">
+  <div class="main__header" vita-card-header>
+    <input [value]="goal.title" spellcheck="false" />
+    <div class="header__options">
+      <fa-icon [icon]="optionsIcon" (click)="menu.toogle()"> </fa-icon>
+      <vita-menu #menu [options]="goalOptions"></vita-menu>
+    </div>
+  </div>
+</vita-card>

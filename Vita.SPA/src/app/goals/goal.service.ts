@@ -22,4 +22,8 @@ export class GoalService {
       .post(this._goalsEndpoint, createDto, { observe: 'response' })
       .pipe(flatMap((response: any) => this._httpClient.get<GoalDto>(response.headers.get('location'))));
   }
+
+  public deleteGoal(id: string): Observable<void> {
+    return this._httpClient.delete<void>(this._goalsEndpoint + `/${id}`);
+  }
 }

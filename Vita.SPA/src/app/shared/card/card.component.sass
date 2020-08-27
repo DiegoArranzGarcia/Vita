@@ -15,14 +15,24 @@ div.card
     border-radius: 0.5em
 
     div.card__main
-        min-height: 75%
-        padding: 1em 1.25em 0.75em 1.25em 
+        padding: 0.75em 1.25em 0em 1.25em 
         
-        div.main__header > input
-            background-color: $bg-secondary
-            border: none
-            font-size: 1.3em
-            color: $bg-primary
+        div.main__header 
+            display: flex
+            justify-content: space-between
+            align-items: center
+            flex-direction: row
+            flex-wrap: nowrap
+            width: 100%
+           
+            > input
+                width: 100%
+                text-overflow: ellipsis
+                padding-right: 0.5em
+                background-color: $bg-secondary
+                border: none
+                font-size: 1.3em
+                color: $bg-primary
 
         div.main__meta
             color: $font-primary
@@ -34,8 +44,10 @@ div.card
             border: none
             font-size: 0.9em
             resize: none
+            min-height: 4.2em
             max-width: 100%
             width: 100%
+            min-width: 100%
             color: $font-primary
             padding-right: 5px
         
@@ -44,5 +56,5 @@ div.card
                 outline: none
 
     div.card__footer
-        padding: 0.5em 1.25em 0.75em 1.25em
+        padding: 0.4em 1.25em 
 

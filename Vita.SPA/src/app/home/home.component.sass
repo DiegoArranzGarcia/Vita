@@ -1,5 +1,13 @@
 @import '../../styles'
     
+
+@keyframes fadein 
+    from 
+    opacity: 0
+    to   
+    opacity: 1
+
+    
 div.container
     display: flex
     flex-direction: column
@@ -36,9 +44,3 @@ div.container
             opacity: 0
             animation-fill-mode: forwards
             color: $font-primary
-
-@keyframes fadein 
-    from 
-        opacity: 0 
-    to   
-        opacity: 1

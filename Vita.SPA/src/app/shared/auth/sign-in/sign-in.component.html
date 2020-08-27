@@ -3,9 +3,7 @@
     <div class="header__username">{{ userName }}</div>
     <div class="header__email">{{ email }}</div>
   </div>
-  <img src="assets/default-avatar.jpg" height="48" width="48" />
+  <fa-icon [icon]="userWithoutAvatarIcon" size="3x"></fa-icon>
 </div>
 
-<button *ngIf="!isAuthenticated" class="primary" (click)="login()">
-  Sign in
-</button>
+<button *ngIf="!isAuthenticated" class="primary" (click)="login()">Sign in</button>

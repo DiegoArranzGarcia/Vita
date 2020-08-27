@@ -1,0 +1,30 @@
+@import '../../../styles'
+
+:host ::ng-deep 
+
+    div.header__options
+        display: block
+
+        > fa-icon
+            color: $color-third
+            cursor: pointer
+
+        li.menu__option.remove-option
+            color: tomato !important
+
+    div.goal-card__footer
+        font-size: 0.9em
+        display: flex
+        align-items: center
+        justify-content: flex-end
+
+        button[type=submit]
+            display: none
+            height: auto
+            width: auto
+            margin: 0
+            padding: 0
+            background: none
+
+            > fa-icon
+                color: $bg-primary

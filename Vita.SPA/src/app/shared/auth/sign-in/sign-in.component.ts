@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'vita-sign-in',
@@ -13,6 +14,7 @@ export class SingInComponent implements OnInit, OnDestroy {
   userId: string;
   email: string;
   userName: string;
+  userWithoutAvatarIcon = faUserCircle;
 
   constructor(public oidcSecurityService: OidcSecurityService) {}
 
