@@ -8,6 +8,7 @@ import { CategoryModule } from './categories/category.module';
 import { AuthModule } from 'angular-auth-oidc-client';
 import { CoreModule } from './core/core.module';
 import { GoalModule } from './goals/goal.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
@@ -25,6 +26,7 @@ export class AppConfig {
     AuthModule.forRoot(), //login module
     CategoryModule,
     GoalModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

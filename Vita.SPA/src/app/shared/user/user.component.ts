@@ -3,13 +3,11 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'vita-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.sass'],
+  selector: 'vita-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.sass'],
 })
-export class SingInComponent implements OnInit, OnDestroy {
-  // userData$: Observable<any>;
-  // isAuthenticated$: Observable<boolean>;
+export class UserComponent implements OnInit {
   isAuthenticated: boolean;
   userId: string;
   email: string;
@@ -22,7 +20,6 @@ export class SingInComponent implements OnInit, OnDestroy {
     this.oidcSecurityService.checkAuth().subscribe((isAuthenticated) => (this.isAuthenticated = isAuthenticated));
 
     this.oidcSecurityService.userData$.subscribe((data) => {
-      // tslint:disable-next-line: curly
       if (!data) return;
 
       this.email = data.email;
@@ -37,9 +34,5 @@ export class SingInComponent implements OnInit, OnDestroy {
 
   logout() {
     this.oidcSecurityService.logoff();
-  }
-
-  ngOnDestroy() {
-    // isAuhenticated$.unsubscribe();
   }
 }

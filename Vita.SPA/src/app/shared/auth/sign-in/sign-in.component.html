@@ -1,9 +1,0 @@
-<div *ngIf="isAuthenticated" class="user__container">
-  <div class="user__container__header">
-    <div class="header__username">{{ userName }}</div>
-    <div class="header__email">{{ email }}</div>
-  </div>
-  <fa-icon [icon]="userWithoutAvatarIcon" size="3x"></fa-icon>
-</div>
-
-<button *ngIf="!isAuthenticated" class="primary" (click)="login()">Sign in</button>

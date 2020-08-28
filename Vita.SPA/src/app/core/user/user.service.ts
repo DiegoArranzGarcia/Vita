@@ -5,17 +5,18 @@ import { User } from './user.model';
 @Injectable()
 export class UserService {
   private _isAuthenticated: boolean;
-  private _currentUser: User;
+  private _currentUser: User = null;
 
   constructor(private _oidcSecurityService: OidcSecurityService) {
     this._currentUser = null;
-    this._oidcSecurityService.checkAuth().subscribe((isAuthenticated) => (this._isAuthenticated = isAuthenticated));
+    // this._oidcSecurityService.checkAuth().subscribe((isAuthenticated) => (this._isAuthenticated = isAuthenticated));
     this._oidcSecurityService.userData$.subscribe((data) => this.handleOnChangeUserData(data));
   }
 
   private handleOnChangeUserData(data: any): void {
     if (!data) return;
 
+    this._isAuthenticated = true;
     this._currentUser = {
       id: data.sub,
       email: data.email,
@@ -31,5 +32,15 @@ export class UserService {
 
   public isAuthenticated(): boolean {
     return this._isAuthenticated;
+  }
+
+  public signIn(redirectUrl?: string): void {
+    if (!redirectUrl) redirectUrl = '/goals';
+
+    this._oidcSecurityService.authorize({ customParams: { ReturnUrl: redirectUrl } });
+  }
+
+  public signOut(): void {
+    this._oidcSecurityService.logoff();
   }
 }

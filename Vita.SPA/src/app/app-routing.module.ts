@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { UnauthorizedComponent } from './shared/auth/unauthorized-page/unauthorized.component';
-import { CategoryModule } from './categories/category.module';
+import { UnauthorizedComponent } from './shared/unauthorized-page/unauthorized.component';
 import { GoalModule } from './goals/goal.module';
-
-const routes: Routes = [];
+import { AuthGuard } from './core/guard/auth.guard';
+import { LoginComponent } from './core/login-component/login.component';
+import { InDevelopmentComponent } from './shared/in-development/in-development.component';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'categories', loadChildren: () => CategoryModule },
-      { path: 'goals', loadChildren: () => GoalModule },
-      { path: 'home', component: HomeComponent },
-      { path: 'forbidden', component: UnauthorizedComponent },
+      { path: '', redirectTo: 'goals', pathMatch: 'full' },
+      { path: 'goals', loadChildren: () => GoalModule, canActivate: [AuthGuard] },
+      { path: 'categories', component: InDevelopmentComponent, canActivate: [AuthGuard] },
+      { path: 'week', component: InDevelopmentComponent, canActivate: [AuthGuard] },
+      { path: 'login', component: LoginComponent },
       { path: 'unauthorized', component: UnauthorizedComponent },
+      { path: '**', component: UnauthorizedComponent },
     ]),
   ],
   exports: [RouterModule],

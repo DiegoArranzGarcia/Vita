@@ -36,7 +36,7 @@ namespace Vita.Identity
                     RequireConsent = false,
                     RequirePkce = true,
 
-                    RedirectUris = { "http://localhost:4200" },
+                    RedirectUris = { "http://localhost:4200/login" },
                     PostLogoutRedirectUris = { },
 
                     AllowedGrantTypes = GrantTypes.Code,

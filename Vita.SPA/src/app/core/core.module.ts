@@ -4,6 +4,7 @@ import { OidcConfigService, OidcSecurityService, LogLevel } from 'angular-auth-o
 import { ApiAuthInterceptor } from './interceptors/api-auth.interceptor';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user/user.service';
+import { AuthGuard } from './guard/auth.guard';
 
 // export function initializeApp(startupService: StartUpService) {
 //   return () => startupService.initializeApp().toPromise();
@@ -14,13 +15,13 @@ export function initializeApp(_oidcConfigService: OidcConfigService, _oidcSecuri
     _oidcConfigService
       .withConfig({
         stsServer: environment.oidcEndpoint,
-        redirectUrl: window.location.origin,
-        postLogoutRedirectUri: window.location.origin,
+        redirectUrl: window.location.origin + '/login',
+        postLogoutRedirectUri: window.location.origin + '/login',
         clientId: 'vita.spa',
         scope: 'openid profile api offline_access',
         responseType: 'code',
-        silentRenew: true,
-        useRefreshToken: true,
+        silentRenew: false,
+        useRefreshToken: false,
         logLevel: LogLevel.Debug,
       })
       .then((_) => _oidcSecurityService.checkAuth());
@@ -32,7 +33,6 @@ export function initializeApp(_oidcConfigService: OidcConfigService, _oidcSecuri
   providers: [
     OidcConfigService,
     OidcSecurityService,
-    UserService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
@@ -45,6 +45,8 @@ export function initializeApp(_oidcConfigService: OidcConfigService, _oidcSecuri
       deps: [OidcSecurityService],
       multi: true,
     },
+    UserService,
+    AuthGuard,
   ],
 })
 export class CoreModule {

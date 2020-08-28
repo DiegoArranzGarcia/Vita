@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { UserService } from '../core/user/user.service';
 
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {}
 
   handleOnStartClick() {
-    this.router.navigate(['/goals']);
+    this.userService.signIn();
   }
 }
