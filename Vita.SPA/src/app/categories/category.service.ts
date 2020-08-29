@@ -3,13 +3,14 @@ import { Category } from './category.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ConfigurationService } from '../core/configuration/configuration.service';
 
 @Injectable()
 export class CategoryService {
   private _categoriesEndpoint: string;
 
-  constructor(private _httpClient: HttpClient) {
-    this._categoriesEndpoint = `${environment.apiEndpoint}/categories`;
+  constructor(configurationService: ConfigurationService, private _httpClient: HttpClient) {
+    this._categoriesEndpoint = `${configurationService.getConfiguration().vitaApiEndpoint}/categories`;
   }
 
   public getCategories(): Observable<Category[]> {

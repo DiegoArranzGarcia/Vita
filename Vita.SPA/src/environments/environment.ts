@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'https://localhost:44334/api',
-  oidcEndpoint: 'https://localhost:44360',
 };
 
 /*

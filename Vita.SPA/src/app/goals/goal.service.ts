@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ConfigurationService } from '../core/configuration/configuration.service';
 
 @Injectable()
 export class GoalService {
   private _goalsEndpoint: string;
 
-  constructor(private _httpClient: HttpClient) {
-    this._goalsEndpoint = `${environment.apiEndpoint}/goals`;
+  constructor(configurationService: ConfigurationService, private _httpClient: HttpClient) {
+    this._goalsEndpoint = `${configurationService.getConfiguration().vitaApiEndpoint}/goals`;
   }
 
   public getGoals(): Observable<GoalDto[]> {
