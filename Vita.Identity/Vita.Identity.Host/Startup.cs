@@ -5,12 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System;
-using System.Security;
-using System.Security.Cryptography;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Vita.Identity.Application.Configuration;
 using Vita.Identity.Application.Users.Queries;
@@ -42,6 +39,7 @@ namespace Vita.Identity.Host
             services.AddSameSiteCookiePolicy();
 
             X509Certificate2 cert = GetJwtCertificate();
+            Client[] clients = Configuration.GetSection("IdentityServer:Clients").Get<Client[]>();
 
             var identityServerBuilder = services.AddIdentityServer(options =>
             {
@@ -51,15 +49,17 @@ namespace Vita.Identity.Host
                 options.Events.RaiseSuccessEvents = true;
             }).AddInMemoryApiResources(Config.GetApis())
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
-              .AddInMemoryClients(Configuration.GetSection("IdentityServer:Clients").Get<Client[]>())
+              .AddInMemoryClients(clients)
               .AddProfileService<ProfileService>()
               .AddSigningCredential(cert);
+
+            var allowedOrigins = clients.Select(x => x.ClientUri).ToList();
 
             services.AddCors(options =>
             {
                 options.AddPolicy("api", policy =>
                 {
-                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    policy.WithOrigins(allowedOrigins.ToArray()).AllowAnyHeader().AllowAnyMethod();
                 });
             });
 
