@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 using Vita.Api.Application.Categories.Commands;
 using Vita.Api.Application.Configuration;
 using Vita.Api.Domain.Aggregates.Categories;
@@ -37,7 +38,7 @@ namespace Vita.Api.Host
             services.AddAuthentication("Bearer")
                     .AddJwtBearer("Bearer", options =>
                     {
-                        options.Authority = "https://localhost:44360";
+                        options.Authority = Configuration["JWTAuthority"];
                         options.RequireHttpsMetadata = false;
 
                         options.Audience = "api";
@@ -70,8 +71,10 @@ namespace Vita.Api.Host
             app.UseAuthentication();
             app.UseAuthorization();
 
+            string[] allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
             app.UseHttpsRedirection();
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(options => options.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader());
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
