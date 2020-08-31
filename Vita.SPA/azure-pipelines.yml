@@ -58,5 +58,5 @@ steps:
     azureSubscription: 'Azure Connection'
     Destination: 'AzureBlob'
     storage: 'vitadevstg'
-    ContainerName: 'spa'
+    ContainerName: '$web'
   displayName: 'Deploy spa into the blob storage'
