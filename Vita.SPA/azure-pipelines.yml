@@ -19,6 +19,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
+
 steps:
 - task: NodeTool@0
   inputs:
@@ -28,7 +31,7 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    workingDirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
+    workingDirectory: $(SPADirectory)
     script: |
       npm install -g @angular/cli
   displayName: 'Install angular/cli'
@@ -36,7 +39,7 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    workingDirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
+    workingDirectory: $(SPADirectory)
     script: |
         npm install
   displayName: 'npm install'
@@ -44,7 +47,16 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    workingDirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
+    workingDirectory: $(SPADirectory)
     script: |
       ng build --prod
   displayName: 'Build Angular SPA'
+
+- task: AzureFileCopy@4
+  inputs:
+    SourcePath: '$(SPADirectory)/dist'
+    azureSubscription: 'Azure Connection'
+    Destination: 'AzureBlob'
+    storage: 'vitadevstg'
+    ContainerName: 'spa'
+  displayName: 'Deploy spa into the blob storage'
