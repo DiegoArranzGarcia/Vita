@@ -13,11 +13,11 @@ trigger:
     - feature/*
   paths:
     exclude:
-    - Vita.API/*
-    - Vita.Identity/*
+    - 'Vita.API/**'
+    - 'Vita.Identity/**'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
   SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
