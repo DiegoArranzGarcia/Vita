@@ -54,10 +54,11 @@ steps:
 
 - task: AzureFileCopy@4
   inputs:
-    sourcePath: '$(SPADirectory)/dist'
+    sourcePath: '$(SPADirectory)/dist/*'
     azureSubscription: 'Azure Connection'
     destination: 'AzureBlob'
     storage: 'vitadevstg'
     containerName: '$web'
     cleanTargetBeforeCopy: true
+    BlobPrefix: ''
   displayName: 'Deploy spa into the blob storage'
