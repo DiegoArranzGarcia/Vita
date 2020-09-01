@@ -52,7 +52,6 @@ steps:
       ng build --prod
   displayName: 'Build Angular SPA'
 
-
 - task: AzureFileCopy@4
   inputs:
     sourcePath: '$(SPADirectory)/dist/**'
