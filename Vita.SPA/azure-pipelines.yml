@@ -52,11 +52,13 @@ steps:
       ng build --prod
   displayName: 'Build Angular SPA'
 
+
 - task: AzureFileCopy@4
   inputs:
-    SourcePath: '$(SPADirectory)/dist/**'
+    sourcePath: '$(SPADirectory)/dist/**'
     azureSubscription: 'Azure Connection'
-    Destination: 'AzureBlob'
+    destination: 'AzureBlob'
     storage: 'vitadevstg'
-    ContainerName: '$web'
+    containerName: '$web'
+    cleanTargetBeforeCopy: true
   displayName: 'Deploy spa into the blob storage'
