@@ -54,7 +54,7 @@ steps:
 
 - task: AzureFileCopy@4
   inputs:
-    sourcePath: '$(SPADirectory)/dist/**'
+    sourcePath: '$(SPADirectory)/dist'
     azureSubscription: 'Azure Connection'
     destination: 'AzureBlob'
     storage: 'vitadevstg'
