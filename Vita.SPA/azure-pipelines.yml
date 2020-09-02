@@ -44,13 +44,13 @@ steps:
 #         npm install
 #   displayName: 'npm install'
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    workingDirectory: $(SPADirectory)
-    script: |
-      ng build --prod
-  displayName: 'Build Angular SPA'
+# - task: Bash@3
+#   inputs:
+#     targetType: 'inline'
+#     workingDirectory: $(SPADirectory)
+#     script: |
+#       ng build --prod
+#   displayName: 'Build Angular SPA'
 
 - task: AzureFileCopy@4
   inputs:
