@@ -59,5 +59,16 @@ steps:
     destination: 'AzureBlob'
     storage: 'devvitastg'
     containerName: '$web'
-    additionalArgumentsForBlobCopy: '--content-type'
     CleanTargetBeforeCopy: true
+  displayName: 'Deploy SPA'
+
+- task: AzureFileCopy@4
+  inputs:
+    sourcePath: '$(SPADirectory)/dist/*.js'
+    azureSubscription: 'Vita Dev'
+    destination: 'AzureBlob'
+    storage: 'devvitastg'
+    containerName: '$web'
+    CleanTargetBeforeCopy: true
+    additionalArgumentsForBlobCopy: '--content-type "application/javascript"'
+  displayName: 'Re-Deploy JS files'
