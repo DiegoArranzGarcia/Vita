@@ -60,3 +60,4 @@ steps:
     storage: 'devvitastg'
     containerName: '$web'
     additionalArgumentsForBlobCopy: '--content-type'
+    CleanTargetBeforeCopy: true
