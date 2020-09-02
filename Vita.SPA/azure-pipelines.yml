@@ -57,7 +57,7 @@ steps:
     sourcePath: '$(SPADirectory)/dist/*'
     azureSubscription: 'Azure Connection'
     destination: 'AzureBlob'
-    storage: 'vitadevstg'
+    storage: 'devvitastg'
     containerName: '$web'
     cleanTargetBeforeCopy: true
     BlobPrefix: ''
