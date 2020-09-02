@@ -23,40 +23,39 @@ variables:
   SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
 
 steps:
-# - task: NodeTool@0
-#   inputs:
-#     versionSpec: '10.x'
-#   displayName: 'Install Node.js'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
 
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     workingDirectory: $(SPADirectory)
-#     script: |
-#       npm install -g @angular/cli
-#   displayName: 'Install angular/cli'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    workingDirectory: $(SPADirectory)
+    script: |
+      npm install -g @angular/cli
+  displayName: 'Install angular/cli'
 
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     workingDirectory: $(SPADirectory)
-#     script: |
-#         npm install
-#   displayName: 'npm install'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    workingDirectory: $(SPADirectory)
+    script: |
+        npm install
+  displayName: 'npm install'
 
-# - task: Bash@3
-#   inputs:
-#     targetType: 'inline'
-#     workingDirectory: $(SPADirectory)
-#     script: |
-#       ng build --prod
-#   displayName: 'Build Angular SPA'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    workingDirectory: $(SPADirectory)
+    script: |
+      ng build --prod
+  displayName: 'Build Angular SPA'
 
 - task: AzureFileCopy@4
   inputs:
-    # SourcePath: '$(SPADirectory)/dist/*'
-    SourcePath: $(System.DefaultWorkingDirectory)/Vita.SPA/src/*
+    sourcePath: '$(SPADirectory)/dist/*'
     azureSubscription: 'Vita Dev'
-    Destination: 'AzureBlob'
+    destination: 'AzureBlob'
     storage: 'devvitastg'
     ContainerName: '$web'
