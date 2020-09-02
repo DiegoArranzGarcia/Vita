@@ -58,4 +58,5 @@ steps:
     azureSubscription: 'Vita Dev'
     destination: 'AzureBlob'
     storage: 'devvitastg'
-    ContainerName: '$web'
+    containerName: '$web'
+    additionalArgumentsForBlobCopy: '--content-type'
