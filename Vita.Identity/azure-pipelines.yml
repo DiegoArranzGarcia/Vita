@@ -23,7 +23,7 @@ variables:
   apiProjects: '**/Vita.Identity/**/*.csproj'
   apiHostProject: '**/Vita.Identity/**/Vita.Identity.Host.csproj'
   buildConfiguration: 'Release'
-  ConnectionStrings.VitaIdentityDbContext: 'Data Source=(prodDB)\MSDB;AttachDbFilename=prod.mdf;'
+  ConnectionStrings.VitaIdentityDbContext: 'DB'
   Api.BaseUrl: $(vitaApiBaseUrl)
   IdentityServer.Clients.0.ClientUri: $(spaUrl)
   IdentityServer.Clients.0.RedirectUris: [ $(spaUrl)/login ]
