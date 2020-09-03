@@ -48,7 +48,7 @@ stages:
       displayName: 'Build Angular SPA'   
 - stage: DeployDEV
   variables:
-    - group: DEV
+    - group: DevEnvironment
   jobs:
   - job: DeploySPA
     steps:
