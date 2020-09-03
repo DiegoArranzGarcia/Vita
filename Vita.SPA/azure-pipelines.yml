@@ -20,7 +20,8 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
+  SPADirectory: $System.DefaultWorkingDirectory/Vita.SPA
+  GulpFile: $SPADirectory/gulpfile.js
 
 steps:
 - task: NodeTool@0
@@ -31,15 +32,7 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    workingDirectory: $(SPADirectory)
-    script: |
-      npm install -g @angular/cli
-  displayName: 'Install angular/cli'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    workingDirectory: $(SPADirectory)
+    workingDirectory: $SPADirectory
     script: |
         npm install
   displayName: 'npm install'
@@ -47,14 +40,35 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    workingDirectory: $(SPADirectory)
+    workingDirectory: $SPADirectory
     script: |
-      ng build --prod
+      npm run build --prod
   displayName: 'Build Angular SPA'
+
+- task: gulp@0
+  inputs:
+    gulpFile: 'gulpfile.js'
+    targets: 'tokenize'
+    workingDirectory: '$SPADirectory'
+    gulpjs: 'node_modules/gulp/bin/gulp.js'
+    enableCodeCoverage: false
+
+- task: replacetokens@3
+  inputs:
+    rootDirectory: '$SPADirectory/dist'
+    targetFiles: '*.json'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'fail'
+    keepToken: true
+    tokenPrefix: '__'
+    tokenSuffix: '__'
+    useLegacyPattern: false
+    enableTelemetry: true
 
 - task: AzureFileCopy@4
   inputs:
-    sourcePath: '$(SPADirectory)/dist/*'
+    sourcePath: '$SPADirectory/dist/*'
     azureSubscription: 'Vita Dev'
     destination: 'AzureBlob'
     storage: 'devvitastg'
@@ -64,7 +78,7 @@ steps:
 
 - task: AzureFileCopy@4
   inputs:
-    sourcePath: '$(SPADirectory)/dist/*.js'
+    sourcePath: '$SPADirectory/dist/*.js'
     azureSubscription: 'Vita Dev'
     destination: 'AzureBlob'
     storage: 'devvitastg'
