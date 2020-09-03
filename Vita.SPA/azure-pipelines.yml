@@ -52,11 +52,12 @@ steps:
     workingDirectory: $(SPADirectory)
     gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
     enableCodeCoverage: false
+  displayName: 'Tokenizing Configuration files'
 
 - task: replacetokens@3
   inputs:
     rootDirectory: $(SPADirectory)/dist
-    targetFiles: '*.json'
+    targetFiles: '**/*.json'
     encoding: 'auto'
     writeBOM: true
     actionOnMissing: 'fail'
@@ -65,6 +66,7 @@ steps:
     tokenSuffix: '__'
     useLegacyPattern: false
     enableTelemetry: true
+  displayName: 'Replazing Tokens'
 
 - task: AzureFileCopy@4
   inputs:
