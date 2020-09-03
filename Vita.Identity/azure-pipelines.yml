@@ -63,3 +63,4 @@ steps:
     enableCustomDeployment: true
     DeploymentType: 'webDeploy'
     RemoveAdditionalFilesFlag: true
+    JSONFiles: '**/appsettings.json'
