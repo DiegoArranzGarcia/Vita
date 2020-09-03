@@ -24,71 +24,75 @@ variables:
   GulpFile: $(SPADirectory)/gulpfile.js
 
 stages:
-- stage: Build
-  jobs:
-  - job: BuildAngularSPA
-    steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '10.x'
-      displayName: 'Install Node.js'
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        workingDirectory: $(SPADirectory)
-        script: |
-            npm install
-      displayName: 'npm install'
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        workingDirectory: $(SPADirectory)
-        script: |
-          npm run build --prod
-      displayName: 'Build Angular SPA'   
+# - stage: Build
+#   jobs:
+#   - job: BuildAngularSPA
+#     steps:
+#     - task: NodeTool@0
+#       inputs:
+#         versionSpec: '10.x'
+#       displayName: 'Install Node.js'
+#     - task: Bash@3
+#       inputs:
+#         targetType: 'inline'
+#         workingDirectory: $(SPADirectory)
+#         script: |
+#             npm install
+#       displayName: 'npm install'
+#     - task: Bash@3
+#       inputs:
+#         targetType: 'inline'
+#         workingDirectory: $(SPADirectory)
+#         script: |
+#           npm run build --prod
+#       displayName: 'Build Angular SPA'   
 - stage: DeployDEV
   variables:
     - group: DevEnvironment
   jobs:
   - job: DeploySPA
     steps:
-    - task: gulp@0
-      inputs:
-        gulpFile: $(SPADirectory)/gulpfile.js
-        targets: 'tokenize'
-        workingDirectory: $(SPADirectory)
-        gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
-        enableCodeCoverage: false
-      displayName: 'Tokenizing Configuration files'
-    - task: replacetokens@3
-      inputs:
-        rootDirectory: $(SPADirectory)/dist
-        targetFiles: '**/*.json'
-        encoding: 'auto'
-        writeBOM: true
-        actionOnMissing: 'fail'
-        keepToken: true
-        tokenPrefix: '__'
-        tokenSuffix: '__'
-        useLegacyPattern: false
-        enableTelemetry: true
-      displayName: 'Replazing Tokens'
-    - task: AzureFileCopy@4
-      inputs:
-        sourcePath: $(SPADirectory)/dist/*'
-        azureSubscription: 'Vita Dev'
-        destination: 'AzureBlob'
-        storage: 'devvitastg'
-        containerName: '$web'
-        CleanTargetBeforeCopy: true
-      displayName: 'Deploy SPA'
-    - task: AzureFileCopy@4
-      inputs:
-        sourcePath: $(SPADirectory)/dist/*.js'
-        azureSubscription: 'Vita Dev'
-        destination: 'AzureBlob'
-        storage: 'devvitastg'
-        containerName: '$web'
-        CleanTargetBeforeCopy: true
-        additionalArgumentsForBlobCopy: '--content-type "application/javascript"'
-      displayName: 'Re-Deploy JS files'
+    - bash: echo $(oidcEndpoint)
+    - bash: echo $(DevEnvironment.oidcEndpoint)
+    - bash: echo $(vitaApiEndpoint)
+    - bash: echo $(DevEnvironment.vitaApiEndpoint)
+    # - task: gulp@0
+    #   inputs:
+    #     gulpFile: $(SPADirectory)/gulpfile.js
+    #     targets: 'tokenize'
+    #     workingDirectory: $(SPADirectory)
+    #     gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
+    #     enableCodeCoverage: false
+    #   displayName: 'Tokenizing Configuration files'
+    # - task: replacetokens@3
+    #   inputs:
+    #     rootDirectory: $(SPADirectory)/dist
+    #     targetFiles: '**/*.json'
+    #     encoding: 'auto'
+    #     writeBOM: true
+    #     actionOnMissing: 'fail'
+    #     keepToken: true
+    #     tokenPrefix: '__'
+    #     tokenSuffix: '__'
+    #     useLegacyPattern: false
+    #     enableTelemetry: true
+    #   displayName: 'Replazing Tokens'
+    # - task: AzureFileCopy@4
+    #   inputs:
+    #     sourcePath: $(SPADirectory)/dist/*'
+    #     azureSubscription: 'Vita Dev'
+    #     destination: 'AzureBlob'
+    #     storage: 'devvitastg'
+    #     containerName: '$web'
+    #     CleanTargetBeforeCopy: true
+    #   displayName: 'Deploy SPA'
+    # - task: AzureFileCopy@4
+    #   inputs:
+    #     sourcePath: $(SPADirectory)/dist/*.js'
+    #     azureSubscription: 'Vita Dev'
+    #     destination: 'AzureBlob'
+    #     storage: 'devvitastg'
+    #     containerName: '$web'
+    #     CleanTargetBeforeCopy: true
+    #     additionalArgumentsForBlobCopy: '--content-type "application/javascript"'
+    #   displayName: 'Re-Deploy JS files'
