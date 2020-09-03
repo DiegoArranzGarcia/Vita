@@ -27,7 +27,8 @@ variables:
   GulpFile: $(SPADirectory)/gulpfile.js
 
 stages:
-- stage: 'Build & Generate Artifacts'
+- stage: Build
+  displayName: Build & Generate Artifacts
   jobs:
   - job: BuildAngularApplication
     displayName: 'Build Angular Application'
@@ -67,7 +68,8 @@ stages:
         PathtoPublish: '$(SPADirectory)/dist'
         ArtifactName: 'drop'
         publishLocation: 'Container'
-- stage: 'Deploy DEV'
+- stage: DeployDEV
+  displayName: 'Deploy into DEV'
   variables:
     - group: DevEnvironment
   jobs:
