@@ -21,6 +21,9 @@ variables:
   DownloadArtifacts: $(System.ArtifactsDirectory)/dist
   GulpFile: $(SPADirectory)/gulpfile.js
 
+pool:
+  vmImage: 'windows-latest'
+
 stages:
 - stage: Build
   displayName: Build & Generate Artifacts
