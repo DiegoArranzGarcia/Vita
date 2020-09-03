@@ -24,7 +24,7 @@ variables:
   GulpFile: $(SPADirectory)/gulpfile.js
 
 stages:
-- stage: Build Angular SPA
+- stage: Build
   jobs:
   - job: BuildAngularSPA
     steps:
@@ -46,7 +46,7 @@ stages:
         script: |
           npm run build --prod
       displayName: 'Build Angular SPA'   
-- stage: Deploy in DEV
+- stage: DeployDEV
   variables:
     - group: DEV
   jobs:
