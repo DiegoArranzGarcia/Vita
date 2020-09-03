@@ -79,7 +79,7 @@ stages:
           downloadPath: $(DownloadArtifacts)
       - task: replacetokens@3
         inputs:
-          rootDirectory: $(DownloadArtifacts)
+          rootDirectory: $(DownloadArtifacts)/drop
           targetFiles: '**/*.json'
           encoding: 'auto'
           writeBOM: true
@@ -92,7 +92,7 @@ stages:
         displayName: 'Replazing Tokens'
       - task: AzureFileCopy@4
         inputs:
-          sourcePath: $(DownloadArtifacts)/*'
+          sourcePath: $(DownloadArtifacts)/drop/*'
           azureSubscription: 'Vita Dev'
           destination: 'AzureBlob'
           storage: 'devvitastg'
@@ -101,7 +101,7 @@ stages:
         displayName: 'Deploy SPA'
       - task: AzureFileCopy@4
         inputs:
-          sourcePath: $(DownloadArtifacts)/*.js'
+          sourcePath: $(DownloadArtifacts)/drop/*.js'
           azureSubscription: 'Vita Dev'
           destination: 'AzureBlob'
           storage: 'devvitastg'
