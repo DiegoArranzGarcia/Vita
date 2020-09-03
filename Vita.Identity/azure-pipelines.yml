@@ -26,7 +26,7 @@ variables:
   ConnectionStrings.VitaIdentityDbContext: 'DB'
   Api.BaseUrl: $(vitaApiBaseUrl)
   IdentityServer.Clients.0.ClientUri: $(spaUrl)
-  IdentityServer.Clients.0.RedirectUris: [ $(spaUrl)/login ]
+  IdentityServer.Clients.0.RedirectUris.0: '$(spaUrl)/login'
 
 steps:
 - task: NuGetToolInstaller@1
