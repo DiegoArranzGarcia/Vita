@@ -47,10 +47,10 @@ steps:
 
 - task: gulp@0
   inputs:
-    gulpFile: 'gulpfile.js'
+    gulpFile: $(SPADirectory)/gulpfile.js
     targets: 'tokenize'
     workingDirectory: $(SPADirectory)
-    gulpjs: 'node_modules/gulp/bin/gulp.js'
+    gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
     enableCodeCoverage: false
 
 - task: replacetokens@3
