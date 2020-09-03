@@ -18,20 +18,20 @@ trigger:
 
 pool:
   vmImage: 'windows-latest'
+  demands:
+    - node
 
 variables:
   SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
+  DownloadArtifacts: $(System.ArtifactsDirectory)/dist
   GulpFile: $(SPADirectory)/gulpfile.js
 
 stages:
-- stage: Build
+- stage: 'Build & Generate Artifacts'
   jobs:
-  - job: BuildAngularSPA
+  - job: BuildAngularApplication
+    displayName: 'Build Angular Application'
     steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '10.x'
-      displayName: 'Install Node.js'
     - task: Bash@3
       inputs:
         targetType: 'inline'
@@ -47,6 +47,8 @@ stages:
           npm run build --prod
       displayName: 'Build Angular SPA'
   - job: TokenizeConfiguration
+    dependsOn: BuildAngularApplication
+    displayName: 'Tokenize Configuration'
     steps:
       - task: gulp@0
         inputs:
@@ -57,29 +59,34 @@ stages:
           enableCodeCoverage: false
         displayName: 'Tokenizing Configuration files'
   - job: PublishArtifacts
+    dependsOn: TokenizeConfiguration
+    displayName: 'Publish Artifacts'
     steps:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(SPADirectory)/dist'
         ArtifactName: 'drop'
         publishLocation: 'Container'
-- stage: DeployDEV
+- stage: 'Deploy DEV'
   variables:
     - group: DevEnvironment
   jobs:
   - job: DownloadArtifacts
+    displayName: 'Download Artifacts'
     steps:
       - task: DownloadBuildArtifacts@0
         inputs:
           buildType: 'current'
           downloadType: 'single'
           artifactName: 'drop'
-          downloadPath: '$(System.ArtifactsDirectory)/dist'    
-  - job: DeploySPA
+          downloadPath: $(DownloadArtifacts)
+  - job: ReplaceTokens
+    displayName: 'Replace Tokens with Variables'
+    dependsOn: DownloadArtifacts
     steps:
     - task: replacetokens@3
       inputs:
-        rootDirectory: $(System.ArtifactsDirectory)/dist
+        rootDirectory: $(DownloadArtifacts)
         targetFiles: '**/*.json'
         encoding: 'auto'
         writeBOM: true
@@ -90,9 +97,13 @@ stages:
         useLegacyPattern: false
         enableTelemetry: true
       displayName: 'Replazing Tokens'
+  - job: DeploySPA
+    dependsOn: ReplaceTokens
+    displayName: 'Deploy into Blob Storage'
+    steps:
     - task: AzureFileCopy@4
       inputs:
-        sourcePath: $(System.ArtifactsDirectory)/dist/*'
+        sourcePath: $(DownloadArtifacts)/*'
         azureSubscription: 'Vita Dev'
         destination: 'AzureBlob'
         storage: 'devvitastg'
@@ -101,7 +112,7 @@ stages:
       displayName: 'Deploy SPA'
     - task: AzureFileCopy@4
       inputs:
-        sourcePath: $(System.ArtifactsDirectory)/dist/*.js'
+        sourcePath: $(DownloadArtifacts)/*.js'
         azureSubscription: 'Vita Dev'
         destination: 'AzureBlob'
         storage: 'devvitastg'
