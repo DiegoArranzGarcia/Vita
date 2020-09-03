@@ -23,8 +23,6 @@ variables:
 
 stages:
 - stage: Build
-  pool:
-    vmImage: 'windows-latest'
   displayName: Build & Generate Artifacts
   jobs:
   - job: BuildAngularApplication
@@ -48,36 +46,27 @@ stages:
         script: |
           npm run build --prod
       displayName: 'Build Angular SPA'
-  - job: TokenizeConfiguration
-    dependsOn: BuildAngularApplication
-    displayName: 'Tokenize Configuration'
-    steps:
-      - task: gulp@0
-        inputs:
-          gulpFile: $(SPADirectory)/gulpfile.js
-          targets: 'tokenize'
-          workingDirectory: $(SPADirectory)
-          gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
-          enableCodeCoverage: false
-        displayName: 'Tokenizing Configuration files'
-  - job: PublishArtifacts
-    dependsOn: TokenizeConfiguration
-    displayName: 'Publish Artifacts'
-    steps:
+    - task: gulp@0
+      inputs:
+        gulpFile: $(SPADirectory)/gulpfile.js
+        targets: 'tokenize'
+        workingDirectory: $(SPADirectory)
+        gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
+        enableCodeCoverage: false
+      displayName: 'Tokenizing Configuration files'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(SPADirectory)/dist'
         ArtifactName: 'drop'
         publishLocation: 'Container'
+      
 - stage: DeployDEV
-  pool:
-    vmImage: 'windows-latest'
   displayName: 'Deploy into DEV'
   variables:
     - group: DevEnvironment
   jobs:
-  - job: DownloadArtifacts
-    displayName: 'Download Artifacts'
+  - job: DeployApplication
+    displayName: 'Deploy Application'
     steps:
       - task: DownloadBuildArtifacts@0
         inputs:
@@ -85,43 +74,35 @@ stages:
           downloadType: 'single'
           artifactName: 'drop'
           downloadPath: $(DownloadArtifacts)
-  - job: ReplaceTokens
-    displayName: 'Replace Tokens with Variables'
-    dependsOn: DownloadArtifacts
-    steps:
-    - task: replacetokens@3
-      inputs:
-        rootDirectory: $(DownloadArtifacts)
-        targetFiles: '**/*.json'
-        encoding: 'auto'
-        writeBOM: true
-        actionOnMissing: 'fail'
-        keepToken: true
-        tokenPrefix: '__'
-        tokenSuffix: '__'
-        useLegacyPattern: false
-        enableTelemetry: true
-      displayName: 'Replazing Tokens'
-  - job: DeploySPA
-    dependsOn: ReplaceTokens
-    displayName: 'Deploy into Blob Storage'
-    steps:
-    - task: AzureFileCopy@4
-      inputs:
-        sourcePath: $(DownloadArtifacts)/*'
-        azureSubscription: 'Vita Dev'
-        destination: 'AzureBlob'
-        storage: 'devvitastg'
-        containerName: '$web'
-        CleanTargetBeforeCopy: true
-      displayName: 'Deploy SPA'
-    - task: AzureFileCopy@4
-      inputs:
-        sourcePath: $(DownloadArtifacts)/*.js'
-        azureSubscription: 'Vita Dev'
-        destination: 'AzureBlob'
-        storage: 'devvitastg'
-        containerName: '$web'
-        CleanTargetBeforeCopy: true
-        additionalArgumentsForBlobCopy: '--content-type "application/javascript"'
-      displayName: 'Re-Deploy JS files'
+      - task: replacetokens@3
+        inputs:
+          rootDirectory: $(DownloadArtifacts)
+          targetFiles: '**/*.json'
+          encoding: 'auto'
+          writeBOM: true
+          actionOnMissing: 'fail'
+          keepToken: true
+          tokenPrefix: '__'
+          tokenSuffix: '__'
+          useLegacyPattern: false
+          enableTelemetry: true
+        displayName: 'Replazing Tokens'
+      - task: AzureFileCopy@4
+        inputs:
+          sourcePath: $(DownloadArtifacts)/*'
+          azureSubscription: 'Vita Dev'
+          destination: 'AzureBlob'
+          storage: 'devvitastg'
+          containerName: '$web'
+          CleanTargetBeforeCopy: true
+        displayName: 'Deploy SPA'
+      - task: AzureFileCopy@4
+        inputs:
+          sourcePath: $(DownloadArtifacts)/*.js'
+          azureSubscription: 'Vita Dev'
+          destination: 'AzureBlob'
+          storage: 'devvitastg'
+          containerName: '$web'
+          CleanTargetBeforeCopy: true
+          additionalArgumentsForBlobCopy: '--content-type "application/javascript"'
+        displayName: 'Re-Deploy JS files'
