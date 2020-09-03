@@ -16,9 +16,6 @@ trigger:
     - 'Vita.API/**'
     - 'Vita.Identity/**'
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
   SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
   DownloadArtifacts: $(System.ArtifactsDirectory)/dist
@@ -26,6 +23,8 @@ variables:
 
 stages:
 - stage: Build
+  pool:
+    vmImage: 'windows-latest'
   displayName: Build & Generate Artifacts
   jobs:
   - job: BuildAngularApplication
@@ -71,6 +70,8 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
 - stage: DeployDEV
+  pool:
+    vmImage: 'windows-latest'
   displayName: 'Deploy into DEV'
   variables:
     - group: DevEnvironment
