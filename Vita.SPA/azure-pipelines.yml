@@ -77,6 +77,7 @@ stages:
           downloadType: 'single'
           artifactName: 'drop'
           downloadPath: $(DownloadArtifacts)
+
       - task: replacetokens@3
         inputs:
           rootDirectory: $(DownloadArtifacts)/drop
@@ -90,18 +91,20 @@ stages:
           useLegacyPattern: false
           enableTelemetry: true
         displayName: 'Replazing Tokens'
+      
       - task: AzureFileCopy@4
         inputs:
-          sourcePath: $(DownloadArtifacts)/drop/*'
+          sourcePath: '$(DownloadArtifacts)/drop/*'
           azureSubscription: 'Vita Dev'
           destination: 'AzureBlob'
           storage: 'devvitastg'
           containerName: '$web'
           CleanTargetBeforeCopy: true
         displayName: 'Deploy SPA'
+      
       - task: AzureFileCopy@4
         inputs:
-          sourcePath: $(DownloadArtifacts)/drop/*.js'
+          sourcePath: '$(DownloadArtifacts)/drop/*.js'
           azureSubscription: 'Vita Dev'
           destination: 'AzureBlob'
           storage: 'devvitastg'
