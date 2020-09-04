@@ -58,7 +58,7 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Vita Dev'
     appType: 'webApp'
-    WebAppName: 'identity-vita-dev'
+    WebAppName: 'dev-vita-identity'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     enableCustomDeployment: true
     DeploymentType: 'webDeploy'
