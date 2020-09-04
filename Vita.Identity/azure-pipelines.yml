@@ -32,6 +32,8 @@ variables:
 stages:
 - stage: Build
   displayName: Build & Generate Artifacts
+  variables:
+  - group: DevEnvironment
   jobs:
   - job: BuildAspNetCoreApplication
     displayName: 'Build AspNet Core Application'
