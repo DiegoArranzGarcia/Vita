@@ -49,26 +49,23 @@ stages:
       inputs:
         command: 'build'
         projects: '$(apiHostProject)'
-        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build'
+        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build/bin'
 
     - task: CopyFiles@2
       inputs:
         SourceFolder: './Vita.Identity/Vita.Identity.Host/wwwroot'
         Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
-     
-    - task: ArchiveFiles@2
-      inputs:
-        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build/**'
-        includeRootFolder: true
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        replaceExistingArchive: true
-      displayName: 'Packing Build Results'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/build/bin'
+    - task: PowerShell@2
+      inputs: 
+        targetType: 'inline'
+        script: | 
+          dotnet tool install --global dotnet-ef
+          dotnet ef migrations script --output $(Build.ArtifactStagingDirectory)/build/migrations_script.sql --context $(ConnectionStrings.VitaIdentityDbContext) --idempotent
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
@@ -92,8 +89,17 @@ stages:
         azureSubscription: 'Vita Dev'
         appType: 'webApp'
         WebAppName: 'dev-identity-vita-appservice'
-        packageForLinux: '$(DownloadArtifacts)/drop/$(Build.BuildId).zip'
+        packageForLinux: '$(DownloadArtifacts)/drop/build/bin/**'
         enableCustomDeployment: true
         DeploymentType: 'webDeploy'
         RemoveAdditionalFilesFlag: true
         JSONFiles: '**/appsettings.json'
+
+    - task: SqlAzureDacpacDeployment@1
+      displayName: 'Azure SQL SqlTask'
+      inputs:
+        azureSubscription: 'Vita Dev'
+        AuthenticationType: connectionString
+        ConnectionString: '$(SqlDevDbConnString)'
+        deployType: SqlTask
+        SqlFile: '$(DownloadArtifacts)/drop/build/migrations_script.sql'
