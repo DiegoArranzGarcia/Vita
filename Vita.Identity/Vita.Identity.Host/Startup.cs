@@ -1,22 +1,16 @@
 ﻿using Azure;
 using Azure.Identity;
-using Azure.Security.KeyVault.Certificates;
-using Azure.Security.KeyVault.Keys;
 using Azure.Security.KeyVault.Secrets;
 using IdentityServer4.Models;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.KeyVault.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Vita.Identity.Application.Configuration;
 using Vita.Identity.Application.Users.Queries;
@@ -81,7 +75,7 @@ namespace Vita.Identity.Host
             var secretClient = new SecretClient(new Uri(Configuration["KeyVault:BaseUrl"]), new DefaultAzureCredential());
             Response<KeyVaultSecret> secret = secretClient.GetSecret("SignInCredentialsCert");
 
-            return new X509Certificate2(Convert.FromBase64String(secret.Value.Value));
+            return new X509Certificate2(Convert.FromBase64String(secret.Value.Value), (string)null, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
         }
 
         private void AddApplicationBootstrapping(IServiceCollection services)
