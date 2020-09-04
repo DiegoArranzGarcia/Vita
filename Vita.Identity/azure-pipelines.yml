@@ -28,10 +28,11 @@ variables:
   Api.BaseUrl: '$(vitaApiEndpoint)'
   IdentityServer.Clients.0.ClientUri: '$(spaUrl)'
   IdentityServer.Clients.0.RedirectUris.0: '$(spaUrl)/login'
+  AutoMigrateDB: true
 
 stages:
 - stage: Build
-  displayName: Build & Generate Artifacts
+  displayName: 'Build & Generate Artifacts'
   variables:
   - group: DevEnvironment
   jobs:
@@ -58,20 +59,20 @@ stages:
         SourceFolder: './Vita.Identity/Vita.Identity.Host/wwwroot'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/build/bin'
-    - task: PowerShell@2
-      inputs: 
-        targetType: 'inline'
-        script: dotnet tool install --global dotnet-ef
-    - task: PowerShell@2
-      inputs: 
-        targetType: 'inline'
-        script: dotnet ef migrations script --project '/Vita.Identity/Vita.Identity.Persistence/Vita.Identity.Persistance.Sql.csproj' --output '$(Build.ArtifactStagingDirectory)/build/migrations_script.sql' --context '$(ConnectionStrings.VitaIdentityDbContext)' --idempotent
+#    - task: PowerShell@2
+#      inputs: 
+#        targetType: 'inline'
+#        script: dotnet tool install --global dotnet-ef
+#    - task: PowerShell@2
+#      inputs: 
+#        targetType: 'inline'
+#        script: dotnet ef migrations script --project '/Vita.Identity/Vita.Identity.Persistence/Vita.Identity.Persistance.Sql.csproj' --output '$(Build.ArtifactStagingDirectory)/build/migrations_script.sql' --context '$(ConnectionStrings.VitaIdentityDbContext)' --idempotent
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+#    - task: PublishBuildArtifacts@1
+#      inputs:
+#        PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+#        ArtifactName: 'drop'
+#        publishLocation: 'Container'
 
 - stage: DeployDEV
   displayName: 'Deploy into DEV'
@@ -99,11 +100,11 @@ stages:
         RemoveAdditionalFilesFlag: true
         JSONFiles: '**/appsettings.json'
 
-    - task: SqlAzureDacpacDeployment@1
-      displayName: 'Azure SQL SqlTask'
-      inputs:
-        azureSubscription: 'Vita Dev'
-        AuthenticationType: connectionString
-        ConnectionString: '$(SqlDevDbConnString)'
-        deployType: SqlTask
-        SqlFile: '$(DownloadArtifacts)/drop/build/migrations_script.sql'
+#    - task: SqlAzureDacpacDeployment@1
+#      displayName: 'Azure SQL SqlTask'
+#      inputs:
+#        azureSubscription: 'Vita Dev'
+#        AuthenticationType: connectionString
+#        ConnectionString: '$(SqlDevDbConnString)'
+#        deployType: SqlTask
+#        SqlFile: '$(DownloadArtifacts)/drop/build/migrations_script.sql'

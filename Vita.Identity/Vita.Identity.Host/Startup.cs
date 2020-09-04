@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Linq;
@@ -110,6 +111,18 @@ namespace Vita.Identity.Host
             {
                 endpoints.MapDefaultControllerRoute();
             });
+        }
+
+        public void AutoMigrateDB(IApplicationBuilder app)
+        {
+            if (Configuration["AutoMigrateDB"] == null || !bool.Parse(Configuration["AutoMigrateDB"]))
+                return;
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<VitaIdentityDbContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }
