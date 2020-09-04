@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Host/Vita.Identity.Host/Vita.Identity.Host.csproj",
+                "${workspaceFolder}/Vita.Identity.Host/Vita.Identity.Host.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Host/Vita.Identity.Host/Vita.Identity.Host.csproj",
+                "${workspaceFolder}/Vita.Identity.Host/Vita.Identity.Host.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/Host/Vita.Identity.Host/Vita.Identity.Host.csproj",
+                "${workspaceFolder}/Vita.Identity.Host/Vita.Identity.Host.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
