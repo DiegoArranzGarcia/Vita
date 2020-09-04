@@ -23,9 +23,9 @@ variables:
   apiProjects: '**/Vita.Identity/**/*.csproj'
   apiHostProject: '**/Vita.Identity/**/Vita.Identity.Host.csproj'
   buildConfiguration: 'Release'
-  ConnectionStrings.VitaIdentityDbContext: 'DB'
-  Api.BaseUrl: $(vitaApiBaseUrl)
-  IdentityServer.Clients.0.ClientUri: $(spaUrl)
+  ConnectionStrings.VitaIdentityDbContext: '$(ConnectionString)Initial Catalog=dev-identity-vita-db;'
+  Api.BaseUrl: '$(vitaApiBaseUrl)'
+  IdentityServer.Clients.0.ClientUri: '$(spaUrl)'
   IdentityServer.Clients.0.RedirectUris.0: '$(spaUrl)/login'
 
 steps:
@@ -58,7 +58,7 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Vita Dev'
     appType: 'webApp'
-    WebAppName: 'dev-vita-identity'
+    WebAppName: 'dev-identity-vita-appservice'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     enableCustomDeployment: true
     DeploymentType: 'webDeploy'
