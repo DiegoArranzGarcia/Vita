@@ -61,9 +61,11 @@ stages:
     - task: PowerShell@2
       inputs: 
         targetType: 'inline'
-        script: | 
-          dotnet tool install --global dotnet-ef
-          dotnet ef migrations script --output $(Build.ArtifactStagingDirectory)/build/migrations_script.sql --idempotent --context "$(ConnectionStrings.VitaIdentityDbContext)"
+        script: dotnet tool install --global dotnet-ef
+    - task: PowerShell@2
+      inputs: 
+        targetType: 'inline'
+        script: dotnet ef migrations script --output $(Build.ArtifactStagingDirectory)/build/migrations_script.sql --context "$(ConnectionStrings.VitaIdentityDbContext)" --idempotent
 
     - task: PublishBuildArtifacts@1
       inputs:
