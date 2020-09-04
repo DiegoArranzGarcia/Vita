@@ -53,7 +53,7 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '**/Vita.Identity/Vita.Identity.Host/wwwroot'
+        SourceFolder: './Vita.Identity/Vita.Identity.Host/wwwroot'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
      
