@@ -51,6 +51,12 @@ stages:
         projects: '$(apiHostProject)'
         arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build'
 
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(apiHostProject)/wwwroot'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
+     
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build/**'
@@ -59,6 +65,7 @@ stages:
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
       displayName: 'Packing Build Results'
+
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
