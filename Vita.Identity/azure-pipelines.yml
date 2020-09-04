@@ -24,8 +24,8 @@ variables:
   apiHostProject: '**/Vita.Identity/**/Vita.Identity.Host.csproj'
   buildConfiguration: 'Release'
   DownloadArtifacts:  $(System.ArtifactsDirectory)/build
-  ConnectionStrings.VitaIdentityDbContext: '$(ConnectionString)Initial Catalog=dev-identity-vita-db;'
-  Api.BaseUrl: '$(vitaApiBaseUrl)'
+  ConnectionStrings.VitaIdentityDbContext: '$(SqlServerConnectionString)Initial Catalog=dev-identity-vita-db;'
+  Api.BaseUrl: '$(vitaApiEndpoint)'
   IdentityServer.Clients.0.ClientUri: '$(spaUrl)'
   IdentityServer.Clients.0.RedirectUris.0: '$(spaUrl)/login'
 
