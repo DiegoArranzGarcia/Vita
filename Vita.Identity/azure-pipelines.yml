@@ -22,7 +22,7 @@ pool:
 variables:
   apiProjects: '**/Vita.Identity/**/*.csproj'
   apiHostProject: '**/Vita.Identity/**/Vita.Identity.Host.csproj'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
   DownloadArtifacts:  $(System.ArtifactsDirectory)/build
   ConnectionStrings.VitaIdentityDbContext: '$(SqlServerConnectionString)Initial Catalog=dev-identity-vita-db;'
   Api.BaseUrl: '$(vitaApiEndpoint)'
