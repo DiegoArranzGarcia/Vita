@@ -94,7 +94,7 @@ stages:
         azureSubscription: 'Vita Dev'
         appType: 'webApp'
         WebAppName: 'dev-identity-vita-appservice'
-        packageForLinux: '$(DownloadArtifacts)/drop/build/bin/**'
+        packageForLinux: '$(DownloadArtifacts)/drop/build/bin/*'
         enableCustomDeployment: true
         DeploymentType: 'webDeploy'
         RemoveAdditionalFilesFlag: true
