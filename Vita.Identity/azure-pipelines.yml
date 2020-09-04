@@ -20,8 +20,8 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  apiProjects: '**/Vita.Identity/**/*.csproj'
-  apiHostProject: '**/Vita.Identity/**/Vita.Identity.Host.csproj'
+  apiProjects: '/Vita.Identity/**/*.csproj'
+  apiHostProject: '/Vita.Identity/**/Vita.Identity.Host.csproj'
   buildConfiguration: 'Debug'
   DownloadArtifacts:  $(System.ArtifactsDirectory)/build
   ConnectionStrings.VitaIdentityDbContext: '$(SqlServerConnectionString)Initial Catalog=dev-identity-vita-db;'
@@ -65,7 +65,7 @@ stages:
     - task: PowerShell@2
       inputs: 
         targetType: 'inline'
-        script: dotnet ef migrations script --output '$(Build.ArtifactStagingDirectory)/build/migrations_script.sql' --context '$(ConnectionStrings.VitaIdentityDbContext)' --idempotent
+        script: dotnet ef migrations script --project '/Vita.Identity/Vita.Identity.Persistence/Vita.Identity.Persistance.Sql.csproj' --output '$(Build.ArtifactStagingDirectory)/build/migrations_script.sql' --context '$(ConnectionStrings.VitaIdentityDbContext)' --idempotent
 
     - task: PublishBuildArtifacts@1
       inputs:
