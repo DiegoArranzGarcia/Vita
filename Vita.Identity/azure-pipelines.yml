@@ -56,7 +56,7 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure Connection'
+    azureSubscription: 'Vita Dev'
     appType: 'webApp'
     WebAppName: 'identity-vita-dev'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
