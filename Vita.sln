@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{0143DAED-1B3C-4672-B04A-9CCA93C68CB9}"
 	ProjectSection(SolutionItems) = preProject
-		..\Vita.Identity\azure-pipelines.yml = ..\Vita.Identity\azure-pipelines.yml
+		Vita.Identity\azure-pipelines.yml = Vita.Identity\azure-pipelines.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{3F2CB62E-F8A2-464D-A45B-72F5CD85F617}"
