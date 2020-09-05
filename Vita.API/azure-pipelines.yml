@@ -49,11 +49,12 @@ stages:
       inputs:
         command: 'build'
         projects: '$(apiHostProject)'
-        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build/'
+        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build'
 
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
+        includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/artifacts/$(Build.BuildId).zip'
         replaceExistingArchive: true
