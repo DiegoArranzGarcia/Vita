@@ -56,7 +56,7 @@ stages:
         rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
         includeRootFolder: true
         archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/artifacts/$(Build.BuildId).zip'
         replaceExistingArchive: true
       displayName: 'Packing Build Results'
 
