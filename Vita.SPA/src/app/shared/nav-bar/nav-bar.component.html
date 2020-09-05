@@ -1,0 +1,21 @@
+<nav class="navbar">
+  <fa-icon class="navbar__options__app-icon" [icon]="applicationIcon" size="2x"></fa-icon>
+  <h1 (click)="navigateToHome()">Vita</h1>
+  <div class="navbar__options">
+    <div
+      *ngFor="let option of options"
+      class="navbar__option"
+      [class.active]="currentRoute === option.navigateTo"
+      (click)="navigate(option.navigateTo)"
+    >
+      <div class="option__main">
+        <fa-icon [icon]="option.icon" size="lg"></fa-icon>
+        <p>{{ option.label }}</p>
+      </div>
+      <div class="option__highlight"></div>
+    </div>
+  </div>
+  <div>
+    <vita-user></vita-user>
+  </div>
+</nav>

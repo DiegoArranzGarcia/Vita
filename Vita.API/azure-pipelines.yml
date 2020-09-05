@@ -1,0 +1,93 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+name: Vita.API
+
+trigger:
+  branches:
+    include:
+    - develop
+    - master
+    - feature/*
+    - hotfix/*
+  paths:
+    exclude:
+    - '**/Vita.Identity/**'
+    - '**/Vita.SPA/**'
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  apiProjects: '**/Vita.API/**/*.csproj'
+  apiHostProject: '**/Vita.API/**/Vita.Api.Host.csproj'
+  buildConfiguration: 'Release'
+  DownloadArtifacts:  $(System.ArtifactsDirectory)
+  ConnectionStrings.VitaApiDbContext: '$(SqlServerConnectionString)Initial Catalog=dev-api-vita-db;'
+  AllowedOrigins.0: '$(spaUrl)'
+  JWTAuthority: '$(oidcEndpoint)'
+  AutoMigrateDB: true
+
+stages:
+- stage: Build
+  displayName: 'Build & Generate Artifacts'
+  jobs:
+  - job: BuildAspNetCoreApplication
+    displayName: 'Build AspNet Core Application'
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: $(apiProjects)
+        feedsToUse: 'select'
+        vstsFeed: 'd4d4328d-23fb-4700-a85b-694186019d4e/5bee72dc-d135-4e9c-84ec-df7c2fe16086'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(apiHostProject)'
+        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build'
+
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/artifacts/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+      displayName: 'Packing Build Results'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
+- stage: DeployDEV
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  displayName: 'Deploy into DEV'
+  variables:
+    - group: DevEnvironment
+  jobs:
+  - job: BuildAspNetCoreApplication
+    displayName: 'Build AspNet Core Application'
+    steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: $(DownloadArtifacts)
+
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Vita Dev'
+        appType: 'webApp'
+        WebAppName: 'dev-api-vita-appservice'
+        packageForLinux: '$(DownloadArtifacts)/drop/$(Build.BuildId).zip'
+        JSONFiles: '**/appsettings.json'

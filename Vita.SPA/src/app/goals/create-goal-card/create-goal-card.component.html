@@ -1,0 +1,11 @@
+<form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
+  <vita-card>
+    <input vita-card-header placeholder="Add a task!" formControlName="titleControl" spellcheck="false" />
+    <textarea vita-card-content class="main__content" formControlName="descriptionControl" spellcheck="false"></textarea>
+    <div vita-card-footer class="create-goal__footer">
+      <button type="submit" *ngIf="goalForm.valid">
+        <fa-icon [icon]="addIcon" size="bg"></fa-icon>
+      </button>
+    </div>
+  </vita-card>
+</form>

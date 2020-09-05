@@ -1,0 +1,34 @@
+@import '../styles'
+
+main
+    height: 90vh
+  
+div.page-cover
+    width: 100%
+    position: fixed
+    height: 100vh
+    top: 0
+    left: 0
+    z-index: -1
+    overflow: hidden
+
+
+    div.cover
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        z-index: -1
+        background-image: linear-gradient(to right, #1abc9c,#29535F)
+
+    div.page-mask
+        background-image: url(/assets/bg-layer.png)
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: cover
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
