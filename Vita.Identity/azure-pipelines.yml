@@ -95,7 +95,4 @@ stages:
         appType: 'webApp'
         WebAppName: 'dev-identity-vita-appservice'
         packageForLinux: '$(DownloadArtifacts)/drop/$(Build.BuildId).zip'
-        enableCustomDeployment: true
-        DeploymentType: 'webDeploy'
-        RemoveAdditionalFilesFlag: true
         JSONFiles: '**/appsettings.json'
