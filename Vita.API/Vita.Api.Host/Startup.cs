@@ -46,19 +46,20 @@ namespace Vita.Api.Host
 
             AddApplicationBootstrapping(services);
             AddPersistanceBootstrapping(services);
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
         }
 
         private void AddApplicationBootstrapping(IServiceCollection services)
         {
             services.AddMediatR(typeof(CreateCategoryCommand));
-            services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("Vita.Api.DbContext")));
+            services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("VitaApiDbContext")));
         }
 
         private void AddPersistanceBootstrapping(IServiceCollection services)
         {
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IGoalsRepository, GoalsRepository>();
-            services.AddDbContext<VitaApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Vita.Api.DbContext")));
+            services.AddDbContext<VitaApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("VitaApiDbContext")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -76,6 +77,17 @@ namespace Vita.Api.Host
             app.UseHttpsRedirection();
             app.UseCors(options => options.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader());
             app.UseEndpoints(endpoints => endpoints.MapControllers());
+            AutoMigrateDB(app);
+        }
+
+        public void AutoMigrateDB(IApplicationBuilder app)
+        {
+            if (Configuration["AutoMigrateDB"] == null || !bool.Parse(Configuration["AutoMigrateDB"]))
+                return;
+
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetService<VitaApiDbContext>();
+            context.Database.Migrate();
         }
     }
 }
