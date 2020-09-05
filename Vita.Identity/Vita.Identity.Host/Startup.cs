@@ -111,6 +111,8 @@ namespace Vita.Identity.Host
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
+            AutoMigrateDB(app);
         }
 
         public void AutoMigrateDB(IApplicationBuilder app)
@@ -118,11 +120,9 @@ namespace Vita.Identity.Host
             if (Configuration["AutoMigrateDB"] == null || !bool.Parse(Configuration["AutoMigrateDB"]))
                 return;
 
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<VitaIdentityDbContext>();
-                context.Database.Migrate();
-            }
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetService<VitaIdentityDbContext>();
+            context.Database.Migrate();
         }
     }
 }
