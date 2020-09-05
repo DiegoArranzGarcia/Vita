@@ -46,6 +46,7 @@ namespace Vita.Api.Host
 
             AddApplicationBootstrapping(services);
             AddPersistanceBootstrapping(services);
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
         }
 
         private void AddApplicationBootstrapping(IServiceCollection services)
