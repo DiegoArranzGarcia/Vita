@@ -52,17 +52,17 @@ stages:
       inputs:
         command: 'build'
         projects: '$(apiHostProject)'
-        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/artifacts/build'
+        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build'
 
     - task: CopyFiles@2
       inputs:
         SourceFolder: './Vita.Identity/Vita.Identity.Host/wwwroot'
         Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/artifacts/build'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
 
     - task: ArchiveFiles@2
       inputs:
-        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/artifacts/build'
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/artifacts/$(Build.BuildId).zip'
