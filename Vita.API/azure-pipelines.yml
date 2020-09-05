@@ -24,7 +24,7 @@ variables:
   apiHostProject: '**/Vita.API/**/Vita.Api.Host.csproj'
   buildConfiguration: 'Release'
   DownloadArtifacts:  $(System.ArtifactsDirectory)
-  ConnectionStrings.VitaIdentityDbContext: '$(SqlServerConnectionString)Initial Catalog=dev-api-vita-db;'
+  ConnectionStrings.VitaApiDbContext: '$(SqlServerConnectionString)Initial Catalog=dev-api-vita-db;'
   AllowedOrigins.0: '$(spaUrl)'
   JWTAuthority: '$(oidcEndpoint)'
   AutoMigrateDB: true
