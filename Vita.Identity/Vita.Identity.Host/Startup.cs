@@ -1,10 +1,14 @@
-﻿using IdentityServer4.Models;
+﻿using Azure;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using IdentityServer4.Models;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Linq;
@@ -38,7 +42,6 @@ namespace Vita.Identity.Host
 
             services.AddSameSiteCookiePolicy();
 
-            X509Certificate2 cert = GetJwtCertificate();
             Client[] clients = Configuration.GetSection("IdentityServer:Clients").Get<Client[]>();
 
             var identityServerBuilder = services.AddIdentityServer(options =>
@@ -51,7 +54,7 @@ namespace Vita.Identity.Host
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
               .AddInMemoryClients(clients)
               .AddProfileService<ProfileService>()
-              .AddSigningCredential(cert);
+              .AddSigningCredential(GenerateCertFromAsym());
 
             var allowedOrigins = clients.Select(x => x.ClientUri).ToList();
 
@@ -65,35 +68,30 @@ namespace Vita.Identity.Host
 
             AddApplicationBootstrapping(services);
             AddPersistanceBootstrapping(services);
+
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
         }
 
-        private X509Certificate2 GetJwtCertificate()
+
+        private X509Certificate2 GenerateCertFromAsym()
         {
-            using X509Store certStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            certStore.Open(OpenFlags.ReadOnly);
+            var secretClient = new SecretClient(new Uri(Configuration["KeyVault:BaseUrl"]), new DefaultAzureCredential());
+            Response<KeyVaultSecret> secret = secretClient.GetSecret("SignInCredentialsCert");
 
-            var certCollection = certStore.Certificates.Find(
-                X509FindType.FindByThumbprint,
-                Configuration["IdentityServer:CertificateThumbprint"],
-                false);
-
-            if (certCollection.Count == 0)
-                throw new Exception("The certificate wasn't found!");
-
-            return certCollection[0];
+            return new X509Certificate2(Convert.FromBase64String(secret.Value.Value), (string)null, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
         }
 
         private void AddApplicationBootstrapping(IServiceCollection services)
         {
             services.AddMediatR(typeof(GetUserByEmailQuery));
-            services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("Vita.Identity.DbContext")));
+            services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("VitaIdentityDbContext")));
         }
 
         private void AddPersistanceBootstrapping(IServiceCollection services)
         {
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IPasswordService, PasswordService>();
-            services.AddDbContext<VitaIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Vita.Identity.DbContext")));
+            services.AddDbContext<VitaIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("VitaIdentityDbContext")));
         }
 
 
@@ -113,6 +111,18 @@ namespace Vita.Identity.Host
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
+            AutoMigrateDB(app);
+        }
+
+        public void AutoMigrateDB(IApplicationBuilder app)
+        {
+            if (Configuration["AutoMigrateDB"] == null || !bool.Parse(Configuration["AutoMigrateDB"]))
+                return;
+
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetService<VitaIdentityDbContext>();
+            context.Database.Migrate();
         }
     }
 }

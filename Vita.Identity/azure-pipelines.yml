@@ -1,3 +1,8 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
 name: Vita.Identity
 
 trigger:
@@ -8,32 +13,86 @@ trigger:
     - feature/*
   paths:
     exclude:
-    - Vita.API/*
-    - Vita.SPA/*
+    - '**/Vita.API/**'
+    - '**/Vita.SPA/**'
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: 'Vita.Identity/*.sln'
-  buildPlatform: 'Any CPU'
+  apiProjects: '**/Vita.Identity/**/*.csproj'
+  apiHostProject: '**/Vita.Identity/**/Vita.Identity.Host.csproj'
   buildConfiguration: 'Release'
-steps:
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
-    restoreSolution: '$(solution)'
-    feedsToUse: 'select'
-    vstsFeed: 'd4d4328d-23fb-4700-a85b-694186019d4e/5bee72dc-d135-4e9c-84ec-df7c2fe16086'
+  DownloadArtifacts:  $(System.ArtifactsDirectory)
+  ConnectionStrings.VitaIdentityDbContext: '$(SqlServerConnectionString)Initial Catalog=dev-identity-vita-db;'
+  Api.BaseUrl: '$(vitaApiEndpoint)'
+  IdentityServer.Clients.0.ClientUri: '$(spaUrl)'
+  IdentityServer.Clients.0.RedirectUris.0: '$(spaUrl)/login'
+  AutoMigrateDB: true
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+stages:
+- stage: Build
+  displayName: 'Build & Generate Artifacts'
+  variables:
+  - group: DevEnvironment
+  jobs:
+  - job: BuildAspNetCoreApplication
+    displayName: 'Build AspNet Core Application'
+    steps:
+    - task: NuGetToolInstaller@1
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: $(apiProjects)
+        feedsToUse: 'select'
+        vstsFeed: 'd4d4328d-23fb-4700-a85b-694186019d4e/5bee72dc-d135-4e9c-84ec-df7c2fe16086'
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(apiHostProject)'
+        arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build'
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: './Vita.Identity/Vita.Identity.Host/wwwroot'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/build/wwwroot'
+
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/artifacts/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
+- stage: DeployDEV
+  displayName: 'Deploy into DEV'
+  variables:
+    - group: DevEnvironment
+  jobs:
+  - job: BuildAspNetCoreApplication
+    displayName: 'Build AspNet Core Application'
+    steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: $(DownloadArtifacts)
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Vita Dev'
+        appType: 'webApp'
+        WebAppName: 'dev-identity-vita-appservice'
+        packageForLinux: '$(DownloadArtifacts)/drop/$(Build.BuildId).zip'
+        JSONFiles: '**/appsettings.json'

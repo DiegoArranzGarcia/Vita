@@ -17,7 +17,7 @@
     "Vita.Identity.Host": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000",
+      "launchUrl": "https://localhost:44360",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
