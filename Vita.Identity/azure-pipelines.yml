@@ -58,7 +58,7 @@ stages:
       inputs:
         SourceFolder: './Vita.Identity/Vita.Identity.Host/wwwroot'
         Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/build/wwwroot'
 
     - task: ArchiveFiles@2
       inputs:
