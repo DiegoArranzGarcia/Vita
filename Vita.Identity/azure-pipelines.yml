@@ -59,18 +59,18 @@ stages:
         SourceFolder: './Vita.Identity/Vita.Identity.Host/wwwroot'
         Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)/artifacts/build'
-#    - task: PowerShell@2
-#      inputs: 
-#        targetType: 'inline'
-#        script: dotnet tool install --global dotnet-ef
-#    - task: PowerShell@2
-#      inputs: 
-#        targetType: 'inline'
-#        script: dotnet ef migrations script --project '/Vita.Identity/Vita.Identity.Persistence/Vita.Identity.Persistance.Sql.csproj' --output '$(Build.ArtifactStagingDirectory)/build/migrations_script.sql' --context '$(ConnectionStrings.VitaIdentityDbContext)' --idempotent
+
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/artifacts/build'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/artifacts/$(Build.BuildId).zip'
+        replaceExistingArchive: true
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts/build'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts'
         ArtifactName: 'drop'
         publishLocation: 'Container'
 
@@ -94,17 +94,8 @@ stages:
         azureSubscription: 'Vita Dev'
         appType: 'webApp'
         WebAppName: 'dev-identity-vita-appservice'
-        packageForLinux: '$(DownloadArtifacts)/drop/artifacts/build'
+        packageForLinux: '$(DownloadArtifacts)/drop/artifacts/$(Build.BuildId).zip'
         enableCustomDeployment: true
         DeploymentType: 'webDeploy'
         RemoveAdditionalFilesFlag: true
         JSONFiles: '**/appsettings.json'
-
-#    - task: SqlAzureDacpacDeployment@1
-#      displayName: 'Azure SQL SqlTask'
-#      inputs:
-#        azureSubscription: 'Vita Dev'
-#        AuthenticationType: connectionString
-#        ConnectionString: '$(SqlDevDbConnString)'
-#        deployType: SqlTask
-#        SqlFile: '$(DownloadArtifacts)/drop/build/migrations_script.sql'
