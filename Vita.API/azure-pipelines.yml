@@ -84,10 +84,8 @@ stages:
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure Connection'
+        azureSubscription: 'Vita Dev'
         appType: 'webApp'
-        WebAppName: 'api-vita-dev'
-        packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        enableCustomDeployment: true
-        DeploymentType: 'webDeploy'
-        RemoveAdditionalFilesFlag: true
+        WebAppName: 'dev-api-vita-appservice'
+        packageForLinux: '$(DownloadArtifacts)/drop/$(Build.BuildId).zip'
+        JSONFiles: '**/appsettings.json'
