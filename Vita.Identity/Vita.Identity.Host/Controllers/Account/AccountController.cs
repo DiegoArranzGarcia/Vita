@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 using Vita.Identity.Application.Users.Commands;
@@ -26,19 +27,22 @@ namespace Vita.Identity.Host.Controllers.Account
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
         private readonly IMediator _mediator;
+        private readonly IConfiguration _configuration;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            IMediator mediator)
+            IMediator mediator, 
+            IConfiguration configuration)
         {
             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
             _mediator = mediator;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -110,6 +114,9 @@ namespace Vita.Identity.Host.Controllers.Account
         [HttpPost]
         public async Task<IActionResult> SignUp([FromBody] CreateUserCommand createUserCommand)
         {
+            if (_configuration["AllowedUserCreation"] == null || !bool.Parse(_configuration["AllowedUserCreation"]))
+                return Forbid();
+
             var user = await _mediator.Send(createUserCommand);
             return Ok(user);
         }

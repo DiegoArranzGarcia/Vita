@@ -11,7 +11,7 @@ export class GoalService {
   private _goalsEndpoint: string;
 
   constructor(configurationService: ConfigurationService, private _httpClient: HttpClient) {
-    this._goalsEndpoint = `${configurationService.getConfiguration().vitaApiEndpoint}/goals`;
+    this._goalsEndpoint = `${configurationService.getConfiguration().vitaApiEndpoint}/api/goals`;
   }
 
   public getGoals(): Observable<GoalDto[]> {

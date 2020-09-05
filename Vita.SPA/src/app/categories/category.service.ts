@@ -10,7 +10,7 @@ export class CategoryService {
   private _categoriesEndpoint: string;
 
   constructor(configurationService: ConfigurationService, private _httpClient: HttpClient) {
-    this._categoriesEndpoint = `${configurationService.getConfiguration().vitaApiEndpoint}/categories`;
+    this._categoriesEndpoint = `${configurationService.getConfiguration().vitaApiEndpoint}/api/categories`;
   }
 
   public getCategories(): Observable<Category[]> {
