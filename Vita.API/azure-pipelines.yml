@@ -39,29 +39,29 @@ stages:
     - task: NuGetToolInstaller@1
 
     - task: DotNetCoreCLI@2
-        inputs:
+      inputs:
         command: 'restore'
         projects: $(apiProjects)
         feedsToUse: 'select'
         vstsFeed: 'd4d4328d-23fb-4700-a85b-694186019d4e/5bee72dc-d135-4e9c-84ec-df7c2fe16086'
 
     - task: DotNetCoreCLI@2
-        inputs:
+      inputs:
         command: 'build'
         projects: '$(apiHostProject)'
         arguments: '--configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/build/'
 
     - task: ArchiveFiles@2
-        inputs:
+      inputs:
         rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
         includeRootFolder: true
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
-        displayName: 'Packing Build Results'
+      displayName: 'Packing Build Results'
 
     - task: PublishBuildArtifacts@1
-        inputs:
+      inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts'
         ArtifactName: 'drop'
         publishLocation: 'Container'
