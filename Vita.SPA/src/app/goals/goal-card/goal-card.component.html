@@ -1,4 +1,4 @@
-<vita-card meta="{{ goal.createdOn | prettyDate: 'yyyy-MM-dd' }}" [content]="goal.description">
+<vita-card meta="{{ goal.createdOn | amTimeAgo }}" [content]="goal.description">
   <div class="main__header" vita-card-header>
     <input [value]="goal.title" spellcheck="false" />
     <div class="header__options">

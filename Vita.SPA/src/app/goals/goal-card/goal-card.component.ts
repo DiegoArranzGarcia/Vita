@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GoalDto } from '../goal.model';
-import { faEllipsisV, faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MenuOption } from 'src/app/shared/menu/menu-option.model';
 import { GoalService } from '../goal.service';
 

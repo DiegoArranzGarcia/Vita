@@ -4,11 +4,11 @@ import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GoalService } from './goal.service';
-import { NgxPrettyDateModule } from 'ngx-pretty-date';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, FontAwesomeModule, GoalRoutingModule, NgxPrettyDateModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, SharedModule, FontAwesomeModule, GoalRoutingModule, FormsModule, ReactiveFormsModule, MomentModule],
   providers: [GoalService],
   declarations: [GoalRoutingModule.components],
 })

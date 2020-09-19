@@ -10,6 +10,7 @@ import { CardComponent } from './card/card.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MenuComponent } from './menu/menu.component';
 import { InDevelopmentComponent } from './in-development/in-development.component';
+import { MomentModule } from 'ngx-moment';
 
 const declarables = [
   HomeComponent,
