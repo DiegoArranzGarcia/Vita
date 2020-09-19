@@ -31,13 +31,7 @@ public class Goal : Entity
     public string Description
     {
         get => description;
-        set
-        {
-            if (value == string.Empty)
-                throw new ArgumentException(nameof(Description));
-
-            description = value ?? throw new ArgumentNullException(nameof(Description));
-        }
+        set => description = value;
     }
 
     private Guid createdBy;

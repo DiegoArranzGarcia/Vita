@@ -27,35 +27,41 @@ namespace Vita.Api.Domain.Test.Aggregates.Goals
         }
 
         [Fact]
-        public void GivenEmptyTitle_CreatingGoal_ShouldThrowArgumentExceptioon()
+        public void GivenEmptyTitle_CreatingGoal_ShouldThrowArgumentException()
         {
             Assert.ThrowsAny<ArgumentException>(() => new GoalBuilder().WithTitle(string.Empty)
                                                                        .Create());
         }
 
         [Fact]
-        public void GivenNullTitle_CreatingGoal_ShouldThrowArgumentExceptioon()
+        public void GivenNullTitle_CreatingGoal_ShouldThrowArgumentException()
         {
             Assert.ThrowsAny<ArgumentNullException>(() => new GoalBuilder().WithTitle(null)
                                                                            .Create());
         }
 
         [Fact]
-        public void GivenEmptyDescription_CreatingGoal_ShouldThrowArgumentExceptioon()
+        public void GivenEmptyDescription_CreatingGoal_ShouldCreateTheGoal()
         {
-            Assert.ThrowsAny<ArgumentException>(() => new GoalBuilder().WithDescription(string.Empty)
-                                                                       .Create());
+            var goal = new GoalBuilder().WithDescription(string.Empty)
+                                       .Create();
+
+            Assert.NotNull(goal);
+            Assert.Equal(expected: string.Empty, actual: goal.Description);
         }
 
         [Fact]
-        public void GivenNullDescription_CreatingGoal_ShouldThrowArgumentExceptioon()
+        public void GivenNullDescription_CreatingGoal_ShouldThrowArgumentException()
         {
-            Assert.ThrowsAny<ArgumentNullException>(() => new GoalBuilder().WithDescription(null)
-                                                                           .Create());
+            var goal = new GoalBuilder().WithDescription(null)
+                           .Create();
+
+            Assert.NotNull(goal);
+            Assert.Null(goal.Description);
         }
 
         [Fact]
-        public void GivenEmptyGuidCreatedBy_CreatingGoal_ShouldThrowArgumentExceptioon()
+        public void GivenEmptyGuidCreatedBy_CreatingGoal_ShouldThrowArgumentException()
         {
             Assert.ThrowsAny<ArgumentException>(() => new GoalBuilder().WithCreatedBy(Guid.Empty)
                                                                        .Create());

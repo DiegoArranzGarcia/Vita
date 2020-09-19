@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vita.API\Vita.Api.Domain\Vita.Api.Domain.csproj" />
+    <ProjectReference Include="..\Vita.Api.Domain\Vita.Api.Domain.csproj" />
   </ItemGroup>
 
 </Project>
