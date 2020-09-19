@@ -10,7 +10,6 @@ trigger:
     include:
     - develop
     - master
-    - feature/*
   paths:
     exclude:
     - '**/Vita.API/**'
