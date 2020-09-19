@@ -71,6 +71,12 @@ namespace Vita.Api.Host.Goals
             return CreatedAtRoute(routeName: nameof(GetGoalAsync), routeValues: new { id = createdGoal }, value: null);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateGoal(UpdateGoalCommand updateGoalCommand)
+        {
+
+        }
+
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteGoalAsync(Guid id)
