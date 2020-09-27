@@ -19,6 +19,7 @@ variables:
   SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
   DownloadArtifacts: $(System.ArtifactsDirectory)/dist
   GulpFile: $(SPADirectory)/gulpfile.js
+  shouldDeploy: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 pool:
   vmImage: 'windows-latest'
@@ -66,6 +67,7 @@ stages:
     displayName: 'Deploy into DEV'
     variables:
       - group: DevEnvironment
+    condition: and(succeeded(), eq(variables.shouldDeploy, true))
     jobs:
       - job: DeployApplication
         displayName: 'Deploy Application'

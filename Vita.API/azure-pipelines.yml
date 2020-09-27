@@ -27,6 +27,7 @@ variables:
   AllowedOrigins.0: '$(spaUrl)'
   JWTAuthority: '$(oidcEndpoint)'
   AutoMigrateDB: true
+  shouldDeploy: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 stages:
 - stage: Build
@@ -66,7 +67,7 @@ stages:
         publishLocation: 'Container'
 
 - stage: DeployDEV
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  condition: and(succeeded(), eq(variables.shouldDeploy, true))
   displayName: 'Deploy into DEV'
   variables:
     - group: DevEnvironment
