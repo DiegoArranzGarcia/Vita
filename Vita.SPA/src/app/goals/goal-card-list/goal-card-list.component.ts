@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GoalService } from '../goal.service';
 import { GoalDto } from '../goal.model';
 import { Subscription } from 'rxjs';
@@ -12,11 +12,12 @@ export class GoalCardListComponent implements OnInit, OnDestroy {
   goals: GoalDto[];
   getGoalsSubscription: Subscription;
 
-  @Input() canCreateGoal: boolean;
   constructor(private goalService: GoalService) {}
 
   ngOnInit() {
-    this.getGoalsSubscription = this.goalService.getGoals().subscribe((x) => (this.goals = x));
+    this.getGoalsSubscription = this.goalService.getGoals().subscribe(goals => {
+      this.goals = goals;
+    });
   }
 
   ngOnDestroy() {
@@ -28,7 +29,7 @@ export class GoalCardListComponent implements OnInit, OnDestroy {
   }
 
   handleOnDelete(id: string) {
-    this.goals = this.goals.filter((x) => x.id !== id);
+    this.goals = this.goals.filter(x => x.id !== id);
   }
 
   get isLoading() {

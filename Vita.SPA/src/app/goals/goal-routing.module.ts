@@ -4,6 +4,7 @@ import { GoalHomeComponent } from './goal-home/goal-home.component';
 import { GoalCardListComponent } from './goal-card-list/goal-card-list.component';
 import { GoalCardComponent } from './goal-card/goal-card.component';
 import { CreateGoalCardComponent } from './create-goal-card/create-goal-card.component';
+import { GoalCardMenuComponent } from './goal-card-menu/goal-card-menu.component';
 
 const routes: Routes = [{ path: '', component: GoalHomeComponent }];
 
@@ -12,5 +13,5 @@ const routes: Routes = [{ path: '', component: GoalHomeComponent }];
   exports: [RouterModule],
 })
 export class GoalRoutingModule {
-  static components = [GoalHomeComponent, GoalCardListComponent, GoalCardComponent, CreateGoalCardComponent];
+  static components = [GoalHomeComponent, GoalCardListComponent, GoalCardComponent, CreateGoalCardComponent, GoalCardMenuComponent];
 }

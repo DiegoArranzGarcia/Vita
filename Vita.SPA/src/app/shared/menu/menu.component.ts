@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, Renderer2 } from '@angular/core';
 import { MenuOption } from './menu-option.model';
 
 @Component({
@@ -11,45 +11,26 @@ export class MenuComponent implements OnInit {
   @Input() options: MenuOption;
 
   visible: boolean;
-  documentClickListener: any;
-  preventDocumentDefault: any;
 
-  constructor(public renderer: Renderer2) {}
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.visible = false;
+  }
 
   toogle() {
-    this.preventDocumentDefault = true;
     if (this.visible) this.hide();
     else this.show();
   }
 
   show() {
     this.visible = true;
-    this.bindDocumentClickListener();
   }
 
   hide() {
     this.visible = false;
-    this.unbindDocumentClickListener();
   }
 
-  bindDocumentClickListener() {
-    if (!this.documentClickListener) {
-      this.documentClickListener = this.renderer.listen('document', 'click', () => {
-        if (!this.preventDocumentDefault) {
-          this.hide();
-        }
-
-        this.preventDocumentDefault = false;
-      });
-    }
-  }
-
-  unbindDocumentClickListener() {
-    if (this.documentClickListener) {
-      this.documentClickListener();
-      this.documentClickListener = null;
-    }
+  onClickedOutside(event: Event) {
+    if (event.defaultPrevented) return;
+    this.hide();
   }
 }
