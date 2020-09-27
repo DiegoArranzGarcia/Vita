@@ -10,3 +10,8 @@ export class CreateGoalDto {
   public description: string;
   public createdBy: string;
 }
+
+export class UpdateGoalDto {
+  public title: string;
+  public description: string;
+}
