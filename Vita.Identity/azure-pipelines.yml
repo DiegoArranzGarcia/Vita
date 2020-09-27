@@ -33,7 +33,6 @@ variables:
 stages:
 - stage: Build
   displayName: 'Build & Generate Artifacts'
-  condition: and(succeeded(), eq(variables.shouldDeploy, true))
   variables:
   - group: DevEnvironment
   jobs:
@@ -77,6 +76,7 @@ stages:
 
 - stage: DeployDEV
   displayName: 'Deploy into DEV'
+  condition: and(succeeded(), eq(variables.shouldDeploy, true))
   variables:
     - group: DevEnvironment
   jobs:
