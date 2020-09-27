@@ -5,26 +5,51 @@ namespace Vita.Api.Domain.Aggregates.Categories
 {
     public class Category : Entity, IAggregateRoot
     {
-        public string Name { get; private set; }
-        public string Color { get; private set; }
-        public Guid? CreatedBy { get; private set; }
-
-        public Category(string name, string color, Guid? createdBy = null)
+        public Category(string name, string color, Guid createdBy)
         {
             Id = Guid.NewGuid();
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Color = color ?? throw new ArgumentNullException(nameof(color));
+            Name = name;
+            Color = color;
             CreatedBy = createdBy;
         }
 
-        public void Rename(string name)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+        private string name;
+        public string Name 
+        { 
+            get => name;  
+            set
+            {
+                if (value == string.Empty)
+                    throw new ArgumentException(nameof(Name));
+
+                name = value ?? throw new ArgumentNullException(nameof(Name));
+            }
         }
 
-        public void ChangeColor(string color)
+        private string color;
+        public string Color
         {
-            Color = color ?? throw new ArgumentNullException(nameof(color));
+            get => color;
+            set
+            {
+                if (value == string.Empty)
+                    throw new ArgumentException(nameof(Color));
+
+                color = value ?? throw new ArgumentNullException(nameof(Color));
+            }
+        }
+
+        private Guid createdBy;
+        public Guid CreatedBy
+        {
+            get => createdBy;
+            set
+            {
+                if (value == Guid.Empty)
+                    throw new ArgumentException(nameof(CreatedBy), "Invalid CreateById");
+
+                createdBy = value;
+            }
         }
     }
 }

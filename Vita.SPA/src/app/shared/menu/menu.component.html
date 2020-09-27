@@ -1,9 +1,9 @@
-<div class="menu__container" *ngIf="visible">
+<div class="menu__container" *ngIf="visible" (clickOutside)="onClickedOutside($event)">
   <ul>
     <li
       *ngFor="let option of options"
-      [ngClass]="[option.class ? 'menu__option ' + option.class : 'menu__option']"
       (click)="option.action()"
+      [ngClass]="[option.class ? 'menu__option ' + option.class : 'menu__option']"
     >
       <fa-icon *ngIf="option.icon" [icon]="option.icon" size="sm"></fa-icon>
       <p>{{ option.label }}</p>

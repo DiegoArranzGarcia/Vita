@@ -6,9 +6,19 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GoalService } from './goal.service';
 import { NgxPrettyDateModule } from 'ngx-pretty-date';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, FontAwesomeModule, GoalRoutingModule, NgxPrettyDateModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FontAwesomeModule,
+    GoalRoutingModule,
+    NgxPrettyDateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ClickOutsideModule,
+  ],
   providers: [GoalService],
   declarations: [GoalRoutingModule.components],
 })

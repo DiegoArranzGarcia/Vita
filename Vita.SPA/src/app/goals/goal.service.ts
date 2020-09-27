@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { GoalDto, CreateGoalDto } from './goal.model';
+import { GoalDto, CreateGoalDto, UpdateGoalDto } from './goal.model';
 import { Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { ConfigurationService } from '../core/configuration/configuration.service';
 
 @Injectable()
@@ -26,5 +25,9 @@ export class GoalService {
 
   public deleteGoal(id: string): Observable<void> {
     return this._httpClient.delete<void>(this._goalsEndpoint + `/${id}`);
+  }
+
+  public updateGoal(id: string, updateDto: UpdateGoalDto): Observable<GoalDto> {
+    return this._httpClient.put<GoalDto>(this._goalsEndpoint + `/${id}`, updateDto);
   }
 }

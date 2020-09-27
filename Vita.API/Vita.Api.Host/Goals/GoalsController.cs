@@ -52,7 +52,7 @@ namespace Vita.Api.Host.Goals
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGoal(CreateGoalCommand createGoalCommand)
+        public async Task<IActionResult> CreateGoalAsync(CreateGoalCommand createGoalCommand)
         {
             if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
                 return Unauthorized();
@@ -69,6 +69,20 @@ namespace Vita.Api.Host.Goals
             Response.Headers.Add("Access-Control-Expose-Headers", "Location");
 
             return CreatedAtRoute(routeName: nameof(GetGoalAsync), routeValues: new { id = createdGoal }, value: null);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateGoalAsync(Guid id, UpdateGoalCommand updateGoalCommand)
+        {
+            if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
+                return Unauthorized();
+
+            updateGoalCommand.Id = id;
+
+            var updatedGoal = await _mediator.Send(updateGoalCommand);
+
+            return Ok(updatedGoal);
         }
 
         [HttpDelete]

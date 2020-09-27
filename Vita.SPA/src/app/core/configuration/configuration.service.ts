@@ -11,7 +11,7 @@ export class ConfigurationService {
   constructor(private httpClient: HttpClient) {}
 
   loadConfiguration(): Observable<Configuration> {
-    return this.httpClient.get<Configuration>('/assets/app-settings.json').pipe(map((x) => (this._configuration = x)));
+    return this.httpClient.get<Configuration>('/assets/app-settings.json').pipe(map(x => (this._configuration = x)));
   }
 
   getConfiguration() {
