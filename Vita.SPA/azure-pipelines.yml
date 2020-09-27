@@ -8,13 +8,12 @@ name: Vita.SPA
 trigger:
   branches:
     include:
-    - develop
-    - master
-    - feature/*
+      - develop
+      - master
   paths:
     exclude:
-    - 'Vita.API/**'
-    - 'Vita.Identity/**'
+      - 'Vita.API/**'
+      - 'Vita.Identity/**'
 
 variables:
   SPADirectory: $(System.DefaultWorkingDirectory)/Vita.SPA
@@ -25,90 +24,90 @@ pool:
   vmImage: 'windows-latest'
 
 stages:
-- stage: Build
-  displayName: Build & Generate Artifacts
-  jobs:
-  - job: BuildAngularApplication
-    displayName: 'Build Angular Application'
-    steps:
-    - task: NodeTool@0
-      displayName: 'Install Node.js'
-      inputs:
-        versionSpec: '12.18.0'
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        workingDirectory: $(SPADirectory)
-        script: |
-            npm install
-      displayName: 'npm install'
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        workingDirectory: $(SPADirectory)
-        script: |
-          npm run build --prod
-      displayName: 'Build Angular SPA'
-    - task: gulp@0
-      inputs:
-        gulpFile: $(SPADirectory)/gulpfile.js
-        targets: 'tokenize'
-        workingDirectory: $(SPADirectory)
-        gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
-        enableCodeCoverage: false
-      displayName: 'Tokenizing Configuration files'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(SPADirectory)/dist'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
-      
-- stage: DeployDEV
-  displayName: 'Deploy into DEV'
-  variables:
-    - group: DevEnvironment
-  jobs:
-  - job: DeployApplication
-    displayName: 'Deploy Application'
-    steps:
-      - task: DownloadBuildArtifacts@0
-        inputs:
-          buildType: 'current'
-          downloadType: 'single'
-          artifactName: 'drop'
-          downloadPath: $(DownloadArtifacts)
+  - stage: Build
+    displayName: Build & Generate Artifacts
+    jobs:
+      - job: BuildAngularApplication
+        displayName: 'Build Angular Application'
+        steps:
+          - task: NodeTool@0
+            displayName: 'Install Node.js'
+            inputs:
+              versionSpec: '12.18.0'
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              workingDirectory: $(SPADirectory)
+              script: |
+                npm install
+            displayName: 'npm install'
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              workingDirectory: $(SPADirectory)
+              script: |
+                npm run build --prod
+            displayName: 'Build Angular SPA'
+          - task: gulp@0
+            inputs:
+              gulpFile: $(SPADirectory)/gulpfile.js
+              targets: 'tokenize'
+              workingDirectory: $(SPADirectory)
+              gulpjs: $(SPADirectory)/node_modules/gulp/bin/gulp.js
+              enableCodeCoverage: false
+            displayName: 'Tokenizing Configuration files'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(SPADirectory)/dist'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
 
-      - task: replacetokens@3
-        inputs:
-          rootDirectory: $(DownloadArtifacts)/drop
-          targetFiles: '**/*.json'
-          encoding: 'auto'
-          writeBOM: true
-          actionOnMissing: 'fail'
-          keepToken: true
-          tokenPrefix: '__'
-          tokenSuffix: '__'
-          useLegacyPattern: false
-          enableTelemetry: true
-        displayName: 'Replazing Tokens'
-      
-      - task: AzureFileCopy@4
-        inputs:
-          sourcePath: '$(DownloadArtifacts)/drop/*'
-          azureSubscription: 'Vita Dev'
-          destination: 'AzureBlob'
-          storage: 'devvitastg'
-          containerName: '$web'
-          CleanTargetBeforeCopy: true
-        displayName: 'Deploy SPA'
-      
-      - task: AzureFileCopy@4
-        inputs:
-          sourcePath: '$(DownloadArtifacts)/drop/*.js'
-          azureSubscription: 'Vita Dev'
-          destination: 'AzureBlob'
-          storage: 'devvitastg'
-          containerName: '$web'
-          CleanTargetBeforeCopy: true
-          additionalArgumentsForBlobCopy: '--content-type "application/javascript"'
-        displayName: 'Re-Deploy JS files'
+  - stage: DeployDEV
+    displayName: 'Deploy into DEV'
+    variables:
+      - group: DevEnvironment
+    jobs:
+      - job: DeployApplication
+        displayName: 'Deploy Application'
+        steps:
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'drop'
+              downloadPath: $(DownloadArtifacts)
+
+          - task: replacetokens@3
+            inputs:
+              rootDirectory: $(DownloadArtifacts)/drop
+              targetFiles: '**/*.json'
+              encoding: 'auto'
+              writeBOM: true
+              actionOnMissing: 'fail'
+              keepToken: true
+              tokenPrefix: '__'
+              tokenSuffix: '__'
+              useLegacyPattern: false
+              enableTelemetry: true
+            displayName: 'Replazing Tokens'
+
+          - task: AzureFileCopy@4
+            inputs:
+              sourcePath: '$(DownloadArtifacts)/drop/*'
+              azureSubscription: 'Vita Dev'
+              destination: 'AzureBlob'
+              storage: 'devvitastg'
+              containerName: '$web'
+              CleanTargetBeforeCopy: true
+            displayName: 'Deploy SPA'
+
+          - task: AzureFileCopy@4
+            inputs:
+              sourcePath: '$(DownloadArtifacts)/drop/*.js'
+              azureSubscription: 'Vita Dev'
+              destination: 'AzureBlob'
+              storage: 'devvitastg'
+              containerName: '$web'
+              CleanTargetBeforeCopy: true
+              additionalArgumentsForBlobCopy: '--content-type "application/javascript"'
+            displayName: 'Re-Deploy JS files'

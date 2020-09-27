@@ -10,8 +10,6 @@ trigger:
     include:
     - develop
     - master
-    - feature/*
-    - hotfix/*
   paths:
     exclude:
     - '**/Vita.Identity/**'
