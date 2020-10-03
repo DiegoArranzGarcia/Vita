@@ -13,13 +13,14 @@ export class UserComponent implements OnInit {
   email: string;
   userName: string;
   userWithoutAvatarIcon = faUserCircle;
+  showUserIcon = false;
 
   constructor(public oidcSecurityService: OidcSecurityService) {}
 
   ngOnInit() {
-    this.oidcSecurityService.checkAuth().subscribe((isAuthenticated) => (this.isAuthenticated = isAuthenticated));
+    this.oidcSecurityService.checkAuth().subscribe(isAuthenticated => (this.isAuthenticated = isAuthenticated));
 
-    this.oidcSecurityService.userData$.subscribe((data) => {
+    this.oidcSecurityService.userData$.subscribe(data => {
       if (!data) return;
 
       this.email = data.email;
@@ -34,5 +35,9 @@ export class UserComponent implements OnInit {
 
   logout() {
     this.oidcSecurityService.logoff();
+  }
+
+  onProfileImgLoadError(event: Event) {
+    this.showUserIcon = true;
   }
 }
