@@ -10,8 +10,6 @@ trigger:
     include:
     - develop
     - master
-    - feature/*
-    - hotfix/*
   paths:
     exclude:
     - '**/Vita.Identity/**'
@@ -29,6 +27,7 @@ variables:
   AllowedOrigins.0: '$(spaUrl)'
   JWTAuthority: '$(oidcEndpoint)'
   AutoMigrateDB: true
+  shouldDeploy: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 stages:
 - stage: Build
@@ -68,14 +67,15 @@ stages:
         publishLocation: 'Container'
 
 - stage: DeployDEV
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   displayName: 'Deploy into DEV'
+  condition: and(succeeded(), eq(variables.shouldDeploy, true))
   variables:
     - group: DevEnvironment
   jobs:
   - job: BuildAspNetCoreApplication
     displayName: 'Build AspNet Core Application'
     steps:
+
     - task: DownloadBuildArtifacts@0
       inputs:
         buildType: 'current'

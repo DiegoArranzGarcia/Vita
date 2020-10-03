@@ -1,9 +1,12 @@
-<vita-card meta="{{ goal.createdOn | amTimeAgo }}" [content]="goal.description">
-  <div class="main__header" vita-card-header>
-    <input [value]="goal.title" spellcheck="false" />
-    <div class="header__options">
-      <fa-icon [icon]="optionsIcon" (click)="menu.toogle()"> </fa-icon>
-      <vita-menu #menu [options]="goalOptions"></vita-menu>
+<form [formGroup]="goalForm" (clickOutside)="onClickedOutside($event)">
+  <vita-card meta="{{ goal.createdOn | amTimeAgo }}">
+    <div vita-card-header class="main__header">
+      <input formControlName="titleControl" spellcheck="false" />
+      <div class="header__options">
+        <vita-goal-card-menu [id]="goal.id" (deleted)="handleOnDeleted($event)" (completed)="this.onUpdatedGoal()"></vita-goal-card-menu>
+      </div>
     </div>
-  </div>
-</vita-card>
+    <textarea vita-card-content class="main__content" formControlName="descriptionControl" spellcheck="false"></textarea>
+    <vita-goal-status vita-card-footer [goalStatus]="goal.status"></vita-goal-status>
+  </vita-card>
+</form>

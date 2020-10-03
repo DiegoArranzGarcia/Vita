@@ -10,7 +10,8 @@ import { CardComponent } from './card/card.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MenuComponent } from './menu/menu.component';
 import { InDevelopmentComponent } from './in-development/in-development.component';
-import { MomentModule } from 'ngx-moment';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { LabelComponent } from './label/label.component';
 
 const declarables = [
   HomeComponent,
@@ -22,11 +23,12 @@ const declarables = [
   LoadingComponent,
   MenuComponent,
   InDevelopmentComponent,
+  LabelComponent,
 ];
 
 @NgModule({
   declarations: declarables,
   exports: declarables,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
 })
 export class SharedModule {}

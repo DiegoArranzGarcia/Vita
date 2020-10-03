@@ -20,7 +20,7 @@ namespace Vita.Api.Persistance.Sql.Aggregates.Categories
                    .IsRequired();
 
             builder.Property(c => c.CreatedBy)
-                   .IsRequired(false);
+                   .IsRequired();
         }
     }
 }

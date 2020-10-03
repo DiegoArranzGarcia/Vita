@@ -26,6 +26,7 @@ namespace Vita.Persistance.Sql.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
+                        .HasColumnName("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("CreatedOn")
@@ -37,10 +38,17 @@ namespace Vita.Persistance.Sql.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasColumnName("Title")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("_goalStatusId")
+                        .HasColumnName("GoalStatusId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("_goalStatusId");
 
                     b.ToTable("Goals");
                 });
@@ -55,7 +63,7 @@ namespace Vita.Persistance.Sql.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CreatedBy")
+                    b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -66,6 +74,42 @@ namespace Vita.Persistance.Sql.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Vita.Api.Domain.Aggregates.Goals.GoalStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GoalStatus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "todo"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "completed"
+                        });
+                });
+
+            modelBuilder.Entity("Goal", b =>
+                {
+                    b.HasOne("Vita.Api.Domain.Aggregates.Goals.GoalStatus", "GoalStatus")
+                        .WithMany()
+                        .HasForeignKey("_goalStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

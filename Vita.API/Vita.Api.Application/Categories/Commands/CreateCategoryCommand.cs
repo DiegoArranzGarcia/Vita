@@ -7,6 +7,6 @@ namespace Vita.Api.Application.Categories.Commands
     {
         public string Name { get; set; }
         public string Color { get; set; }
-        public Guid? CreatedBy { get; set; }
+        public Guid CreatedBy { get; set; }
     }
 }

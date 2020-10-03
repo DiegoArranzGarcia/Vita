@@ -2,29 +2,26 @@
 
 :host ::ng-deep 
 
-    div.header__options
-        display: block
+    div.card
+        min-width: 18em
+        min-height: 10.5em
 
-        > fa-icon
-            color: $color-third
-            cursor: pointer
+        div.header__options
+            display: block
 
-        li.menu__option.remove-option
-            color: tomato !important
+        div.goal-card__footer
+            font-size: 0.9em
+            display: flex
+            align-items: center
+            justify-content: flex-end
 
-    div.goal-card__footer
-        font-size: 0.9em
-        display: flex
-        align-items: center
-        justify-content: flex-end
+            button[type=submit]
+                display: none
+                height: auto
+                width: auto
+                margin: 0
+                padding: 0
+                background: none
 
-        button[type=submit]
-            display: none
-            height: auto
-            width: auto
-            margin: 0
-            padding: 0
-            background: none
-
-            > fa-icon
-                color: $bg-primary
+                > fa-icon
+                    color: $bg-primary

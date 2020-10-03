@@ -10,7 +10,6 @@ trigger:
     include:
     - develop
     - master
-    - feature/*
   paths:
     exclude:
     - '**/Vita.API/**'
@@ -29,6 +28,7 @@ variables:
   IdentityServer.Clients.0.ClientUri: '$(spaUrl)'
   IdentityServer.Clients.0.RedirectUris.0: '$(spaUrl)/login'
   AutoMigrateDB: true
+  shouldDeploy: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 stages:
 - stage: Build
@@ -76,18 +76,21 @@ stages:
 
 - stage: DeployDEV
   displayName: 'Deploy into DEV'
+  condition: and(succeeded(), eq(variables.shouldDeploy, true))
   variables:
     - group: DevEnvironment
   jobs:
   - job: BuildAspNetCoreApplication
     displayName: 'Build AspNet Core Application'
     steps:
+
     - task: DownloadBuildArtifacts@0
       inputs:
         buildType: 'current'
         downloadType: 'single'
         artifactName: 'drop'
         downloadPath: $(DownloadArtifacts)
+
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'

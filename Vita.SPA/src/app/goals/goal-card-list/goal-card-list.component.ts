@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GoalService } from '../goal.service';
 import { GoalDto } from '../goal.model';
 import { Subscription } from 'rxjs';
@@ -10,25 +10,32 @@ import { Subscription } from 'rxjs';
 })
 export class GoalCardListComponent implements OnInit, OnDestroy {
   goals: GoalDto[];
-  getGoalsSubscription: Subscription;
 
-  @Input() canCreateGoal: boolean;
+  private getGoalsSubscription: Subscription;
+
   constructor(private goalService: GoalService) {}
 
   ngOnInit() {
-    this.getGoalsSubscription = this.goalService.getGoals().subscribe((x) => (this.goals = x));
+    this.getGoalsSubscription = this.goalService.getGoals().subscribe(goals => {
+      this.goals = goals;
+    });
   }
 
   ngOnDestroy() {
     if (!!this.getGoalsSubscription && !this.getGoalsSubscription.closed) this.getGoalsSubscription.unsubscribe();
   }
 
-  handleOnCreated(goal: GoalDto) {
+  handleOnCreatedGoal(goal: GoalDto) {
     this.goals.push(goal);
   }
 
-  handleOnDelete(id: string) {
-    this.goals = this.goals.filter((x) => x.id !== id);
+  handleOnDeleteGoal(id: string) {
+    this.goals = this.goals.filter(x => x.id !== id);
+  }
+
+  handleOnChangedGoal(goal: GoalDto) {
+    const index = this.goals.findIndex(x => x.id === goal.id);
+    this.goals[index] = { ...goal };
   }
 
   get isLoading() {

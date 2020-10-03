@@ -8,7 +8,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, FontAwesomeModule, GoalRoutingModule, FormsModule, ReactiveFormsModule, MomentModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FontAwesomeModule,
+    GoalRoutingModule,
+    MomentModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ClickOutsideModule,
+  ],
   providers: [GoalService],
   declarations: [GoalRoutingModule.components],
 })

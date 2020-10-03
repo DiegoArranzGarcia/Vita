@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Vita.Api.Persistance.Sql.Aggregates.Goals
 {
     public class GoalsConfiguration : IEntityTypeConfiguration<Goal>
-    {
+    {       
         public void Configure(EntityTypeBuilder<Goal> builder)
         {
             builder.ToTable("Goals");
@@ -12,19 +13,29 @@ namespace Vita.Api.Persistance.Sql.Aggregates.Goals
             builder.HasKey(g => g.Id);
 
             builder.Property(g => g.Title)
+                   .HasColumnName(nameof(Goal.Title))
                    .IsRequired()
-                   .HasMaxLength(256);
+                   .HasMaxLength(255);
 
             builder.Property(g => g.CreatedBy)
+                   .HasColumnName(nameof(Goal.CreatedBy))
                    .IsRequired();
 
-            builder.Property(g => g.CreatedOn)
+            builder.Property<int>("_goalStatusId")
+                   .HasColumnName("GoalStatusId")
+                   .IsRequired();
+
+            builder.Property(g => g.CreatedOn)                
                    .HasColumnType("datetimeoffset(0)")
                    .IsRequired();
 
             builder.Property(g => g.Description)
                    .IsRequired(false)
                    .HasMaxLength(255);
+
+            builder.HasOne(x => x.GoalStatus)
+                   .WithMany()
+                   .HasForeignKey("_goalStatusId");
         }
     }
 }

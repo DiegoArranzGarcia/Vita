@@ -52,7 +52,7 @@ namespace Vita.Api.Host.Goals
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGoal(CreateGoalCommand createGoalCommand)
+        public async Task<IActionResult> CreateGoalAsync(CreateGoalCommand createGoalCommand)
         {
             if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
                 return Unauthorized();
@@ -71,6 +71,33 @@ namespace Vita.Api.Host.Goals
             return CreatedAtRoute(routeName: nameof(GetGoalAsync), routeValues: new { id = createdGoal }, value: null);
         }
 
+
+        [HttpPost]
+        [Route("{id}/complete")]
+        public async Task<IActionResult> CompleteGoalAsync(Guid id)
+        {
+            if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
+                return Unauthorized();
+
+            var completeGoalCommand = new CompleteGoalCommand() { Id = id };
+            var hasBeenCompleted = await _mediator.Send(completeGoalCommand);
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateGoalAsync(Guid id, UpdateGoalCommand updateGoalCommand)
+        {
+            if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
+                return Unauthorized();
+
+            updateGoalCommand.Id = id;
+            var hasBeenUpdated = await _mediator.Send(updateGoalCommand);
+
+            return NoContent();
+        }
+
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteGoalAsync(Guid id)
@@ -78,11 +105,7 @@ namespace Vita.Api.Host.Goals
             if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
                 return Unauthorized();
 
-            var deleteGoalCommand = new DeleteGoalCommand()
-            {
-                Id = id
-            };
-
+            var deleteGoalCommand = new DeleteGoalCommand() { Id = id };
             var hasBeenDeleted = await _mediator.Send(deleteGoalCommand);
 
             return NoContent();
