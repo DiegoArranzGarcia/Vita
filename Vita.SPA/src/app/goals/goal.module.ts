@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GoalService } from './goal.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   imports: [
