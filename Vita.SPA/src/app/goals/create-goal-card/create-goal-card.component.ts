@@ -32,7 +32,7 @@ export class CreateGoalCardComponent implements OnInit {
       createdBy: this._userService.getCurrentUser().id,
     };
 
-    this._goalService.createGoal(createGoalDto).subscribe((goal) => {
+    this._goalService.createGoal(createGoalDto).subscribe(goal => {
       this.goalForm.reset();
       this.created.emit(goal);
     });

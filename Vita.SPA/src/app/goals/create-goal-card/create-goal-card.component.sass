@@ -1,8 +1,10 @@
 @import '../../../styles'
-    
+
+
 div.create-goal__footer
     font-size: 0.9em
     display: flex
+    width: 100%
     align-items: center
     justify-content: flex-end
 
@@ -15,3 +17,10 @@ div.create-goal__footer
 
         > fa-icon
             color: $bg-primary
+              
+:host ::ng-deep 
+
+    div.card
+        min-width: 18em
+        min-height: 10.5em
+

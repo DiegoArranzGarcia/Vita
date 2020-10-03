@@ -3,9 +3,10 @@
     <div vita-card-header class="main__header">
       <input formControlName="titleControl" spellcheck="false" />
       <div class="header__options">
-        <vita-goal-card-menu [id]="goal.id" (deleted)="handleOnDeleted($event)"></vita-goal-card-menu>
+        <vita-goal-card-menu [id]="goal.id" (deleted)="handleOnDeleted($event)" (completed)="this.onUpdatedGoal()"></vita-goal-card-menu>
       </div>
     </div>
     <textarea vita-card-content class="main__content" formControlName="descriptionControl" spellcheck="false"></textarea>
+    <vita-goal-status vita-card-footer [goalStatus]="goal.status"></vita-goal-status>
   </vita-card>
 </form>
