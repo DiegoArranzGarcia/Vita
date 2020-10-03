@@ -14,6 +14,11 @@ nav.navbar
         color: $font-secondary
         margin: 0 0.5em
 
+    fa-icon.navbar__options__menu-icon
+        color: $font-secondary
+        margin: 0 1em
+        display: none
+
     fa-icon.navbar__options__app-icon
         color: $font-secondary
         margin: 0 1em
@@ -62,3 +67,20 @@ nav.navbar
                 div.option__highlight
                     background-image: linear-gradient(to right, rgb(44, 62, 80, 0.35), #2c3e50)
                     border-radius: 1.5px
+
+
+@media (max-width: 768px)
+    :host ::ng-deep
+        div.user__container__header
+            width: 0px
+            overflow: hidden
+
+@media (max-width: 480px)
+    nav.navbar
+        fa-icon.navbar__options__app-icon,
+        div.navbar__options,
+        vita-user,
+        h1
+            display: none
+        fa-icon.navbar__options__menu-icon
+            display: block

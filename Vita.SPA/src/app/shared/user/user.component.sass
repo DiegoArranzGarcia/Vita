@@ -2,11 +2,15 @@
 
 .user__container
     display: flex
-    width: max-12em
+    width: 100%
     justify-content: flex-start
     align-items: center
 
     div.user__container__header
+        -webkit-transition: width 1s ease
+        -moz-transition: width 1s ease
+        -o-transition: width 1s ease
+        transition: width 1s ease
 
         div.header__username
             font-size: larger

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { MenuOption } from '../menu/menu-option.model';
-import { faRocket, faCalendarWeek, faLeaf } from '@fortawesome/free-solid-svg-icons';
+import { faRocket, faCalendarWeek, faLeaf, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { NavBarItem } from './nav-bar-item.model';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -14,6 +13,8 @@ import { Subscription } from 'rxjs';
 export class NavBarComponent implements OnInit, OnDestroy {
   options: NavBarItem[];
   currentRoute: string;
+
+  menuIcon = faAlignLeft  ;
   applicationIcon = faLeaf;
 
   private subscription: Subscription;
@@ -35,7 +36,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     ];
 
     this.subscription = this.router.events
-      .pipe(filter((navigationEvent) => navigationEvent instanceof NavigationEnd))
+      .pipe(filter(navigationEvent => navigationEvent instanceof NavigationEnd))
       .subscribe((navigationEnd: NavigationEnd) => (this.currentRoute = navigationEnd.urlAfterRedirects));
   }
 
@@ -48,6 +49,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   navigateToHome() {
-    // this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 }
