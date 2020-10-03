@@ -29,6 +29,11 @@ export class MenuComponent implements OnInit {
     this.visible = false;
   }
 
+  onOptionClicked(option: MenuOption) {
+    this.visible = false;
+    option.action();
+  }
+
   onClickedOutside(event: Event) {
     if (event.defaultPrevented) return;
     this.hide();

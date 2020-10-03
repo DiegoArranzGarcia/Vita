@@ -10,7 +10,11 @@ namespace Vita.Api.Application.Goals.Queries
 {
     public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, GoalDto>
     {
-        private const string sql = "Select Id, Title, Description, CreatedOn from Goals where Id = @Id";
+        private const string sql = @"select g.Id, g.Title, g.Description, g.CreatedOn, gs.Name as Status
+                                       from Goals g 
+                                 inner join GoalStatus gs on g.GoalStatusId = gs.Id
+                                      where g.Id = @Id";
+
         private readonly IConnectionStringProvider _connectionStringProvider;
 
         public GetGoalByIdQueryHandler(IConnectionStringProvider connectionStringProvider)

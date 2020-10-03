@@ -11,7 +11,9 @@ import { MenuComponent } from 'src/app/shared/menu/menu.component';
 })
 export class GoalCardMenuComponent implements OnInit {
   @Input() id: string;
+
   @Output() deleted = new EventEmitter<string>();
+  @Output() completed = new EventEmitter<string>();
 
   @ViewChild('menu') menu: MenuComponent;
 
@@ -23,13 +25,13 @@ export class GoalCardMenuComponent implements OnInit {
   ngOnInit() {
     this.goalOptions = [
       {
+        label: 'Complete Goal',
+        action: () => this.goalService.completeGoal(this.id).subscribe(_ => this.completed.emit(this.id)),
+      },
+      {
         label: 'Delete Goal',
         class: 'remove-option',
-        action: () => {
-          this.goalService.deleteGoal(this.id).subscribe(_ => {
-            this.deleted.emit(this.id);
-          });
-        },
+        action: () => this.goalService.deleteGoal(this.id).subscribe(_ => this.deleted.emit(this.id)),
       },
     ];
   }

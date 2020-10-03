@@ -22,6 +22,7 @@ namespace Vita.Api.Persistance.Sql
         {
             modelBuilder.ApplyConfiguration(new CategoriesConfiguration());
             modelBuilder.ApplyConfiguration(new GoalsConfiguration());
+            modelBuilder.ApplyConfiguration(new GoalStatusConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -13,6 +13,10 @@ export class GoalService {
     this._goalsEndpoint = `${configurationService.getConfiguration().vitaApiEndpoint}/api/goals`;
   }
 
+  public getGoal(id: string): Observable<GoalDto> {
+    return this._httpClient.get<GoalDto>(this._goalsEndpoint + `/${id}`);
+  }
+
   public getGoals(): Observable<GoalDto[]> {
     return this._httpClient.get<GoalDto[]>(this._goalsEndpoint);
   }
@@ -27,7 +31,11 @@ export class GoalService {
     return this._httpClient.delete<void>(this._goalsEndpoint + `/${id}`);
   }
 
-  public updateGoal(id: string, updateDto: UpdateGoalDto): Observable<GoalDto> {
-    return this._httpClient.put<GoalDto>(this._goalsEndpoint + `/${id}`, updateDto);
+  public updateGoal(id: string, updateDto: UpdateGoalDto): Observable<void> {
+    return this._httpClient.put<void>(this._goalsEndpoint + `/${id}`, updateDto);
+  }
+
+  public completeGoal(id: string): Observable<void> {
+    return this._httpClient.post<void>(this._goalsEndpoint + `/${id}/complete`, null);
   }
 }

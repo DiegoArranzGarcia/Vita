@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vita.Api.Persistance.Sql;
 
 namespace Vita.Persistance.Sql.Migrations
 {
     [DbContext(typeof(VitaApiDbContext))]
-    partial class VitaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201002161604_AddedGoalStatus")]
+    partial class AddedGoalStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
