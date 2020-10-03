@@ -1,4 +1,5 @@
 ﻿using System;
+using Vita.Api.Domain.Aggregates.Goals;
 
 namespace Vita.Api.Application.Goals.Queries
 {
@@ -8,5 +9,6 @@ namespace Vita.Api.Application.Goals.Queries
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTimeOffset CreatedOn { get; set; }
+        public string Status { get; set; }
     }
 }
