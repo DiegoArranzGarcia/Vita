@@ -67,14 +67,15 @@ stages:
         publishLocation: 'Container'
 
 - stage: DeployDEV
-  condition: and(succeeded(), eq(variables.shouldDeploy, true))
   displayName: 'Deploy into DEV'
+  condition: and(succeeded(), eq(variables.shouldDeploy, true))
   variables:
     - group: DevEnvironment
   jobs:
   - job: BuildAspNetCoreApplication
     displayName: 'Build AspNet Core Application'
     steps:
+
     - task: DownloadBuildArtifacts@0
       inputs:
         buildType: 'current'

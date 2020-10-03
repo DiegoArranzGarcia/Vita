@@ -33,7 +33,15 @@ namespace Vita.Api.Host
                 options.SerializerSettings.DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZ";
             });
 
-            services.AddCors();
+
+            string[] allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<string[]>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("spa-cors", policy =>
+                {
+                    policy.WithOrigins(allowedOrigins.ToArray()).AllowAnyHeader().AllowAnyMethod();
+                });
+            });
 
             services.AddAuthentication("Bearer")
                     .AddJwtBearer("Bearer", options =>
@@ -76,7 +84,7 @@ namespace Vita.Api.Host
             string[] allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
             app.UseHttpsRedirection();
-            app.UseCors(options => options.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("spa-cors");
             app.UseEndpoints(endpoints => endpoints.MapControllers());
             AutoMigrateDB(app);
         }

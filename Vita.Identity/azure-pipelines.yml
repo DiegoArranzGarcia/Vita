@@ -83,12 +83,14 @@ stages:
   - job: BuildAspNetCoreApplication
     displayName: 'Build AspNet Core Application'
     steps:
+
     - task: DownloadBuildArtifacts@0
       inputs:
         buildType: 'current'
         downloadType: 'single'
         artifactName: 'drop'
         downloadPath: $(DownloadArtifacts)
+
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
