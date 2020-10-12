@@ -4,8 +4,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GoalService } from './goal.service';
-import { NgxPrettyDateModule } from 'ngx-pretty-date';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MomentModule } from 'ngx-moment';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     SharedModule,
     FontAwesomeModule,
     GoalRoutingModule,
-    NgxPrettyDateModule,
+    MomentModule,
     FormsModule,
     ReactiveFormsModule,
     ClickOutsideModule,

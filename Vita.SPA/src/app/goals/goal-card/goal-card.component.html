@@ -1,5 +1,5 @@
 <form [formGroup]="goalForm" (clickOutside)="onClickedOutside($event)">
-  <vita-card meta="{{ goal.createdOn | prettyDate: 'yyyy-MM-dd' }}">
+  <vita-card meta="{{ goal.createdOn | amTimeAgo }}">
     <div vita-card-header class="main__header">
       <input formControlName="titleControl" spellcheck="false" />
       <div class="header__options">

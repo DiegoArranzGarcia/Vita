@@ -9,6 +9,7 @@ import { AuthModule } from 'angular-auth-oidc-client';
 import { CoreModule } from './core/core.module';
 import { GoalModule } from './goals/goal.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
@@ -20,6 +21,7 @@ export class AppConfig {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule, // Singletone objects (service, componets that are loaded)
     SharedModule, // Shared (multi-instance) objects
