@@ -6,7 +6,7 @@ using Vita.Api.Domain.Aggregates.Goals;
 
 namespace Vita.Api.Application.Goals.Commands
 {
-    public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, Goal>
+    public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, bool>
     {
         private readonly IGoalsRepository _goalsRepository;
 
@@ -15,7 +15,7 @@ namespace Vita.Api.Application.Goals.Commands
             _goalsRepository = goalsRepository;
         }
 
-        public async Task<Goal> Handle(UpdateGoalCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateGoalCommand request, CancellationToken cancellationToken)
         {
             var goal = await _goalsRepository.FindByIdAsync(request.Id);
 
@@ -28,7 +28,7 @@ namespace Vita.Api.Application.Goals.Commands
             await _goalsRepository.Update(goal);
             await _goalsRepository.UnitOfWork.SaveEntitiesAsync();
 
-            return goal;
+            return true;
         }
     }
 }

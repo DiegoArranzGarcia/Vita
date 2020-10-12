@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,18 +8,21 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./user.component.sass'],
 })
 export class UserComponent implements OnInit {
+  @Input() iconPositon: 'right' | 'right' = 'right';
+
   isAuthenticated: boolean;
   userId: string;
   email: string;
   userName: string;
   userWithoutAvatarIcon = faUserCircle;
+  showUserIcon = false;
 
   constructor(public oidcSecurityService: OidcSecurityService) {}
 
   ngOnInit() {
-    this.oidcSecurityService.checkAuth().subscribe((isAuthenticated) => (this.isAuthenticated = isAuthenticated));
+    this.oidcSecurityService.checkAuth().subscribe(isAuthenticated => (this.isAuthenticated = isAuthenticated));
 
-    this.oidcSecurityService.userData$.subscribe((data) => {
+    this.oidcSecurityService.userData$.subscribe(data => {
       if (!data) return;
 
       this.email = data.email;
@@ -34,5 +37,9 @@ export class UserComponent implements OnInit {
 
   logout() {
     this.oidcSecurityService.logoff();
+  }
+
+  onProfileImgLoadError(event: Event) {
+    this.showUserIcon = true;
   }
 }

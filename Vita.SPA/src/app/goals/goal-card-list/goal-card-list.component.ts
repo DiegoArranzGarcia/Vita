@@ -10,7 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class GoalCardListComponent implements OnInit, OnDestroy {
   goals: GoalDto[];
-  getGoalsSubscription: Subscription;
+
+  private getGoalsSubscription: Subscription;
 
   constructor(private goalService: GoalService) {}
 
@@ -24,12 +25,17 @@ export class GoalCardListComponent implements OnInit, OnDestroy {
     if (!!this.getGoalsSubscription && !this.getGoalsSubscription.closed) this.getGoalsSubscription.unsubscribe();
   }
 
-  handleOnCreated(goal: GoalDto) {
+  handleOnCreatedGoal(goal: GoalDto) {
     this.goals.push(goal);
   }
 
-  handleOnDelete(id: string) {
+  handleOnDeleteGoal(id: string) {
     this.goals = this.goals.filter(x => x.id !== id);
+  }
+
+  handleOnChangedGoal(goal: GoalDto) {
+    const index = this.goals.findIndex(x => x.id === goal.id);
+    this.goals[index] = { ...goal };
   }
 
   get isLoading() {
