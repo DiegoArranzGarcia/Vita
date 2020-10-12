@@ -1,10 +1,32 @@
-import { Component, OnInit, Input, ViewEncapsulation, Renderer2 } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit, Input, ViewEncapsulation, Renderer2, Output } from '@angular/core';
 import { MenuOption } from './menu-option.model';
 
 @Component({
   selector: 'vita-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.sass'],
+  animations: [
+    trigger('expandAnimation', [
+      state(
+        'hide',
+        style({
+          height: '0px',
+          opacity: '0',
+          overflow: 'hidden',
+        })
+      ),
+      state(
+        'show',
+        style({
+          height: '*',
+          opacity: '1',
+        })
+      ),
+      transition('hide => show', animate('200ms ease-in')),
+      transition('show => hide', animate('200ms ease-out')),
+    ]),
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class MenuComponent implements OnInit {

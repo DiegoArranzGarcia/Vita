@@ -1,5 +1,28 @@
 ﻿@import 'styles.scss';
 
+@-webkit-keyframes autofill {
+    0%,100% {
+        color: white;
+        background: transparent;
+    }
+}
+
+input, textarea, select {
+    &:-internal-autofill-previewed,
+    &:-internal-autofill-selected,
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        box-shadow: none;
+        color: white !important;
+        background-color: transparent !important;
+        -webkit-box-shadow: 0 0 0 0px transparent inset !important;
+        -webkit-text-fill-color: none !important;
+        transition: transparent 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+    }
+}
+
 .form-group {
     height: 100%;
     width: 100%;
@@ -34,6 +57,7 @@
     }
 
     input {
+        background: transparent;
         margin-left: 3.5em;
         margin-right: 1em;
     }
@@ -78,24 +102,16 @@ input[type="checkbox"] {
     box-shadow: 0 1px 2px $bg-primary-transparency, inset 0px -15px 10px -12px$bg-primary-transparency;
 }
 
-
-
-/* Change autocomplete styles in WebKit */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
+/*input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
+input:-webkit-autofill:active
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-    border: none;
-    -webkit-text-fill-color: none;
-    -webkit-box-shadow: none;
-    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
-    color: white !important;
-}
+select:-webkit-autofill:focus*/
+/* Change autocomplete styles in WebKit */
 
 div.login-page {
     display: flex;
@@ -123,14 +139,14 @@ div.login-page {
 
         div.login-background {
             /*position: absolute;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            opacity: 0.4;
-            background-image: url(/assets/login-background.jpg);
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;*/
+        top: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0.4;
+        background-image: url(/assets/login-background.jpg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;*/
         }
 
         form {
