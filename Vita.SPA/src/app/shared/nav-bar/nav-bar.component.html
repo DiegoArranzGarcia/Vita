@@ -1,5 +1,5 @@
 <nav class="navbar">
-  <fa-icon class="navbar__options__menu-icon" [icon]="menuIcon" size="2x"></fa-icon>
+  <fa-icon class="navbar__options__menu-icon" [icon]="menuIcon" size="2x" (click)="onMenuOptionClick()"></fa-icon>
   <fa-icon class="navbar__options__app-icon" [icon]="applicationIcon" size="2x"></fa-icon>
   <h1 (click)="navigateToHome()">Vita</h1>
   <div class="navbar__options">
@@ -16,7 +16,23 @@
       <div class="option__highlight"></div>
     </div>
   </div>
-  <div>
-    <vita-user></vita-user>
-  </div>
+  <vita-user></vita-user>
 </nav>
+<div [@expandAnimation]="openedMenu ? 'show' : 'hide'" class="menu__options">
+  <div
+    class="navbar__option"
+    *ngFor="let option of options"
+    [class.active]="currentRoute === option.navigateTo"
+    (click)="navigate(option.navigateTo)"
+  >
+    <div class="option__main">
+      <div class="option__highlight"></div>
+      <fa-icon [icon]="option.icon" size="2x"></fa-icon>
+      <p>{{ option.label }}</p>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <div class="option__main">
+    <vita-user iconPositon="left"></vita-user>
+  </div>
+</div>

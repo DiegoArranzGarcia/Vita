@@ -1,12 +1,14 @@
-<div class="menu__container" *ngIf="visible" (clickOutside)="onClickedOutside($event)">
-  <ul>
-    <li
-      *ngFor="let option of options"
-      (click)="onOptionClicked(option)"
-      [ngClass]="[option.class ? 'menu__option ' + option.class : 'menu__option']"
-    >
-      <fa-icon *ngIf="option.icon" [icon]="option.icon" size="sm"></fa-icon>
-      <p>{{ option.label }}</p>
-    </li>
-  </ul>
+<div class="menu" (clickOutside)="onClickedOutside($event)">
+  <div [@expandAnimation]="visible ? 'show' : 'hide'" class="menu__container">
+    <ul>
+      <li
+        *ngFor="let option of options"
+        (click)="onOptionClicked(option)"
+        [ngClass]="[option.class ? 'menu__option ' + option.class : 'menu__option']"
+      >
+        <fa-icon *ngIf="option.icon" [icon]="option.icon" size="sm"></fa-icon>
+        <p>{{ option.label }}</p>
+      </li>
+    </ul>
+  </div>
 </div>

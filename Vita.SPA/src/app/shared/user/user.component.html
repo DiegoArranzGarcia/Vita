@@ -1,4 +1,4 @@
-<div *ngIf="isAuthenticated" class="user__container">
+<div *ngIf="isAuthenticated" class="user__container" [style.flex-direction]="iconPositon === 'right' ? 'row' : 'row-reverse'">
   <div class="user__container__header">
     <div class="header__username">{{ userName }}</div>
     <div class="header__email">{{ email }}</div>
