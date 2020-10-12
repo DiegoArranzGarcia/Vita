@@ -56,7 +56,7 @@ namespace Vita.Identity.Host
               .AddProfileService<ProfileService>()
               .AddSigningCredential(GenerateCertFromAsym());
 
-            var allowedOrigins = clients.Select(x => x.ClientUri).ToList();
+            var allowedOrigins = clients.SelectMany(x => x.RedirectUris).Select(uri => ExtractUri(uri)).ToList();
 
             services.AddCors(options =>
             {
@@ -72,13 +72,20 @@ namespace Vita.Identity.Host
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
         }
 
+        private string ExtractUri(string uriString)
+        {
+            var uri = new Uri(uriString);
+            return $"{uri.Scheme}://{uri.Authority}";
+        }
 
         private X509Certificate2 GenerateCertFromAsym()
         {
             var secretClient = new SecretClient(new Uri(Configuration["KeyVault:BaseUrl"]), new DefaultAzureCredential());
             Response<KeyVaultSecret> secret = secretClient.GetSecret("SignInCredentialsCert");
 
-            return new X509Certificate2(Convert.FromBase64String(secret.Value.Value), (string)null, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+            return new X509Certificate2(Convert.FromBase64String(secret.Value.Value), (string)null, X509KeyStorageFlags.MachineKeySet | 
+                                                                                                    X509KeyStorageFlags.PersistKeySet | 
+                                                                                                    X509KeyStorageFlags.Exportable);
         }
 
         private void AddApplicationBootstrapping(IServiceCollection services)
