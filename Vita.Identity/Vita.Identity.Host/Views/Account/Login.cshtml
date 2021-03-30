@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label class="login-label" asp-for="Email">Email</label>
                     <div class="input">
-                        <input class="form-control" asp-for="Email" autofocus spellcheck="false">
+                        <input class="form-control" asp-for="Email" autofocus autocomplete="off" spellcheck="false">
                         <i class="fa fa-users"></i>
                     </div>
                 </div>
@@ -35,10 +35,19 @@
                     </div>
                 </div>
 
-                <div class="form-group login-button">
-                    <button class="btn btn-primary" name="button" value="login">
-                        <b>Sign in</b>
-                    </button>
+                <div class="form-group buttons">
+                    <div class="form-group login-button">
+                        <button class="btn btn-primary" name="button" value="login">
+                            <b>Sign in</b>
+                        </button>
+                    </div>
+
+                    <div class="form-group login-button">
+                        <button class="btn btn-primary" name="button" value="login">
+                            <i class="fab fa-google"></i>
+                            <b>Login with Google</b>
+                        </button>
+                    </div>
                 </div>
             </div>
 
