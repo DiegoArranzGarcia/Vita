@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>407bce65-2da8-4cef-81d8-ab31589d78b7</UserSecretsId>
     <ApplicationInsightsResourceId>/subscriptions/2e63afd8-4bd4-4441-94a3-db7ff896439a/resourceGroups/develop/providers/microsoft.insights/components/dev-identity-vita-appservice</ApplicationInsightsResourceId>
   </PropertyGroup>
@@ -15,31 +15,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.2.2" />
+    <PackageReference Include="Azure.Identity" Version="1.3.0" />
     <PackageReference Include="Azure.Security.KeyVault.Certificates" Version="4.1.0" />
     <PackageReference Include="Azure.Security.KeyVault.Keys" Version="4.1.0" />
     <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.1.0" />
-    <PackageReference Include="IdentityServer4" Version="3.1.3" />
-    <PackageReference Include="MediatR" Version="8.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.14.0" />
+    <PackageReference Include="IdentityServer4" Version="4.1.2" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.17.0" />
     
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.4" />
     
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
     
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.5" />
     
     <PackageReference Include="Microsoft.Azure.KeyVault.Core" Version="3.0.5" />
     
-    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.0" />
+    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.1" />
     
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.9.2">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.2.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     
-    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
