@@ -67,7 +67,7 @@ namespace Vita.Identity.Host.Controllers.Account
                     var query = new GetUserByEmailQuery() { Email = model.Email };
                     UserDto user = await _mediator.Send(query);
 
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(username: user.UserName, subjectId: user.Id.ToString(), name: user.GivenName, clientId: context?.ClientId));
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(username: user.UserName, subjectId: user.Id.ToString(), name: user.GivenName, clientId: context?.Client?.ClientId));
 
                     AuthenticationProperties props = null;
                     if (model.RememberLogin)
@@ -88,7 +88,7 @@ namespace Vita.Identity.Host.Controllers.Account
 
                     if (context != null)
                     {
-                        if (await _clientStore.IsPkceClientAsync(context.ClientId))
+                        if (await _clientStore.IsPkceClientAsync(context?.Client?.ClientId))
                             return this.LoadingPage("Redirect", model.ReturnUrl);
 
                         return Redirect(model.ReturnUrl);
@@ -103,7 +103,7 @@ namespace Vita.Identity.Host.Controllers.Account
                     throw new Exception("invalid return URL");
                 }
 
-                await _events.RaiseAsync(new UserLoginFailureEvent(model.Email, "invalid credentials", clientId: context?.ClientId));
+                await _events.RaiseAsync(new UserLoginFailureEvent(model.Email, "invalid credentials", clientId: context?.Client?.ClientId));
                 ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
             }
 
@@ -177,9 +177,9 @@ namespace Vita.Identity.Host.Controllers.Account
             }
 
             var allowLocal = true;
-            if (context?.ClientId != null)
+            if (context?.Client?.ClientId != null)
             {
-                var client = await _clientStore.FindEnabledClientByIdAsync(context.ClientId);
+                var client = await _clientStore.FindEnabledClientByIdAsync(context?.Client?.ClientId);
                 if (client != null)
                     allowLocal = client.EnableLocalLogin;
             }

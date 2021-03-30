@@ -17,13 +17,13 @@ export class StartUpService {
     return this.configurationService
       .loadConfiguration()
       .pipe(
-        map((configuration) =>
+        map(configuration =>
           this.oidcConfigService.withConfig({
             stsServer: configuration.oidcEndpoint,
             redirectUrl: window.location.origin + '/login',
             postLogoutRedirectUri: window.location.origin + '/login',
             clientId: 'vita.spa',
-            scope: 'openid profile api offline_access',
+            scope: 'openid profile goals',
             responseType: 'code',
             silentRenew: false,
             useRefreshToken: false,
