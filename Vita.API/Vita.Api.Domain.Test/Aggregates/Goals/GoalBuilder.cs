@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Vita.Api.Domain.Aggregates.Goals;
 
 namespace Vita.Api.Domain.Test.Aggregates.Goals
 {

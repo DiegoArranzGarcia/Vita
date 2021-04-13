@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using Vita.Api.Domain.Aggregates.Goals;
 
 namespace Vita.Api.Persistance.Sql.Aggregates.Goals
 {
@@ -33,9 +34,11 @@ namespace Vita.Api.Persistance.Sql.Aggregates.Goals
                    .IsRequired(false)
                    .HasMaxLength(255);
 
-            builder.HasOne(x => x.GoalStatus)
+            builder.HasOne(g => g.GoalStatus)
                    .WithMany()
                    .HasForeignKey("_goalStatusId");
+
+            builder.OwnsOne(g => g.AimDate);                                      
         }
     }
 }

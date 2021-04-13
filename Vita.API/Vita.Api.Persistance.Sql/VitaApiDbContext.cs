@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Vita.Api.Domain.Aggregates.Categories;
+using Vita.Api.Domain.Aggregates.Goals;
 using Vita.Api.Persistance.Sql.Aggregates.Categories;
 using Vita.Api.Persistance.Sql.Aggregates.Goals;
 using Vita.Core.Domain.Repositories;

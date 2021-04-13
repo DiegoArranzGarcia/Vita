@@ -1,53 +1,54 @@
 using System;
-using Vita.Api.Domain.Aggregates.Goals;
+using Vita.Api.Domain.Aggregates.Dates;
 using Vita.Core.Domain.Repositories;
 
-public class Goal : Entity
+namespace Vita.Api.Domain.Aggregates.Goals
 {
-    public string Description { get; set; }
-    public GoalStatus GoalStatus { get; private set; }
-    public DateTimeOffset CreatedOn { get; private set; }
-    private string _title;
-    private int _goalStatusId;
-    private Guid _createdBy;    
-
-    public Goal(string title, string description, Guid createdBy)
+    public class Goal : Entity
     {
-        Id = Guid.NewGuid();
-        Title = title;
-        Description = description;
-        CreatedBy = createdBy;
-        CreatedOn = DateTimeOffset.UtcNow;
-        _goalStatusId = GoalStatus.ToDo.Id;
-    }
+        public string Description { get; set; }
+        public DateTimeInterval AimDate { get; set; }
+        public GoalStatus GoalStatus { get; private set; }
+        public Guid CreatedBy { get; init; }
+        public DateTimeOffset CreatedOn { get; init; }
 
-    public void Complete()
-    {
-        if (_goalStatusId == GoalStatus.ToDo.Id)
-            _goalStatusId = GoalStatus.Completed.Id;
-    }
+        private string _title;
+        private int _goalStatusId;
 
-    public string Title
-    {
-        get => _title;
-        set
+        public Goal(string title, string description, Guid createdBy, DateTimeInterval aimDate = null) : this(title, description, createdBy)
         {
-            if (value == string.Empty)
-                throw new ArgumentException(nameof(Title));
-
-            _title = value ?? throw new ArgumentNullException(nameof(Title));
+            AimDate = aimDate;
         }
-    }
 
-    public Guid CreatedBy
-    {
-        get => _createdBy;
-        set
+        /// <summary>
+        /// EF constructor
+        /// </summary>
+        private Goal(string title, string description, Guid createdBy)
         {
-            if (value == Guid.Empty)
-                throw new ArgumentException(nameof(CreatedBy), "Invalid CreateById");
+            Id = Guid.NewGuid();
+            Title = title;
+            Description = description;
+            CreatedBy = createdBy;
+            CreatedOn = DateTimeOffset.UtcNow;
+            _goalStatusId = GoalStatus.ToDo.Id;
+        }
 
-            _createdBy = value;
+        public void Complete()
+        {
+            if (_goalStatusId == GoalStatus.ToDo.Id)
+                _goalStatusId = GoalStatus.Completed.Id;
+        }
+
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                if (value == string.Empty)
+                    throw new ArgumentException(nameof(Title));
+
+                _title = value ?? throw new ArgumentNullException(nameof(Title));
+            }
         }
     }
 }

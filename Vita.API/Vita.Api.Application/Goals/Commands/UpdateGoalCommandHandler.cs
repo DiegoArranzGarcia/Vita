@@ -24,6 +24,7 @@ namespace Vita.Api.Application.Goals.Commands
 
             goal.Title = request.Title;
             goal.Description = request.Description;
+            goal.AimDate = request.AimDate;
 
             await _goalsRepository.Update(goal);
             await _goalsRepository.UnitOfWork.SaveEntitiesAsync();
