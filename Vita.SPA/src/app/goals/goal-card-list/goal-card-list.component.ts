@@ -26,7 +26,7 @@ export class GoalCardListComponent implements OnInit, OnDestroy {
   }
 
   handleOnCreatedGoal(goal: GoalDto) {
-    this.goals.push(goal);
+    this.goals = [goal, ...this.goals];
   }
 
   handleOnDeleteGoal(id: string) {

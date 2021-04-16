@@ -5,6 +5,7 @@ using IdentityServer4.Models;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,14 +26,13 @@ namespace Vita.Identity.Host
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _env;
+        private const string ApiCorsPolicy = "api";
 
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _env = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -50,7 +50,7 @@ namespace Vita.Identity.Host
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-            }).AddInMemoryApiResources(Config.GetApis())
+            }).AddInMemoryApiScopes(Config.GetApiScopes())
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
               .AddInMemoryClients(clients)
               .AddProfileService<ProfileService>()
@@ -60,7 +60,7 @@ namespace Vita.Identity.Host
 
             services.AddCors(options =>
             {
-                options.AddPolicy("api", policy =>
+                options.AddPolicy(ApiCorsPolicy, policy =>
                 {
                     policy.WithOrigins(allowedOrigins.ToArray()).AllowAnyHeader().AllowAnyMethod();
                 });
@@ -102,14 +102,14 @@ namespace Vita.Identity.Host
         }
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseSerilogRequestLogging();
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseCors("api");
+            app.UseCors(policyName: ApiCorsPolicy);
 
             app.UseIdentityServer();
             app.UseAuthorization();

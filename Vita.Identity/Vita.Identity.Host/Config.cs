@@ -15,11 +15,11 @@ namespace Vita.Identity
             };
         }
 
-        public static IEnumerable<ApiResource> GetApis()
+        public static IEnumerable<ApiScope> GetApiScopes()
         {
-            return new List<ApiResource>
+            return new List<ApiScope>
             {
-                new ApiResource("api", "Vita API")
+                new ApiScope(name: "goals", displayName: "Full Access to Goals API")
             };
         }
 
@@ -43,7 +43,7 @@ namespace Vita.Identity
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api"
+                        "goals"
                     },
 
                     AllowOfflineAccess = true,

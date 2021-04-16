@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using Vita.Api.Application.Categories.Commands;
 using Vita.Api.Application.Configuration;
@@ -18,6 +19,8 @@ namespace Vita.Api.Host
 {
     public class Startup
     {
+        private const string SpaCorsPolicy = "spa-cors";
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -37,9 +40,11 @@ namespace Vita.Api.Host
             string[] allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<string[]>();
             services.AddCors(options =>
             {
-                options.AddPolicy("spa-cors", policy =>
+                options.AddPolicy(name: SpaCorsPolicy, builder =>
                 {
-                    policy.WithOrigins(allowedOrigins.ToArray()).AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins(allowedOrigins.ToArray())
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
                 });
             });
 
@@ -49,13 +54,27 @@ namespace Vita.Api.Host
                         options.Authority = Configuration["JWTAuthority"];
                         options.RequireHttpsMetadata = false;
 
-                        options.Audience = "api";
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateAudience = false
+                        };
                     });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", "goals");
+                });
+            });
 
             AddApplicationBootstrapping(services);
             AddPersistanceBootstrapping(services);
 
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
+
+            services.AddControllers();
         }
 
         private void AddApplicationBootstrapping(IServiceCollection services)
@@ -76,16 +95,17 @@ namespace Vita.Api.Host
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
+
+            app.UseHttpsRedirection();
             app.UseRouting();
+
+            app.UseCors(SpaCorsPolicy);
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            string[] allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<string[]>();
-
-            app.UseHttpsRedirection();
-            app.UseCors("spa-cors");
             app.UseEndpoints(endpoints => endpoints.MapControllers());
+
             AutoMigrateDB(app);
         }
 
