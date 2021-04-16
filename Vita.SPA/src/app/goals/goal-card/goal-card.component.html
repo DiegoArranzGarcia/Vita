@@ -7,6 +7,9 @@
       </div>
     </div>
     <textarea vita-card-content class="main__content" formControlName="descriptionControl" spellcheck="false"></textarea>
-    <vita-goal-status vita-card-footer [goalStatus]="goal.status"></vita-goal-status>
+    <ng-container vita-card-footer>
+      <vita-goal-status [goalStatus]="goal.status"></vita-goal-status>
+      <vita-goal-card-aim-date></vita-goal-card-aim-date>
+    </ng-container>    
   </vita-card>
 </form>

@@ -1,30 +1,19 @@
 @import '../../../styles'
 
-div.menu
-    position: relative
+li.menu__option
+    display: flex
+    flex-wrap: nowrap
+    flex-direction: row
+    color: $font-primary
+    padding: 0.3em 1.25em
+    min-width: 7em
+    cursor: pointer
 
-    div.menu__container
-        position: absolute
-        right: 0
-        padding: 0em 0em
-        background-color: $bg-secondary
-        border: 1px solid $color-third
-        border-radius: 0.2em
+    p
+        margin-left: 0.5em
+        font-size: 0.9em
+        white-space: nowrap
 
-        li.menu__option
-            display: flex
-            flex-wrap: nowrap
-            flex-direction: row
-            color: $font-primary
-            padding: 0.3em 1.25em
-            min-width: 7em
-            cursor: pointer
-
-            p
-                margin-left: 0.5em
-                font-size: 0.9em
-                white-space: nowrap
-
-            &:hover
-                border-radius: 0.2em
-                background-color: $font-secondary
+        &:hover
+            border-radius: 0.2em
+            background-color: $font-secondary

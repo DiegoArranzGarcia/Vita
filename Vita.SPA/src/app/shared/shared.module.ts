@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CalendarModule } from 'primeng/calendar';
+
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from '../home/home.component';
 import { UnauthorizedComponent } from './unauthorized-page/unauthorized.component';
 import { UserComponent } from './user/user.component';
@@ -12,6 +14,11 @@ import { MenuComponent } from './menu/menu.component';
 import { InDevelopmentComponent } from './in-development/in-development.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { LabelComponent } from './label/label.component';
+import { MomentModule } from 'ngx-moment';
+import { CardModule } from 'primeng/card';
+import { ModalComponent } from './modal/modal.component';
+
+const exportableModules = [CommonModule, FontAwesomeModule, MomentModule, CardModule];
 
 const declarables = [
   HomeComponent,
@@ -24,11 +31,12 @@ const declarables = [
   MenuComponent,
   InDevelopmentComponent,
   LabelComponent,
+  ModalComponent,
 ];
 
 @NgModule({
   declarations: declarables,
-  exports: declarables,
-  imports: [CommonModule, FontAwesomeModule, ClickOutsideModule],
+  exports: [...declarables, ...exportableModules],
+  imports: [CommonModule, MomentModule, FontAwesomeModule, ClickOutsideModule, CardModule],
 })
 export class SharedModule {}

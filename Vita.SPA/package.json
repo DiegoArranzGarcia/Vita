@@ -23,9 +23,11 @@
     "@fortawesome/fontawesome-svg-core": "1.2.30",
     "@fortawesome/free-solid-svg-icons": "5.14.0",
     "angular-auth-oidc-client": "^11.1.1",
-    "ng-click-outside": "^7.0.0",
     "moment": "^2.27.0",
+    "ng-click-outside": "^7.0.0",
     "ngx-moment": "^5.0.0",
+    "primeicons": "^4.1.0",
+    "primeng": "^11.3.2",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

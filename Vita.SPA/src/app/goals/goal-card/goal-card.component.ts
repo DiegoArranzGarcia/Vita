@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { GoalDto as Goal, GoalDto } from '../goal.model';
 import { GoalService } from '../goal.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
@@ -21,6 +21,7 @@ export class GoalCardComponent implements OnInit, OnDestroy {
   private refreshGoalSubscription: Subscription;
 
   goalForm: FormGroup;
+  
   constructor(private goalService: GoalService) {}
 
   ngOnInit() {

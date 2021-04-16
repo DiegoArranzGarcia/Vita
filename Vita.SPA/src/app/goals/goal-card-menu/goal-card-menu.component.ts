@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angu
 import { MenuOption } from 'src/app/shared/menu/menu-option.model';
 import { GoalService } from '../goal.service';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
-import { MenuComponent } from 'src/app/shared/menu/menu.component';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 @Component({
   selector: 'vita-goal-card-menu',
@@ -15,7 +15,7 @@ export class GoalCardMenuComponent implements OnInit {
   @Output() deleted = new EventEmitter<string>();
   @Output() completed = new EventEmitter<string>();
 
-  @ViewChild('menu') menu: MenuComponent;
+  @ViewChild('modal') modal: ModalComponent;
 
   optionsIcon = faEllipsisV;
   goalOptions: MenuOption[];
@@ -37,7 +37,7 @@ export class GoalCardMenuComponent implements OnInit {
   }
 
   onOptionsClicked(event: Event) {
-    this.menu.toogle();
+    this.modal.toogle();
     event.preventDefault();
   }
 }
