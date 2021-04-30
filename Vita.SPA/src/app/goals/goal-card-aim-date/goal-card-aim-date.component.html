@@ -1,6 +1,9 @@
-<div>
-  <fa-icon (click)="toogleAimDatePicker($event)" [icon]="aimDateIcon" size="sm"></fa-icon>
+<ng-container>
+  <fa-icon (click)="toogleAimDatePicker($event)" [icon]="_aimDateIcon" size="sm"></fa-icon>
   <vita-modal #modal>
-    <p-calendar vita-modal-body></p-calendar>
+    <vita-button-group [options]="_options" 
+                       (optionSelected)="onOptionSelected($event)">
+    </vita-button-group>
+    <p-calendar [inline]="true" ></p-calendar>    
   </vita-modal>
-</div>
+</ng-container>

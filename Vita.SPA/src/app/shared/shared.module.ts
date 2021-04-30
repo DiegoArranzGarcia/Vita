@@ -17,6 +17,9 @@ import { LabelComponent } from './label/label.component';
 import { MomentModule } from 'ngx-moment';
 import { CardModule } from 'primeng/card';
 import { ModalComponent } from './modal/modal.component';
+import { TabPanelComponent } from './tab-panel/tab-panel.component';
+import { TabComponent } from './tab-panel/tab/tab.component';
+import { ButtonGroupComponent } from './button-group/button-group.component';
 
 const exportableModules = [CommonModule, FontAwesomeModule, MomentModule, CardModule];
 
@@ -32,6 +35,9 @@ const declarables = [
   InDevelopmentComponent,
   LabelComponent,
   ModalComponent,
+  TabPanelComponent,
+  TabComponent,
+  ButtonGroupComponent,
 ];
 
 @NgModule({

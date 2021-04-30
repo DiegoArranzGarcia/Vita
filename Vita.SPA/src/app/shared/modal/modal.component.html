@@ -1,5 +1,5 @@
-<div class="modal" (clickOutside)="onClickedOutside($event)">
-  <div [@expandAnimation]="visible ? 'show' : 'hide'" class="modal__container">
-    <ng-content select="[vita-modal-body]"></ng-content>
+<div class="vita-modal" (clickOutside)="onClickedOutside($event)">
+  <div [@expandAnimation]="visible ? 'show' : 'hide'" class="vita-modal__container">
+    <ng-content></ng-content>
   </div>
 </div>

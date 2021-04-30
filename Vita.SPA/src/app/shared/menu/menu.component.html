@@ -1,4 +1,4 @@
-<ul>
+<ul class="vita-menu">
   <li *ngFor="let option of options" (click)="onOptionClicked(option)"
     [ngClass]="[option.class ? 'menu__option ' + option.class : 'menu__option']">
     <fa-icon *ngIf="option.icon" [icon]="option.icon" size="sm"></fa-icon>

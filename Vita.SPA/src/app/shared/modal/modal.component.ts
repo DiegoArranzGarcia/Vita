@@ -1,10 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'vita-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.sass'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('expandAnimation', [
       state(

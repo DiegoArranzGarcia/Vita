@@ -1,0 +1,5 @@
+<div class="vita-button-group">
+  <button  *ngFor="let option of options; let index = index"
+          [class.active]="_selectedOption == index" 
+          (click)="onOptionSelected(option)">{{option}}</button>
+</div>

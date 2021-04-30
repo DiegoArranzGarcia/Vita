@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { faCalendarDay, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
+import { ButtonDefinition } from 'src/app/shared/tab-panel/tab-panel-definition.model';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { DateTimeInterval } from '../goal.model';
 
@@ -9,19 +10,17 @@ import { DateTimeInterval } from '../goal.model';
   styleUrls: ['./goal-card-aim-date.component.sass'],
 })
 export class GoalCardAimDateComponent implements OnInit {
-  aimDateIcon = faCalendarDay;
-  addAimDateIcon = faCalendarPlus;
+  _aimDateIcon = faCalendarDay;
+  _addAimDateIcon = faCalendarPlus;
+
+  _options: string[];
 
   @Input() aimDate: DateTimeInterval;
 
   @ViewChild('modal') modal: ModalComponent;
 
-  dates: Date;
-  view: 'year' | 'month' | 'week' | 'day';
-
   constructor() {
-    this.dates = new Date();
-    this.view = 'day';
+    this._options = ['Year', 'Month', 'Week', 'Day'];
   }
 
   ngOnInit() {}
@@ -34,4 +33,6 @@ export class GoalCardAimDateComponent implements OnInit {
   onClickedOutside(event: Event) {
     this.modal.hideModal();
   }
+
+  onOptionSelected(option: string) {}
 }
