@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ButtonGroup } from './button-group.component';
+import { DatePicker } from './calendar.component';
 
-describe('ButtonGroupComponent', () => {
-  let component: ButtonGroup;
-  let fixture: ComponentFixture<ButtonGroup>;
+describe('CalendarComponent', () => {
+  let component: DatePicker;
+  let fixture: ComponentFixture<DatePicker>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonGroup ]
+      declarations: [ DatePicker ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonGroup);
+    fixture = TestBed.createComponent(DatePicker);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,7 +6,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./card.component.sass'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CardComponent {
+export class Card {
   @Input() header: string;
   @Input() meta: string;
   @Input() content: string;

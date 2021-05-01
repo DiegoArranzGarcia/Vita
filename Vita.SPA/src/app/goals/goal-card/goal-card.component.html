@@ -9,7 +9,7 @@
     <textarea vita-card-content formControlName="descriptionControl" spellcheck="false"></textarea>
     <div vita-card-footer class="vita-goal__footer">
       <vita-goal-status [goalStatus]="goal.status"></vita-goal-status>
-      <vita-goal-card-aim-date></vita-goal-card-aim-date>
+      <vita-goal-card-aim-date [(aimDate)]="goal.aimDate"></vita-goal-card-aim-date>
     </div>    
   </vita-card>
 </form>

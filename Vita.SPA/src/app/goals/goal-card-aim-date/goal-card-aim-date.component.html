@@ -1,9 +1,14 @@
 <ng-container>
-  <fa-icon (click)="toogleAimDatePicker($event)" [icon]="_aimDateIcon" size="sm"></fa-icon>
+  <vita-label *ngIf="aimDate" (click)="toogleAimDatePicker($event)">{{aimDate.start | date:'mediumDate'}}</vita-label>
+  <fa-icon *ngIf="!aimDate" (click)="toogleAimDatePicker($event)" [icon]="_aimDateIcon" size="sm"></fa-icon>
   <vita-modal #modal>
-    <vita-button-group [options]="_options" 
-                       (optionSelected)="onOptionSelected($event)">
-    </vita-button-group>
-    <p-calendar [inline]="true" ></p-calendar>    
+    <div class="vita-aim-date-picker__modal__container">
+      <p>Select an aim date</p>
+      <vita-button-group [options]="_options" [(selectedOption)]="_selectedOption">
+      </vita-button-group>
+      <div [ngSwitch]="_selectedOption">
+        <vita-date-picker *ngSwitchCase="'Day'" [selectedDate]="aimDate?.start" (selectedDateChange)="onSelectedDate($event)"></vita-date-picker>
+      </div>
+    </div>    
   </vita-modal>
 </ng-container>

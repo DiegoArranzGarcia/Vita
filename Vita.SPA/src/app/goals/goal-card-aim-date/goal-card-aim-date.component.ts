@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { faCalendarDay, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { ButtonDefinition } from 'src/app/shared/tab-panel/tab-panel-definition.model';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
@@ -14,16 +14,17 @@ export class GoalCardAimDateComponent implements OnInit {
   _addAimDateIcon = faCalendarPlus;
 
   _options: string[];
+  _selectedOption: string;
 
   @Input() aimDate: DateTimeInterval;
+  @Output() aimDateChange = new EventEmitter<DateTimeInterval>();
 
   @ViewChild('modal') modal: ModalComponent;
 
-  constructor() {
+  ngOnInit() {
     this._options = ['Year', 'Month', 'Week', 'Day'];
+    this._selectedOption = 'Day';
   }
-
-  ngOnInit() {}
 
   toogleAimDatePicker(event: Event) {
     this.modal.toogle();
@@ -34,5 +35,19 @@ export class GoalCardAimDateComponent implements OnInit {
     this.modal.hideModal();
   }
 
-  onOptionSelected(option: string) {}
+  onSelectedDate(date: Date) {
+    if (this._selectedOption == 'Day') {
+      this.aimDateChange.emit({ start: date, end: date });
+      return;
+    }
+
+    if (this._selectedOption == 'Month') {
+      var endDate = new Date(date);
+      endDate.setMonth(endDate.getMonth() + 1);
+      this.aimDateChange.emit({ start: date, end: endDate });
+      return;
+    }
+
+    this.modal.toogle();
+  }
 }

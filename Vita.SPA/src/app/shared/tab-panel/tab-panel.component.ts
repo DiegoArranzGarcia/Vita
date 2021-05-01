@@ -1,22 +1,22 @@
 import { taggedTemplate } from '@angular/compiler/src/output/output_ast';
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
-import { TabComponent } from './tab/tab.component';
+import { Tab } from './tab/tab.component';
 
 @Component({
   selector: 'vita-tab-panel',
   templateUrl: './tab-panel.component.html',
   styleUrls: ['./tab-panel.component.sass'],
 })
-export class TabPanelComponent implements AfterContentInit {
-  @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
+export class TabPanel implements AfterContentInit {
+  @ContentChildren(Tab) tabs: QueryList<Tab>;
 
   _selectedIndex: number;
 
-  private get _tabs(): TabComponent[] {
+  private get _tabs(): Tab[] {
     return this.tabs.toArray();
   }
 
-  private get _selectedTab(): TabComponent {
+  private get _selectedTab(): Tab {
     return this._tabs[this._selectedIndex];
   }
 
@@ -34,7 +34,7 @@ export class TabPanelComponent implements AfterContentInit {
     this.initTabs();
   }
 
-  onSelectedTab(tab: TabComponent, index: number) {
+  onSelectedTab(tab: Tab, index: number) {
     if (this._selectedTab) this._selectedTab._visible = false;
 
     this._selectedIndex = index;

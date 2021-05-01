@@ -6,21 +6,17 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
   styleUrls: ['./button-group.component.sass'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ButtonGroupComponent implements OnInit {
+export class ButtonGroup implements OnInit {
   @Input() options: string[];
+  @Input() selectedOption: string;
+  @Output() selectedOptionChange = new EventEmitter<string>();
 
-  @Output('option') optionSelected = new EventEmitter<string>();
-
-  _selectedOption: number;
-
-  constructor() {
-    this._selectedOption = 0;
-  }
+  constructor() {}
 
   ngOnInit() {}
 
   onOptionSelected(option: string) {
-    this._selectedOption = this.options.findIndex(value => value === option);
-    this.optionSelected.emit(option);
+    this.selectedOption = option;
+    this.selectedOptionChange.emit(option);
   }
 }

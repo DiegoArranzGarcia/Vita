@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { TabPanelComponent } from './tab-panel.component';
+import { TabPanel } from './tab-panel.component';
 
 describe('ButtonGroupComponent', () => {
-  let component: TabPanelComponent;
-  let fixture: ComponentFixture<TabPanelComponent>;
+  let component: TabPanel;
+  let fixture: ComponentFixture<TabPanel>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabPanelComponent ]
+      declarations: [ TabPanel ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabPanelComponent);
+    fixture = TestBed.createComponent(TabPanel);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

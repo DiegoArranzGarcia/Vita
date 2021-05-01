@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.sass'],
 })
-export class TabComponent implements OnInit {
+export class Tab implements OnInit {
   @Input() title: string;
 
   _visible: boolean;
