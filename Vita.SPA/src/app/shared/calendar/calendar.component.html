@@ -9,10 +9,10 @@
         <div class="vita-calendar__week-headers">
             <span *ngFor="let weekDay of _calendarWeekDays">{{weekDay}}</span>
         </div>
-        <div *ngFor="let week of _calendarWeeks" class="vita-calendar__week">
-            <div *ngFor="let day of week" class="vita-calendar__day" [class.selected]="isSelected(day)">
-                <span  [class.other-month]="day.otherMonth"  (click)="onDayClicked(day)">
-                    {{day.day}}
+        <div *ngFor="let week of _calendarWeeks" class="vita-calendar__week" [class.selected]="isSelectedWeek(week)">
+            <div *ngFor="let day of week.days" class="vita-calendar__day" [class.selected]="isSelectedDay(day)">
+                <span  [class.other-month]="day.otherMonth"  (click)="onDayClicked(day, week)">
+                    {{day.date.getDate()}}
                 </span>
             </div>
         </div>

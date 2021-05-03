@@ -1,22 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-interface CalendarDay {
-  day: number;
-  month: number;
-  year: number;
+export interface CalendarDay {
+  date: Date;
   otherMonth: boolean;
 }
 
+export interface CalendarWeek {
+  days: CalendarDay[];
+  monthWeek: number;
+}
+
 @Component({
-  selector: 'vita-date-picker',
+  selector: 'vita-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.sass'],
 })
 export class Calendar implements OnInit {
-  _faIconArrowLeft = faArrowLeft;
-  _faIconArrowRight = faArrowRight;
-
+  readonly _faIconArrowLeft = faArrowLeft;
+  readonly _faIconArrowRight = faArrowRight;
   readonly _weekDays: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   readonly _months: string[] = [
     'January',
@@ -35,18 +37,15 @@ export class Calendar implements OnInit {
 
   readonly _daysInAWeek: number = 7;
 
-  @Input() selectedDate: Date;
-  @Output() selectedDateChange = new EventEmitter<Date>();
-
   _firstDayOfWeek: number = 0;
   _calendarWeekDays: string[];
-  _calendarWeeks: CalendarDay[][];
+  _calendarWeeks: CalendarWeek[];
 
   _currentMonth: number;
   _currentYear: number;
 
   ngOnInit() {
-    let referenceDate = this.selectedDate ?? new Date();
+    let referenceDate = this.getReferenceDate();
 
     this._currentMonth = referenceDate.getMonth();
     this._currentYear = referenceDate.getFullYear();
@@ -55,19 +54,15 @@ export class Calendar implements OnInit {
     this.populateCalendarWeeks();
   }
 
-  onDayClicked(day: CalendarDay) {
-    if (day.otherMonth) return;
-
-    this.selectedDateChange.emit(new Date(day.year, day.month, day.day));
+  protected getReferenceDate() {
+    return new Date();
   }
 
-  isSelected(day: CalendarDay): boolean {
-    if (!this.selectedDate) return false;
+  onDayClicked(day: CalendarDay, week: CalendarWeek) {}
 
-    return (
-      this.selectedDate.getDate() === day.day && this.selectedDate.getMonth() === day.month && this.selectedDate.getFullYear() === day.year
-    );
-  }
+  isSelectedDay(day: CalendarDay) {}
+
+  isSelectedWeek(week: CalendarWeek) {}
 
   onNextMonth() {
     let nextMonth = this.getNextMonthAndYear(this._currentMonth, this._currentYear);
@@ -96,7 +91,7 @@ export class Calendar implements OnInit {
       }
 
       if (this.isLastWeek(monthRow, monthRows)) {
-        this._calendarWeeks.push(this.populateLastweek());
+        this._calendarWeeks.push(this.populateLastweek(monthRow));
         continue;
       }
 
@@ -104,7 +99,7 @@ export class Calendar implements OnInit {
     }
   }
 
-  private populateFirstWeek(): CalendarDay[] {
+  private populateFirstWeek(): CalendarWeek {
     let days: CalendarDay[] = [];
     let prev = this.getPreviousMonthAndYear(this._currentMonth, this._currentYear);
     let prevMonthDaysLength = this.getDaysInMonth(prev.month, prev.year);
@@ -112,9 +107,7 @@ export class Calendar implements OnInit {
 
     for (let day = prevMonthDaysLength - firstDayOfMonthWeekDay + 1; day <= prevMonthDaysLength; day++) {
       days.push({
-        day: day,
-        month: prev.month,
-        year: prev.year,
+        date: new Date(prev.year, prev.month, day),
         otherMonth: true,
       });
     }
@@ -122,45 +115,40 @@ export class Calendar implements OnInit {
     let remainingDaysLength = this._daysInAWeek - days.length;
     for (let index = 0; index < remainingDaysLength; index++) {
       days.push({
-        day: index + 1,
-        month: this._currentMonth,
-        year: this._currentYear,
+        date: new Date(this._currentYear, this._currentMonth, index + 1),
         otherMonth: false,
       });
     }
 
-    return days;
+    return { days: days, monthWeek: 0 };
   }
 
-  private populateWeek(monthRow: number): CalendarDay[] {
+  private populateWeek(monthWeek: number): CalendarWeek {
     let days: CalendarDay[] = [];
-    let lastPopulatedWeek = this._calendarWeeks[monthRow - 1];
-    let lastPopulatedDay = lastPopulatedWeek[lastPopulatedWeek.length - 1].day;
+
+    let lastPopulatedWeek = this._calendarWeeks[monthWeek - 1];
+    let lastPopulatedDay = lastPopulatedWeek.days[lastPopulatedWeek.days.length - 1].date.getDate();
 
     for (let index = 0; index < this._daysInAWeek; index++) {
       days.push({
-        day: lastPopulatedDay + 1 + index,
-        month: this._currentMonth,
-        year: this._currentYear,
+        date: new Date(this._currentYear, this._currentMonth, lastPopulatedDay + 1 + index),
         otherMonth: false,
       });
     }
 
-    return days;
+    return { days: days, monthWeek: monthWeek };
   }
 
-  private populateLastweek(): CalendarDay[] {
+  private populateLastweek(monthRow: number): CalendarWeek {
     let days: CalendarDay[] = [];
     let daysInMonth = this.getDaysInMonth(this._currentMonth, this._currentYear);
     let nextMonth = this.getNextMonthAndYear(this._currentMonth, this._currentYear);
     let lastPopulatedWeek = this._calendarWeeks[this._calendarWeeks.length - 1];
-    let lastPopulatedDay = lastPopulatedWeek[lastPopulatedWeek.length - 1].day;
+    let lastPopulatedDay = lastPopulatedWeek.days[lastPopulatedWeek.days.length - 1].date.getDate();
 
     for (let index = 0; lastPopulatedDay + index + 1 <= daysInMonth; index++) {
       days.push({
-        day: lastPopulatedDay + 1 + index,
-        month: this._currentMonth,
-        year: this._currentYear,
+        date: new Date(this._currentYear, this._currentMonth, lastPopulatedDay + 1 + index),
         otherMonth: false,
       });
     }
@@ -168,14 +156,12 @@ export class Calendar implements OnInit {
     let remainingDaysLength = this._daysInAWeek - days.length;
     for (let index = 0; index < remainingDaysLength; index++) {
       days.push({
-        day: 1 + index,
-        month: nextMonth.month,
-        year: nextMonth.year,
+        date: new Date(nextMonth.year, nextMonth.month, 1 + index),
         otherMonth: true,
       });
     }
 
-    return days;
+    return { days: days, monthWeek: monthRow };
   }
 
   private populateCalendarWeekDays() {

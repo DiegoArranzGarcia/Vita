@@ -6,6 +6,9 @@
       <vita-button-group [options]="_options" [(selectedOption)]="_selectedOption">
       </vita-button-group>
       <ng-container [ngSwitch]="_selectedOption">
+        <vita-year-picker *ngSwitchCase="'Year'" [selectedYear]="aimDate ? aimDate.start.getFullYear() : null" (selectedYearChange)="onSelectedYear($event)"></vita-year-picker>
+        <vita-month-picker *ngSwitchCase="'Month'" [selectedMonth]="aimDate ? ({ month: aimDate.start.getMonth(), year: aimDate.start.getFullYear() }) : null" (selectedMonthChange)="onSelectedMonth($event)"></vita-month-picker>
+        <vita-week-picker *ngSwitchCase="'Week'" [selectedWeek]="aimDate ? ({startWeekDate: aimDate.start, endWeekDate: aimDate.end}) : null" (selectedWeekChange)="onSelectedWeek($event)"></vita-week-picker>
         <vita-date-picker *ngSwitchCase="'Day'" [selectedDate]="aimDate?.start" (selectedDateChange)="onSelectedDate($event)"></vita-date-picker>
       </ng-container>
     </div>    

@@ -18,8 +18,11 @@ import { ModalComponent } from './modal/modal.component';
 import { TabPanel } from './tab-panel/tab-panel.component';
 import { Tab } from './tab-panel/tab/tab.component';
 import { ButtonGroup } from './button-group/button-group.component';
-import { PrimeNgCalendar } from './p-calendar/calendar.component';
 import { Calendar } from './calendar/calendar.component';
+import { DatePicker } from './date-picker/date-picker.component';
+import { WeekPicker } from './week-picker/week-picker.component';
+import { MonthPicker } from './month-picker/month-picker.component';
+import { YearPicker } from './year-picker/year-picker.component';
 
 const exportableModules = [CommonModule, FontAwesomeModule, MomentModule];
 
@@ -38,8 +41,11 @@ const declarables = [
   TabPanel,
   Tab,
   ButtonGroup,
-  PrimeNgCalendar,
   Calendar,
+  DatePicker,
+  WeekPicker,
+  MonthPicker,
+  YearPicker,
 ];
 
 @NgModule({

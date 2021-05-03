@@ -1,0 +1,14 @@
+<div class="vita-year-picker">
+  <div class="vita-year-picker__header">
+    <fa-icon [icon]="_faIconArrowLeft" (click)="onPreviousYears()"></fa-icon>    
+    <fa-icon [icon]="_faIconArrowRight" (click)="onNextYears()"></fa-icon>
+  </div>
+  <div class="vita-year-picker__separator"></div>
+  <div class="vita-year-picker__years">
+    <div class="vita-year-picker__year" *ngFor="let year of _years" 
+      (click)="onYearSelected(year)" 
+      [class.selected]="this.selectedYear === year">
+      <span>{{year}}</span>
+    <div>
+  </div>
+</div>
