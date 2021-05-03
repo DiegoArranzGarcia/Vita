@@ -19,7 +19,7 @@ import { TabPanel } from './tab-panel/tab-panel.component';
 import { Tab } from './tab-panel/tab/tab.component';
 import { ButtonGroup } from './button-group/button-group.component';
 import { PrimeNgCalendar } from './p-calendar/calendar.component';
-import { DatePicker } from './calendar/calendar.component';
+import { Calendar } from './calendar/calendar.component';
 
 const exportableModules = [CommonModule, FontAwesomeModule, MomentModule];
 
@@ -39,7 +39,7 @@ const declarables = [
   Tab,
   ButtonGroup,
   PrimeNgCalendar,
-  DatePicker,
+  Calendar,
 ];
 
 @NgModule({

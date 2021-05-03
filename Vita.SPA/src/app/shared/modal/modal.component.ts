@@ -7,31 +7,14 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./modal.component.sass'],
   encapsulation: ViewEncapsulation.None,
   animations: [
-    trigger('expandAnimation', [
-      state(
-        'hide',
-        style({
-          height: '0px',
-          opacity: '0',
-          overflow: 'hidden',
-        })
-      ),
-      state(
-        'show',
-        style({
-          height: '*',
-          opacity: '1',
-        })
-      ),
-      transition('hide => show', animate('200ms ease-in')),
-      transition('show => hide', animate('200ms ease-out')),
+    trigger('inOutAnimation', [
+      transition(':enter', [style({ height: 0, opacity: 0 }), animate('200ms ease-out', style({ height: '*', opacity: 1 }))]),
+      transition(':leave', [style({ height: '*', opacity: 1 }), animate('200ms ease-in', style({ height: 0, opacity: 0 }))]),
     ]),
   ],
 })
 export class ModalComponent implements OnInit {
   @Input() visible: boolean;
-
-  constructor() {}
 
   ngOnInit() {
     this.visible = false;

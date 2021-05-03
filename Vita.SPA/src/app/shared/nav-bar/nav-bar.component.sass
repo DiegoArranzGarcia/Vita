@@ -3,7 +3,7 @@
 nav.navbar
     font-size: large
     background-color: $neutral-two
-    color: $primary-color-transparency
+    color: $primary-color
     height: $bar-default-height
     display: flex
     justify-content: space-between
@@ -11,16 +11,16 @@ nav.navbar
     width: 100%
 
     h1
-        color: $primary-color-transparency
+        color: $primary-color
         margin: 0 0.5em
 
     fa-icon.navbar__options__menu-icon
-        color: $primary-color-transparency
+        color: $primary-color
         margin: 0 1em
         display: none
 
     fa-icon.navbar__options__app-icon
-        color: $primary-color-transparency
+        color: $primary-color
         margin: 0 1em
 
     div.navbar__options
@@ -61,26 +61,26 @@ nav.navbar
                 width: 100%
 
             &.active
-                color: $primary-color-transparency
+                color: $primary-color
 
                 div.option__highlight
-                    background-image: linear-gradient(to bottom, $primary-color-transparency, $alternative-color-two)
+                    background-image: linear-gradient(to right, $primary-color, $alternative-color-two)
                     border-radius: 1.5px
 
 div.menu__options
     width: 100%
     background-color: $neutral-two
-    color: $primary-color-transparency
+    color: $primary-color
     display: block
     position: absolute
     padding: 1em 0em
     overflow: hidden
-    border-bottom: 1px solid $primary-color-transparency
-    border-top: 1px solid $primary-color-transparency
+    border-bottom: 1px solid $primary-color
+    border-top: 1px solid $primary-color
 
     div.separator
         margin: 1em 2em 1em 1em
-        border-bottom: 1px solid $primary-color-transparency
+        border-bottom: 1px solid $primary-color
 
     div.navbar__option
         width: 100%
@@ -107,7 +107,7 @@ div.menu__options
                 margin-right: 1em
 
             &.hover
-                background-color: $primary-color-transparency
+                background-color: $primary-color
 
             div.option__highlight
                 width: 4px
@@ -115,10 +115,10 @@ div.menu__options
                 margin-right: 0.5em
 
         &.active
-            color: $primary-color-transparency
+            color: $primary-color
 
             div.option__highlight
-                background-image: linear-gradient(to bottom, $primary-color-transparency, $alternative-color-two)
+                background-image: linear-gradient(to bottom, $primary-color, $alternative-color-three)
 
 @media (max-width: 768px)
 

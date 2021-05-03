@@ -13,12 +13,27 @@ interface CalendarDay {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.sass'],
 })
-export class DatePicker implements OnInit {
+export class Calendar implements OnInit {
   _faIconArrowLeft = faArrowLeft;
   _faIconArrowRight = faArrowRight;
 
-  private readonly _weekDays: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  private readonly _daysInAWeek: number = 7;
+  readonly _weekDays: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  readonly _months: string[] = [
+    'January',
+    'Febrary',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  readonly _daysInAWeek: number = 7;
 
   @Input() selectedDate: Date;
   @Output() selectedDateChange = new EventEmitter<Date>();
@@ -39,6 +54,35 @@ export class DatePicker implements OnInit {
     this.populateCalendarWeekDays();
     this.populateCalendarWeeks();
   }
+
+  onDayClicked(day: CalendarDay) {
+    if (day.otherMonth) return;
+
+    this.selectedDateChange.emit(new Date(day.year, day.month, day.day));
+  }
+
+  isSelected(day: CalendarDay): boolean {
+    if (!this.selectedDate) return false;
+
+    return (
+      this.selectedDate.getDate() === day.day && this.selectedDate.getMonth() === day.month && this.selectedDate.getFullYear() === day.year
+    );
+  }
+
+  onNextMonth() {
+    let nextMonth = this.getNextMonthAndYear(this._currentMonth, this._currentYear);
+    this._currentMonth = nextMonth.month;
+    this._currentYear = nextMonth.year;
+    this.populateCalendarWeeks();
+  }
+
+  onPreviousMonth() {
+    let previous = this.getPreviousMonthAndYear(this._currentMonth, this._currentYear);
+    this._currentMonth = previous.month;
+    this._currentYear = previous.year;
+    this.populateCalendarWeeks();
+  }
+
   private populateCalendarWeeks() {
     this._calendarWeeks = [];
     let daysInMonth = this.getDaysInMonth(this._currentMonth, this._currentYear);
@@ -60,7 +104,7 @@ export class DatePicker implements OnInit {
     }
   }
 
-  populateFirstWeek(): CalendarDay[] {
+  private populateFirstWeek(): CalendarDay[] {
     let days: CalendarDay[] = [];
     let prev = this.getPreviousMonthAndYear(this._currentMonth, this._currentYear);
     let prevMonthDaysLength = this.getDaysInMonth(prev.month, prev.year);
@@ -88,7 +132,7 @@ export class DatePicker implements OnInit {
     return days;
   }
 
-  populateWeek(monthRow: number): CalendarDay[] {
+  private populateWeek(monthRow: number): CalendarDay[] {
     let days: CalendarDay[] = [];
     let lastPopulatedWeek = this._calendarWeeks[monthRow - 1];
     let lastPopulatedDay = lastPopulatedWeek[lastPopulatedWeek.length - 1].day;
@@ -105,7 +149,7 @@ export class DatePicker implements OnInit {
     return days;
   }
 
-  populateLastweek(): CalendarDay[] {
+  private populateLastweek(): CalendarDay[] {
     let days: CalendarDay[] = [];
     let daysInMonth = this.getDaysInMonth(this._currentMonth, this._currentYear);
     let nextMonth = this.getNextMonthAndYear(this._currentMonth, this._currentYear);
@@ -132,20 +176,6 @@ export class DatePicker implements OnInit {
     }
 
     return days;
-  }
-
-  onDayClicked(day: CalendarDay) {
-    if (day.otherMonth) return;
-
-    this.selectedDateChange.emit(new Date(day.year, day.month, day.day));
-  }
-
-  isSelected(day: CalendarDay): boolean {
-    if (!this.selectedDate) return false;
-
-    return (
-      this.selectedDate.getDate() === day.day && this.selectedDate.getMonth() === day.month && this.selectedDate.getFullYear() === day.year
-    );
   }
 
   private populateCalendarWeekDays() {
@@ -181,7 +211,7 @@ export class DatePicker implements OnInit {
   }
 
   private getNextMonthAndYear(month: number, year: number) {
-    if (month === 11) return { month: 1, year: year + 1 };
+    if (month === 11) return { month: 0, year: year + 1 };
 
     return { month: month + 1, year: year };
   }

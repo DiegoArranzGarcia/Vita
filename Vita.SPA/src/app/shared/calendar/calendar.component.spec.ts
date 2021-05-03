@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DatePicker } from './calendar.component';
+import { Calendar } from './calendar.component';
 
 describe('CalendarComponent', () => {
-  let component: DatePicker;
-  let fixture: ComponentFixture<DatePicker>;
+  let component: Calendar;
+  let fixture: ComponentFixture<Calendar>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatePicker ]
+      declarations: [ Calendar ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatePicker);
+    fixture = TestBed.createComponent(Calendar);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

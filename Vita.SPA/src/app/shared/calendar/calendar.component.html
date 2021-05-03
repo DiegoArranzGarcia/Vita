@@ -1,8 +1,8 @@
 <div class="vita-calendar">
     <div class="vita-calendar__month">
-        <fa-icon [icon]="_faIconArrowLeft"></fa-icon>
-        <span>The month</span>
-        <fa-icon [icon]="_faIconArrowRight"></fa-icon>
+        <fa-icon [icon]="_faIconArrowLeft" (click)="onPreviousMonth()"></fa-icon>
+        <span>{{this._months[this._currentMonth]}} {{this._currentYear}}</span>
+        <fa-icon [icon]="_faIconArrowRight" (click)="onNextMonth()"></fa-icon>
     </div>
     <div class="separator"></div>
     <div class="vita-calendar__weeks">
@@ -16,6 +16,5 @@
                 </span>
             </div>
         </div>
-    </div>
-    
+    </div>    
 </div>

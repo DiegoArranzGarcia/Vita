@@ -3,12 +3,11 @@
   <fa-icon *ngIf="!aimDate" (click)="toogleAimDatePicker($event)" [icon]="_aimDateIcon" size="sm"></fa-icon>
   <vita-modal #modal>
     <div class="vita-aim-date-picker__modal__container">
-      <p>Select an aim date</p>
       <vita-button-group [options]="_options" [(selectedOption)]="_selectedOption">
       </vita-button-group>
-      <div [ngSwitch]="_selectedOption">
+      <ng-container [ngSwitch]="_selectedOption">
         <vita-date-picker *ngSwitchCase="'Day'" [selectedDate]="aimDate?.start" (selectedDateChange)="onSelectedDate($event)"></vita-date-picker>
-      </div>
+      </ng-container>
     </div>    
   </vita-modal>
 </ng-container>
