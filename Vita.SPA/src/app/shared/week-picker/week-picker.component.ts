@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Calendar, CalendarDay, CalendarWeek } from '../calendar/calendar.component';
 
-export class Week {
+export interface Week {
   startWeekDate: Date;
   endWeekDate: Date;
 }

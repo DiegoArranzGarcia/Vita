@@ -1,23 +1,20 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
-import { MonthPicker } from './year-picker.component';
+import { YearPicker } from './year-picker.component';
 
-describe('MonthPickerComponent', () => {
-  let component: MonthPicker;
-  let fixture: ComponentFixture<MonthPicker>;
+describe('YearPickerComponent', () => {
+  let component: YearPicker;
+  let fixture: ComponentFixture<YearPicker>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MonthPicker ]
-    })
-    .compileComponents();
+      declarations: [YearPicker],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MonthPicker);
+    fixture = TestBed.createComponent(YearPicker);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

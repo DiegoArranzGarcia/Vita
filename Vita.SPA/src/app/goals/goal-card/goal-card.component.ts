@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { GoalDto as Goal, GoalDto } from '../goal.model';
+import { GoalDto } from '../goal.model';
 import { GoalService } from '../goal.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -11,17 +11,17 @@ import { map } from 'rxjs/operators';
   templateUrl: './goal-card.component.html',
 })
 export class GoalCardComponent implements OnInit, OnDestroy {
-  @Input() goal: Goal;
+  @Input() goal: GoalDto;
   @Input() deletable: boolean;
 
   @Output() deleted = new EventEmitter<string>();
-  @Output() changed = new EventEmitter<Goal>();
+  @Output() changed = new EventEmitter<GoalDto>();
 
   private updateGoalSubscription: Subscription;
   private refreshGoalSubscription: Subscription;
 
   goalForm: FormGroup;
-  
+
   constructor(private goalService: GoalService) {}
 
   ngOnInit() {
@@ -40,19 +40,34 @@ export class GoalCardComponent implements OnInit, OnDestroy {
     this.deleted.emit(id);
   }
 
-  onClickedOutside(event: Event) {
+  submitForm() {
     if (!this.goalForm.dirty) return;
     if (!this.goalForm.valid) return this.restoreGoal();
-    if (!this.updateGoalSubscription || !this.updateGoalSubscription.closed)
-      this.updateGoalSubscription = this.updateGoal().subscribe(x => {
-        this.goalForm.markAsPristine();
-        this.updateGoalSubscription = null;
-        this.onUpdatedGoal();
-      });
+    this.updateGoalCard();
+  }
+
+  updateGoalCard() {
+    if (this.updateGoalSubscription && this.updateGoalSubscription.closed) return;
+
+    this.updateGoalSubscription = this.updateGoal().subscribe(x => {
+      this.goalForm.markAsPristine();
+      this.updateGoalSubscription = null;
+      this.onUpdatedGoal();
+    });
   }
 
   onUpdatedGoal() {
     this.refreshGoalSubscription = this.refreshGoal().subscribe();
+  }
+
+  onClickOutisde() {
+    this.submitForm();
+  }
+
+  onAimDateChange(aimDate: { start: Date; end: Date }) {
+    this.goal.aimDateStart = aimDate?.start;
+    this.goal.aimDateEnd = aimDate?.end;
+    this.updateGoalCard();
   }
 
   refreshGoal(): Observable<GoalDto> {
@@ -68,6 +83,8 @@ export class GoalCardComponent implements OnInit, OnDestroy {
     return this.goalService.updateGoal(this.goal.id, {
       title: this.goalForm.controls['titleControl'].value,
       description: this.goalForm.controls['descriptionControl'].value,
+      aimDateStart: this.goal.aimDateStart,
+      aimDateEnd: this.goal.aimDateEnd,
     });
   }
 

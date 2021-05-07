@@ -1,5 +1,5 @@
-<div class="vita-modal" (clickOutside)="onClickedOutside($event)">
-  <div *ngIf="visible" class="vita-modal__container"  [@inOutAnimation]>
+<div class="vita-modal">
+  <div *ngIf="visible" class="vita-modal__container"  [@inOutAnimation] (clickOutside)="onClickedOutside($event)">
     <ng-content></ng-content>
   </div>
 </div>
