@@ -3,7 +3,6 @@ import { faCalendarDay, faCalendarPlus } from '@fortawesome/free-solid-svg-icons
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { Week } from 'src/app/shared/week-picker/week-picker.component';
 import { Month as Month } from 'src/app/shared/month-picker/month-picker.component';
-import { CalendarWeek } from 'src/app/shared/calendar/calendar.component';
 
 @Component({
   selector: 'vita-goal-card-aim-date',
@@ -25,19 +24,19 @@ export class GoalCardAimDateComponent implements OnInit {
   }
 
   public get month(): Month {
-    if (!this.aimDate) return null;
+    if (!this.aimDate?.start) return null;
 
     return { month: this.aimDate.start.getMonth(), year: this.aimDate.start.getFullYear() };
   }
 
   public get week(): Week {
-    if (!this.aimDate) return null;
+    if (!this.aimDate?.start) return null;
 
     return { startWeekDate: this.aimDate.start, endWeekDate: this.aimDate.end };
   }
 
   public get year(): number {
-    if (!this.aimDate) return null;
+    if (!this.aimDate?.start) return null;
 
     return this.aimDate.start.getFullYear();
   }
@@ -46,7 +45,38 @@ export class GoalCardAimDateComponent implements OnInit {
 
   ngOnInit() {
     this._options = ['Year', 'Month', 'Week', 'Day'];
-    this._selectedOption = 'Day';
+    this._selectedOption = this.getOption(this.aimDate);
+  }
+
+  getOption(aimDate: { start: Date; end: Date }): string {
+    if (!aimDate) return 'Day';
+
+    if (
+      aimDate.start.getFullYear() == aimDate.end.getFullYear() &&
+      aimDate.start.getDate() === 1 &&
+      aimDate.start.getMonth() === 0 &&
+      aimDate.end.getDate() === 31 &&
+      aimDate.end.getMonth() === 11
+    )
+      return 'Year';
+
+    if (aimDate.start.getDate() == aimDate.end.getDate()) return 'Day';
+
+    if (this.daysBetween(aimDate.start, aimDate.end) === 6) return 'Week';
+
+    return 'Month';
+  }
+
+  private daysBetween(start: Date, end: Date) {
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    // Calculating the time difference between two dates
+    const diffInTime = end.getTime() - start.getTime();
+
+    // Calculating the no. of days between two dates
+    const diffInDays = Math.round(diffInTime / oneDay);
+
+    return diffInDays;
   }
 
   toogleAimDatePicker(event: Event) {

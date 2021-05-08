@@ -14,20 +14,20 @@ export class YearPicker implements OnInit {
   @Output() selectedYearChange = new EventEmitter<number>();
 
   _years: number[];
-  _refenceYear: number;
+  _referenceYear: number;
 
   ngOnInit() {
-    this._refenceYear = this.selectedYear ?? new Date().getFullYear();
+    this._referenceYear = this.selectedYear ?? new Date().getFullYear();
     this.populateYears();
   }
 
   onNextYears() {
-    this._refenceYear += 12;
+    this._referenceYear += 12;
     this.populateYears();
   }
 
   onPreviousYears() {
-    this._refenceYear -= 12;
+    this._referenceYear -= 12;
     this.populateYears();
   }
 
@@ -38,7 +38,7 @@ export class YearPicker implements OnInit {
   private populateYears() {
     this._years = [];
 
-    for (let year = this._refenceYear - 6; year < this._refenceYear + 6; year++) {
+    for (let year = this._referenceYear - 6; year < this._referenceYear + 6; year++) {
       this._years.push(year);
     }
   }

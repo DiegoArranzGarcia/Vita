@@ -44,6 +44,9 @@ export class WeekPicker extends Calendar implements OnInit {
     let firstDayOfWeek = week.days[0];
     let lastDayOfWeek = week.days[this._daysInAWeek - 1];
 
-    return this.selectedWeek.startWeekDate === firstDayOfWeek.date && lastDayOfWeek.date === this.selectedWeek.endWeekDate;
+    return (
+      this.selectedWeek.startWeekDate.getTime() === firstDayOfWeek.date.getTime() &&
+      lastDayOfWeek.date.getTime() === this.selectedWeek.endWeekDate.getTime()
+    );
   }
 }

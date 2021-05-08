@@ -7,6 +7,7 @@ import { CreateGoalCardComponent } from './create-goal-card/create-goal-card.com
 import { GoalCardMenuComponent } from './goal-card-menu/goal-card-menu.component';
 import { GoalStatusComponent } from './goal-status/goal-status.component';
 import { GoalCardAimDateComponent } from './goal-card-aim-date/goal-card-aim-date.component';
+import { GoalAimDatePipe } from './goal-card-aim-date/goal-aim-date-pipe/aim-date.pipe';
 
 const routes: Routes = [{ path: '', component: GoalHomeComponent }];
 
@@ -23,5 +24,6 @@ export class GoalRoutingModule {
     GoalCardMenuComponent,
     GoalStatusComponent,
     GoalCardAimDateComponent,
+    GoalAimDatePipe,
   ];
 }
