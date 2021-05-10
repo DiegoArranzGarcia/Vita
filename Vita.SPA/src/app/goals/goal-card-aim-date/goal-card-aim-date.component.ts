@@ -49,7 +49,7 @@ export class GoalCardAimDateComponent implements OnInit {
   }
 
   getOption(aimDate: { start: Date; end: Date }): string {
-    if (!aimDate) return 'Day';
+    if (!aimDate.start && !aimDate.end) return 'Day';
 
     if (
       aimDate.start.getFullYear() == aimDate.end.getFullYear() &&
