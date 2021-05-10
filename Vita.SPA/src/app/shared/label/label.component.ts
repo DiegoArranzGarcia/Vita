@@ -7,6 +7,4 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } 
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class LabelComponent {
-  @Input() label: string;
-}
+export class Label {}

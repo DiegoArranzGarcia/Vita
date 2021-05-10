@@ -1,0 +1,19 @@
+@import '../../../styles'
+    
+div.vita-calendar
+
+    div.vita-calendar__weeks
+
+        div.vita-calendar__week
+
+            &.selected
+                color: $neutral-one
+                background-color: $primary-color             
+
+                border-top-left-radius: 1.5em
+                border-bottom-left-radius: 1.5em                      
+                border-top-right-radius: 1.5em
+                border-bottom-right-radius: 1.5em
+
+            span:not(.other-month)
+                cursor: pointer

@@ -1,19 +1,19 @@
-<div class="card">
-  <div class="card__main">
-    <div class="main__header">
+<div class="vita-card">
+  <div class="vita-card__main">
+    <div class="vita-card__main__header">
       <ng-content select="[vita-card-header]"></ng-content>
       <input *ngIf="header" [value]="header" spellcheck="false" />
     </div>
-    <div *ngIf="meta" class="main__meta">
+    <div *ngIf="meta" class="vita-card__main__meta">
       <ng-container>{{ meta }}</ng-container>
     </div>
     <ng-content select="[vita-card-meta]"></ng-content>
-    <div class="main__content">
+    <div class="vita-card__main__content">
       <ng-content select="[vita-card-content]"></ng-content>
       <textarea *ngIf="content" [value]="content" spellcheck="false"></textarea>
     </div>
   </div>
-  <div class="card__footer">
+  <div class="vita-card__footer">
     <ng-content select="[vita-card-footer]"></ng-content>
     <input *ngIf="footer" [value]="footer" spellcheck="false" />
   </div>

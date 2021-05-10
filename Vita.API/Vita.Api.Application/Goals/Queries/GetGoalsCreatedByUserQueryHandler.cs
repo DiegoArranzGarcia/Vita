@@ -11,7 +11,7 @@ namespace Vita.Api.Application.Goals.Queries
 {
     public class GetGoalsCreatedByUserQueryHandler : IRequestHandler<GetGoalsCreatedByUserQuery, PagedList<GoalDto>>
     {
-        private const string sql = @"select g.Id, g.Title, g.Description, g.CreatedOn, gs.Name as Status
+        private const string sql = @"select g.Id, g.Title, g.Description, g.CreatedOn, g.AimDate_Start as AimDateStart, g.AimDate_End as AimDateEnd, gs.Name as Status
                                        from Goals g
                                  inner join GoalStatus gs on g.GoalStatusId = gs.Id
                                       where CreatedBy = @UserId";

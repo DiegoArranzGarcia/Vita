@@ -1,0 +1,56 @@
+@import '../../../styles'
+
+div.vita-month-picker
+    display: flex
+    flex-direction: column
+    background-color: $alternative-color-one
+    border: 1px solid $alternative-color-two
+    padding: 0.75em
+
+    span
+        user-select: none
+
+    div.vita-month-picker__header
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding-bottom: 1em
+
+        span
+            color: $primary-color
+            font-weight: bolder
+
+        fa-icon
+            color: $primary-color
+            margin: 0 0.5em
+            cursor: pointer
+
+    div.vita-month-picker__separator
+        border-bottom: $light-border
+
+    div.vita-month-picker__months
+        display: grid
+        grid-template-columns: repeat(4, minmax(5.5em, 1fr))
+        grid-column-gap: 0.3em
+        grid-row-gap: 0.3em
+        justify-items: center
+        padding-top: 1em
+
+        div.vita-month-picker__month
+            display: block
+            width: 100%
+            
+            span
+                color: $neutral-one
+                display: block
+                width: 100%
+                text-align: center
+
+            &.selected
+                background-color: $primary-color
+                border-top-left-radius: 1.5em
+                border-bottom-left-radius: 1.5em                      
+                border-top-right-radius: 1.5em
+                border-bottom-right-radius: 1.5em
+
+            

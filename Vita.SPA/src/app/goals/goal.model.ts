@@ -9,6 +9,8 @@ export class GoalDto {
   public description: string;
   public createdOn: Date;
   public status: GoalStatus;
+  public aimDateStart: Date;
+  public aimDateEnd: Date;
 }
 
 export class CreateGoalDto {
@@ -20,4 +22,6 @@ export class CreateGoalDto {
 export class UpdateGoalDto {
   public title: string;
   public description: string;
+  public aimDateStart: Date;
+  public aimDateEnd: Date;
 }

@@ -1,0 +1,30 @@
+@import '../../../styles'
+
+div.vita-button-group
+    display: flex
+    justify-content: flex-start
+    align-items: center
+
+    button
+
+        height: 2em
+        width: 4.5em
+        border-radius: 0em
+        margin: 0em
+        font-size: 0.75em
+        border-right: solid 1px #000
+
+        &.active
+            background-color: $primary-color
+            color: $neutral-one
+
+        &:first-child
+            padding-left: 0.25em
+            border-top-left-radius: 1em
+            border-bottom-left-radius: 1em
+
+        &:last-child
+            padding-right: 0.25em
+            border-right: solid 0px #000
+            border-top-right-radius: 1em
+            border-bottom-right-radius: 1em

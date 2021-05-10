@@ -1,0 +1,20 @@
+<div class="vita-calendar">
+    <div class="vita-calendar__month">
+        <fa-icon [icon]="_faIconArrowLeft" (click)="onPreviousMonth()"></fa-icon>
+        <span>{{this._months[this._currentMonth]}} {{this._currentYear}}</span>
+        <fa-icon [icon]="_faIconArrowRight" (click)="onNextMonth()"></fa-icon>
+    </div>
+    <div class="separator"></div>
+    <div class="vita-calendar__weeks">
+        <div class="vita-calendar__week-headers">
+            <span *ngFor="let weekDay of _calendarWeekDays">{{weekDay}}</span>
+        </div>
+        <div *ngFor="let week of _calendarWeeks" class="vita-calendar__week" [class.selected]="isSelectedWeek(week)">
+            <div *ngFor="let day of week.days" class="vita-calendar__day" [class.selected]="isSelectedDay(day)">
+                <span  [class.other-month]="day.otherMonth"  (click)="onDayClicked(day, week)">
+                    {{day.date.getDate()}}
+                </span>
+            </div>
+        </div>
+    </div>    
+</div>

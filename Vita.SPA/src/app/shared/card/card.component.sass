@@ -1,57 +1,55 @@
 @import '../../../styles'
 
-div.card
+div.vita-card
     width: 100%
     height: 100%  
     display: flex
     flex-direction: column
-    background-color: $bg-secondary    
+    background-color: $neutral-two    
     border-radius: 0.5em
 
-    div.card__main
+    div.vita-card__main
         display: flex
         flex-direction: column
         flex: 1
         padding: 0.75em 1.25em 0em 1.25em 
         
-        div.main__header 
-            display: flex
-            justify-content: space-between
-            align-items: center            
-            flex-wrap: nowrap
+        div.vita-card__main__header 
+            display: block            
             width: 100%
 
-            > input
+            input
                 width: 100%
                 text-overflow: ellipsis
                 padding-right: 0.5em
-                background-color: $bg-secondary
+                background-color: $neutral-two
                 border: none
                 font-size: 1.3em
-                color: $bg-primary
+                color: $primary-color
 
-        div.main__meta
-            color: $font-primary
+        div.vita-card__main__meta
+            color: $neutral-one
             font-size: 0.7em
             padding-bottom: 0.75em                
             
-        div.main__content
+        div.vita-card__main__content
             display: flex
             flex: 1
             
-            > textarea
+            textarea
                 width: 100%
-                background-color: $bg-secondary
+                background-color: $neutral-two
                 border: none
                 font-size: 0.9em
                 resize: none
-                color: $font-primary
+                color: $neutral-one
                 padding-right: 5px
         
         input, textarea
             &:focus, &:active
                 outline: none
 
-    div.card__footer
-        padding: 0.4em 1.25em 0.5em 1.25em
+    div.vita-card__footer
+        display: block
+        padding: 0.4em 1.25em 0.6em 1.25em
 
