@@ -1,0 +1,5 @@
+<div class="vita-week-selector">
+  <fa-icon [icon]="_faIconArrowLeft" (click)="onPreviousWeek()"></fa-icon>
+  <span>{{week.startDate | date: 'longDate'}} - {{week.endDate | date: 'longDate'}}</span>
+  <fa-icon [icon]="_faIconArrowRight" (click)="onNextWeek()"></fa-icon>
+</div>

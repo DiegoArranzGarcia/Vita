@@ -8,15 +8,17 @@ import { InDevelopment } from './shared/in-development/in-development.component'
 
 @NgModule({
   imports: [
-    RouterModule.forRoot([
-    { path: '', redirectTo: 'goals', pathMatch: 'full' },
-    { path: 'goals', loadChildren: () => GoalModule, canActivate: [AuthGuard] },
-    { path: 'categories', component: InDevelopment, canActivate: [AuthGuard] },
-    { path: 'week', component: InDevelopment, canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent },
-    { path: 'unauthorized', component: Unauthorized },
-    { path: '**', component: Unauthorized },
-], { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(
+      [
+        { path: '', redirectTo: 'goals', pathMatch: 'full' },
+        { path: 'goals', loadChildren: () => GoalModule, canActivate: [AuthGuard] },
+        { path: 'categories', component: InDevelopment, canActivate: [AuthGuard] },
+        { path: 'login', component: LoginComponent },
+        { path: 'unauthorized', component: Unauthorized },
+        { path: '**', component: Unauthorized },
+      ],
+      { relativeLinkResolution: 'legacy' }
+    ),
   ],
   exports: [RouterModule],
 })

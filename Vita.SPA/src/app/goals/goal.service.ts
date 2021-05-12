@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GoalDto, CreateGoalDto, UpdateGoalDto } from './goal.model';
 import { Observable } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ConfigurationService } from '../core/configuration/configuration.service';
 
 @Injectable()
@@ -17,8 +17,15 @@ export class GoalService {
     return this._httpClient.get<GoalDto>(this._goalsEndpoint + `/${id}`).pipe(map(goal => this.mapGoal(goal)));
   }
 
-  public getGoals(): Observable<GoalDto[]> {
-    return this._httpClient.get<GoalDto[]>(this._goalsEndpoint).pipe(map(goals => goals.map(goal => this.mapGoal(goal))));
+  public getGoals(startDate?: Date, endDate?: Date): Observable<GoalDto[]> {
+    let params = new HttpParams();
+
+    if (startDate) params = params.set('startDate', startDate.toISOString());
+    if (endDate) params = params.set('endDate', endDate.toISOString());
+
+    return this._httpClient
+      .get<GoalDto[]>(this._goalsEndpoint, { params: params })
+      .pipe(map(goals => goals.map(goal => this.mapGoal(goal))));
   }
 
   public createGoal(createDto: CreateGoalDto): Observable<GoalDto> {
