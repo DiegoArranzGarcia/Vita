@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GoalService } from '../goal.service';
 import { GoalDto } from '../goal.model';
 import { Subscription } from 'rxjs';
@@ -8,34 +8,51 @@ import { Subscription } from 'rxjs';
   templateUrl: './goal-card-list.component.html',
   styleUrls: ['./goal-card-list.component.sass'],
 })
-export class GoalCardListComponent implements OnInit, OnDestroy {
-  goals: GoalDto[];
+export class GoalCardListComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() canCreate: boolean;
+  @Input() startDate: Date;
+  @Input() endDate: Date;
+
+  _goals: GoalDto[];
 
   private getGoalsSubscription: Subscription;
 
   constructor(private goalService: GoalService) {}
 
   ngOnInit() {
-    this.getGoalsSubscription = this.goalService.getGoals().subscribe(goals => {
-      this.goals = goals;
-    });
+    this.loadGoals();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    let startDateChange = changes['startDate'];
+    let endDateChange = changes['endDate'];
+
+    if (startDateChange.currentValue && endDateChange.currentValue) {
+      this.loadGoals();
+    }
   }
 
   ngOnDestroy() {
     if (!!this.getGoalsSubscription && !this.getGoalsSubscription.closed) this.getGoalsSubscription.unsubscribe();
   }
 
+  loadGoals() {
+    this.getGoalsSubscription = this.goalService.getGoals(this.startDate, this.endDate).subscribe(goals => {
+      this._goals = goals;
+    });
+  }
+
   handleOnCreatedGoal(goal: GoalDto) {
-    this.goals = [goal, ...this.goals];
+    this._goals = [goal, ...this._goals];
   }
 
   handleOnDeleteGoal(id: string) {
-    this.goals = this.goals.filter(x => x.id !== id);
+    this._goals = this._goals.filter(x => x.id !== id);
   }
 
   handleOnChangedGoal(goal: GoalDto) {
-    const index = this.goals.findIndex(x => x.id === goal.id);
-    this.goals[index] = { ...goal };
+    const index = this._goals.findIndex(x => x.id === goal.id);
+    this._goals[index] = { ...goal };
   }
 
   get isLoading() {

@@ -32,7 +32,7 @@ export class GoalCardAimDateComponent implements OnInit {
   public get week(): Week {
     if (!this.aimDate?.start) return null;
 
-    return { startWeekDate: this.aimDate.start, endWeekDate: this.aimDate.end };
+    return { startDate: this.aimDate.start, endDate: this.aimDate.end };
   }
 
   public get year(): number {
@@ -90,7 +90,7 @@ export class GoalCardAimDateComponent implements OnInit {
   }
 
   onSelectedWeek(week: Week) {
-    this.aimDateChange.emit({ start: week.startWeekDate, end: week.endWeekDate });
+    this.aimDateChange.emit({ start: week.startDate, end: week.endDate });
     this.modal.toogle();
   }
 

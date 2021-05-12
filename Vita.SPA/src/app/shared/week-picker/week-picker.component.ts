@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Calendar, CalendarDay, CalendarWeek } from '../calendar/calendar.component';
 
 export interface Week {
-  startWeekDate: Date;
-  endWeekDate: Date;
+  startDate: Date;
+  endDate: Date;
 }
 
 @Component({
@@ -20,7 +20,7 @@ export class WeekPicker extends Calendar implements OnInit {
   }
 
   protected getReferenceDate() {
-    return this.selectedWeek?.startWeekDate ?? new Date();
+    return this.selectedWeek?.startDate ?? new Date();
   }
 
   onDayClicked(day: CalendarDay, week: CalendarWeek) {
@@ -31,8 +31,8 @@ export class WeekPicker extends Calendar implements OnInit {
     let lastDayOfWeek = selectedCalendarWeek.days[this._daysInAWeek - 1];
 
     let selectedWeek: Week = {
-      startWeekDate: firstDayOfWeek.date,
-      endWeekDate: lastDayOfWeek.date,
+      startDate: firstDayOfWeek.date,
+      endDate: lastDayOfWeek.date,
     };
 
     this.selectedWeekChange.emit(selectedWeek);
@@ -45,8 +45,8 @@ export class WeekPicker extends Calendar implements OnInit {
     let lastDayOfWeek = week.days[this._daysInAWeek - 1];
 
     return (
-      this.selectedWeek.startWeekDate.getTime() === firstDayOfWeek.date.getTime() &&
-      lastDayOfWeek.date.getTime() === this.selectedWeek.endWeekDate.getTime()
+      this.selectedWeek.startDate.getTime() === firstDayOfWeek.date.getTime() &&
+      lastDayOfWeek.date.getTime() === this.selectedWeek.endDate.getTime()
     );
   }
 }

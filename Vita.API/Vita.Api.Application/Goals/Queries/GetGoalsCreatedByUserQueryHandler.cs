@@ -28,7 +28,13 @@ namespace Vita.Api.Application.Goals.Queries
             using var connection = new SqlConnection(_connectionStringProvider.ConnectionString);
             connection.Open();
 
-            return (await connection.QueryAsync<GoalDto>(sql, new { UserId = query.CreatedBy })).ToPagedList(query.PageNumber, query.PageSize);
+            var sqlQuery = sql;
+
+            if (query.StartDate.HasValue && query.EndDate.HasValue)
+                sqlQuery += $@" and ((g.AimDate_Start is null and g.AimDate_End is null) or 
+                                      (@Start <= g.AimDate_End and g.AimDate_Start <= @End))";
+
+            return (await connection.QueryAsync<GoalDto>(sqlQuery, new { UserId = query.CreatedBy, Start = query.StartDate, End = query.EndDate })).ToPagedList(query.PageNumber, query.PageSize);
         }
     }
 }

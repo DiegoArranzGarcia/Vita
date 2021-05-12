@@ -24,6 +24,7 @@ import { WeekPicker } from './week-picker/week-picker.component';
 import { MonthPicker } from './month-picker/month-picker.component';
 import { YearPicker } from './year-picker/year-picker.component';
 import { ClickOutsideDirective } from './clicked-outside/clicked-outside.directive';
+import { WeekSelectorComponent } from './week-selector/week-selector.component';
 
 const exportableModules = [CommonModule, FontAwesomeModule, MomentModule];
 
@@ -48,6 +49,7 @@ const declarables = [
   MonthPicker,
   YearPicker,
   ClickOutsideDirective,
+  WeekSelectorComponent,
 ];
 
 @NgModule({
