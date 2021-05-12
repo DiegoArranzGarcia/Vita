@@ -1,0 +1,69 @@
+@import '../../../styles'
+
+div.vita-calendar
+    display: flex
+    flex-direction: column
+    background-color: $alternative-color-one
+    border: 1px solid $alternative-color-two
+    padding: 0.75em
+
+    span
+        user-select: none
+
+    div.vita-calendar__month
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding-bottom: 1em
+
+        span
+            color: $primary-color
+            font-weight: bolder
+
+        fa-icon
+            color: $primary-color
+            margin: 0 0.5em
+            cursor: pointer
+
+    div.separator
+        border-bottom: $light-border
+
+    div.vita-calendar__weeks
+        display: block
+        padding-top: 1em
+
+        div > span
+            min-width: 1.75em
+            min-height: 1.75em
+        
+        span
+            line-height: 1.75em
+            text-align: center
+
+        div.vita-calendar__week-headers
+            display: grid
+            grid-template-columns: repeat(7, 1fr)
+            grid-gap: 10px
+            justify-items: center
+
+            span
+                color: $primary-color
+                font-weight: bold
+
+        div.vita-calendar__week        
+            display: grid
+            grid-template-columns: repeat(7, 1fr)
+            justify-items: center
+
+            div.vita-calendar__day
+                display: flex
+                justify-content: center
+                align-items: center
+                padding: 0.25em
+
+                span 
+                    color: $neutral-one
+
+                    &.other-month
+                        cursor: auto
+                        color: $neutral-three

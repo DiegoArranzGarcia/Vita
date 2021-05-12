@@ -1,10 +1,9 @@
-<vita-loading [loading]="isLoading" text="Searching your goals in your hidden vault..."></vita-loading>
+<vita-spinner [loading]="isLoading" text="Searching your goals in your hidden vault..."></vita-spinner>
 <div *ngIf="!isLoading" class="goals__container-list">
-  <vita-goal-card
-  *ngFor="let goal of goals; let index = index"
-  [goal]="goal"
-  (deleted)="handleOnDeleteGoal($event)"
-  (changed)="handleOnChangedGoal($event)"
+  <vita-goal-card *ngFor="let goal of _goals; let index = index"
+    [goal]="goal"
+    (deleted)="handleOnDeleteGoal($event)"
+    (changed)="handleOnChangedGoal($event)"
   ></vita-goal-card>
-  <vita-create-goal-card (created)="handleOnCreatedGoal($event)"></vita-create-goal-card>
+  <vita-create-goal-card *ngIf="canCreate" (created)="handleOnCreatedGoal($event)"></vita-create-goal-card>
 </div>

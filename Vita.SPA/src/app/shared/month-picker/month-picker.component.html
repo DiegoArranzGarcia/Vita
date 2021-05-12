@@ -1,0 +1,15 @@
+<div class="vita-month-picker">
+  <div class="vita-month-picker__header">
+    <fa-icon [icon]="_faIconArrowLeft" (click)="onPreviousYear()"></fa-icon>
+    <span>{{this._currentYear}}</span>
+    <fa-icon [icon]="_faIconArrowRight" (click)="onNextYear()"></fa-icon>
+  </div>
+  <div class="vita-month-picker__separator"></div>
+  <div class="vita-month-picker__months">
+    <div class="vita-month-picker__month" *ngFor="let month of _months; let index = index" 
+      (click)="onMonthSelected(index)" 
+      [class.selected]="this.selectedMonth?.month === index">
+      <span>{{month}}</span>
+    <div>
+  </div>
+</div>

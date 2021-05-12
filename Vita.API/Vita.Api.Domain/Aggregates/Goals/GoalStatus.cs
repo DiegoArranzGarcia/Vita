@@ -19,12 +19,10 @@ namespace Vita.Api.Domain.Aggregates.Goals
 
         public static GoalStatus FromName(string name)
         {
-            var state = GetAllValues().SingleOrDefault(s => String.Equals(s.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            var state = GetAllValues().SingleOrDefault(s => string.Equals(s.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
             if (state == null)
-            {
-                throw new Exception($"Possible values for OrderStatus: {string.Join(",", GetAllValues().Select(s => s.Name))}");
-            }
+                throw new Exception($"Possible values for GoalStatus: {string.Join(",", GetAllValues().Select(s => s.Name))}");
 
             return state;
         }
@@ -34,9 +32,7 @@ namespace Vita.Api.Domain.Aggregates.Goals
             var state = GetAllValues().SingleOrDefault(s => s.Id == id);
 
             if (state == null)
-            {
-                throw new Exception($"Possible values for OrderStatus: {string.Join(",", GetAllValues().Select(s => s.Name))}");
-            }
+                throw new Exception($"Possible values for GoalStatus: {string.Join(",", GetAllValues().Select(s => s.Name))}");
 
             return state;
         }

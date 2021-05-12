@@ -15,6 +15,7 @@ export class GoalStatusComponent implements OnInit {
   ngOnInit(): void {
     this.statusText = this.getStatusText();
   }
+  
   getStatusText(): string {
     switch (this.goalStatus) {
       case GoalStatus.Completed:

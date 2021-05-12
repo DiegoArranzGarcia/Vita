@@ -6,6 +6,7 @@ using System;
 using System.Security.Cryptography;
 using Xunit;
 using Microsoft.Azure.Services.AppAuthentication;
+using Azure.Security.KeyVault.Certificates;
 
 namespace Vita.Identity.Host.Tests
 {
@@ -14,12 +15,19 @@ namespace Vita.Identity.Host.Tests
         [Fact]
         public void RSAKeyTest()
         {
-            var defaultAzureCredential = new DefaultAzureCredential();
-
-            var keyClient = new KeyClient(new Uri("{{your kv url}}"), defaultAzureCredential);
+            var keyClient = new KeyClient(new Uri("{{your keyvault uri}}"), new DefaultAzureCredential());
             Response<KeyVaultKey> response = keyClient.GetKey("SingInCredentialsKey");
 
             RSA rsa = response.Value.Key.ToRSA();
+
+            Assert.NotNull (response.Value.Properties.Version);
+        }        
+        
+        [Fact]
+        public void CertificateTest()
+        {
+            var keyClient = new CertificateClient(new Uri("{{your keyvault uri}}"), new DefaultAzureCredential());
+            Response<KeyVaultCertificateWithPolicy> response = keyClient.GetCertificate("SignInCredentialsCert");
 
             Assert.NotNull (response.Value.Properties.Version);
         }

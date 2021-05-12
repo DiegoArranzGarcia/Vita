@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Vita.Api.Domain.Aggregates.Dates;
 using Vita.Api.Domain.Aggregates.Goals;
 
 namespace Vita.Api.Application.Goals.Commands
@@ -24,6 +25,7 @@ namespace Vita.Api.Application.Goals.Commands
 
             goal.Title = request.Title;
             goal.Description = request.Description;
+            goal.AimDate = request.AimDateStart.HasValue ? new DateTimeInterval(request.AimDateStart.Value, request.AimDateEnd.Value) : null;
 
             await _goalsRepository.Update(goal);
             await _goalsRepository.UnitOfWork.SaveEntitiesAsync();

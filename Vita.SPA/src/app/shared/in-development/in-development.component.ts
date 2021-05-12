@@ -6,7 +6,7 @@ import { faLaptopCode } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './in-development.component.html',
   styleUrls: ['./in-development.component.sass'],
 })
-export class InDevelopmentComponent implements OnInit {
+export class InDevelopment implements OnInit {
   inDevelopmentIcon = faLaptopCode;
 
   constructor() {}

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GoalDto, CreateGoalDto, UpdateGoalDto } from './goal.model';
 import { Observable } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { flatMap, map } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ConfigurationService } from '../core/configuration/configuration.service';
 
 @Injectable()
@@ -14,11 +14,18 @@ export class GoalService {
   }
 
   public getGoal(id: string): Observable<GoalDto> {
-    return this._httpClient.get<GoalDto>(this._goalsEndpoint + `/${id}`);
+    return this._httpClient.get<GoalDto>(this._goalsEndpoint + `/${id}`).pipe(map(goal => this.mapGoal(goal)));
   }
 
-  public getGoals(): Observable<GoalDto[]> {
-    return this._httpClient.get<GoalDto[]>(this._goalsEndpoint);
+  public getGoals(startDate?: Date, endDate?: Date): Observable<GoalDto[]> {
+    let params = new HttpParams();
+
+    if (startDate) params = params.set('startDate', startDate.toISOString());
+    if (endDate) params = params.set('endDate', endDate.toISOString());
+
+    return this._httpClient
+      .get<GoalDto[]>(this._goalsEndpoint, { params: params })
+      .pipe(map(goals => goals.map(goal => this.mapGoal(goal))));
   }
 
   public createGoal(createDto: CreateGoalDto): Observable<GoalDto> {
@@ -37,5 +44,14 @@ export class GoalService {
 
   public completeGoal(id: string): Observable<void> {
     return this._httpClient.post<void>(this._goalsEndpoint + `/${id}/complete`, null);
+  }
+
+  private mapGoal(goalDto: GoalDto): GoalDto {
+    return {
+      ...goalDto,
+      aimDateStart: goalDto.aimDateStart ? new Date(goalDto.aimDateStart) : null,
+      aimDateEnd: goalDto.aimDateEnd ? new Date(goalDto.aimDateEnd) : null,
+      createdOn: goalDto.createdOn ? new Date(goalDto.createdOn) : null,
+    };
   }
 }

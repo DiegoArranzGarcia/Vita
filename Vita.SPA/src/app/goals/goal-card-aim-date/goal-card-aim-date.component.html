@@ -1,0 +1,16 @@
+<ng-container>
+  <vita-label *ngIf="aimDate?.start" (click)="toogleAimDatePicker($event)">{{aimDate | aimDate:_selectedOption}}</vita-label>
+  <fa-icon *ngIf="!aimDate?.start" (click)="toogleAimDatePicker($event)" [icon]="_aimDateIcon" size="sm"></fa-icon>
+  <vita-modal #modal>
+    <div class="vita-aim-date-picker__modal__container">
+      <vita-button-group [options]="_options" [(selectedOption)]="_selectedOption">
+      </vita-button-group>
+      <ng-container>
+        <vita-year-picker *ngIf="_selectedOption === 'Year'" [selectedYear]="year" (selectedYearChange)="onSelectedYear($event)"></vita-year-picker>
+        <vita-month-picker *ngIf="_selectedOption ==='Month'" [selectedMonth]="month" (selectedMonthChange)="onSelectedMonth($event)"></vita-month-picker>
+        <vita-week-picker *ngIf="_selectedOption ==='Week'" [selectedWeek]="week" (selectedWeekChange)="onSelectedWeek($event)"></vita-week-picker>
+        <vita-date-picker *ngIf="_selectedOption ==='Day'" [selectedDate]="day" (selectedDateChange)="onSelectedDate($event)"></vita-date-picker>
+      </ng-container>
+    </div>    
+  </vita-modal>
+</ng-container>

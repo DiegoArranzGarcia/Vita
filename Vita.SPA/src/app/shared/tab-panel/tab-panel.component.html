@@ -1,0 +1,10 @@
+<div class="tabpanel">
+  <div class="tabpanel__header">
+    <ul *ngFor="let tab of tabs; let index = index" [class.active]="index == _selectedIndex">
+      <li (click)="onSelectedTab(tab, index)">{{tab.title}}</li>
+    </ul>
+  </div>
+  <div class="tabpanel__detail">
+    <ng-content></ng-content>
+  </div>
+</div>
