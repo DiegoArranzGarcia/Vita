@@ -6,12 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
-    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-    <PackageReference Include="Vita.Core.Pagination" Version="0.2.9" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Vita.Api.Application.Abstractions\Vita.Api.Application.Abstractions.csproj" />
     <ProjectReference Include="..\Vita.Api.Domain\Vita.Api.Domain.csproj" />
   </ItemGroup>
 

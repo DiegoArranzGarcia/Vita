@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Vita.Api.Domain\Vita.Api.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Aggregates\Dates\" />
+  </ItemGroup>
+
 </Project>

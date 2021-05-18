@@ -1,17 +1,14 @@
 ﻿using Dapper;
-using MediatR;
 using System;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Vita.Api.Application.Abstractions.Goals.Queries;
 using Vita.Api.Application.Configuration;
-using Vita.Api.Domain.Aggregates.Dates;
-using Vita.Api.Domain.Aggregates.Goals;
 
 namespace Vita.Api.Application.Goals.Queries
 {
-    public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, GoalDto>
+    public class GetGoalByIdQueryHandler : IGetGoalByIdQueryHandler
     {
         private const string sql = @"select g.Id, g.Title, g.Description, g.CreatedOn, g.AimDate_Start as AimDateStart, g.AimDate_End as AimDateEnd, gs.Name as Status
                                        from Goals g 

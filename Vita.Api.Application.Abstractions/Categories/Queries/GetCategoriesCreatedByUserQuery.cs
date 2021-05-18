@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using System;
-using Vita.Api.Application.Pagination;
+using Vita.Api.Application.Abstractions.Pagination;
 using Vita.Core.Pagination;
 
 namespace Vita.Api.Application.Categories.Queries

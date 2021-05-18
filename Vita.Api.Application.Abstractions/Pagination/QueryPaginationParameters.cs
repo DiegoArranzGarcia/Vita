@@ -1,4 +1,4 @@
-﻿namespace Vita.Api.Application.Pagination
+﻿namespace Vita.Api.Application.Abstractions.Pagination
 {
     public class QueryPaginationParameters
     {

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using System;
-using Vita.Api.Domain.Aggregates.Dates;
 
 namespace Vita.Api.Application.Goals.Commands
 {

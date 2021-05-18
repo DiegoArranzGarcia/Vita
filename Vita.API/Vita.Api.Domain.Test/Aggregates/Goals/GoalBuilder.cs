@@ -11,7 +11,6 @@ namespace Vita.Api.Domain.Test.Aggregates.Goals
         private string Description { get; set; } = "Default Description";
         private Guid CreatedBy { get; set; } = Guid.NewGuid();
 
-
         public Goal Create()
         {
             return new Goal(Title, Description, CreatedBy);

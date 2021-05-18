@@ -2,11 +2,12 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Vita.Api.Application.Abstractions.Categories;
 using Vita.Api.Domain.Aggregates.Categories;
 
 namespace Vita.Api.Application.Categories.Commands
 {
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, Guid>
+    public class CreateCategoryCommandHandler : ICreateCategoryCommandHandler
     {
         private readonly ICategoriesRepository _categoriesRepository;
 
