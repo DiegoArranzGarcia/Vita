@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Vita.Api.Application.Abstraction.Goals.Commands;
+using Vita.Api.Application.Abstraction.Goals.Queries;
 using Vita.Api.Application.Goals.Queries;
 using Vita.Core.Pagination.Http.Headers;
 

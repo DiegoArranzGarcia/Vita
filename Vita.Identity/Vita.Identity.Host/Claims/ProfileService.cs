@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Vita.Identity.Application.Users.Queries;
+using Vita.Identity.Application.Abstraction.Users.Queries;
 
 namespace Vita.Identity.Host.Claims
 {
