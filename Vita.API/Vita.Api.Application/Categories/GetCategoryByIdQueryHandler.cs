@@ -3,10 +3,10 @@ using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Api.Application.Abstractions.Categories.Queries;
-using Vita.Api.Application.Configuration;
+using Vita.Api.Application.Abstraction.Categories.Queries;
+using Vita.Api.Application.Sql.Configuration;
 
-namespace Vita.Api.Application.Categories.Queries
+namespace Vita.Api.Application.Sql.Categories
 {
     public class GetCategoryByIdQueryHandler : IGetCategoryByIdQueryHandler
     {

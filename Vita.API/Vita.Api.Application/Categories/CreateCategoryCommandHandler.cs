@@ -1,11 +1,10 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Api.Application.Abstractions.Categories;
+using Vita.Api.Application.Abstraction.Categories.Commands;
 using Vita.Api.Domain.Aggregates.Categories;
 
-namespace Vita.Api.Application.Categories.Commands
+namespace Vita.Api.Application.Sql.Categories
 {
     public class CreateCategoryCommandHandler : ICreateCategoryCommandHandler
     {

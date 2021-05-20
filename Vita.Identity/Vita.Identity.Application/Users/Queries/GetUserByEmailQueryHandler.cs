@@ -1,14 +1,14 @@
 ﻿using Dapper;
-using MediatR;
 using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Identity.Application.Configuration;
+using Vita.Identity.Application.Abstraction.Users.Queries;
+using Vita.Identity.Application.Sql.Configuration;
 
-namespace Vita.Identity.Application.Users.Queries
+namespace Vita.Identity.Application.Sql.Users.Queries
 {
-    public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, UserDto>
+    public class GetUserByEmailQueryHandler : IGetUserByEmailQueryHandler
     {
         private const string sql = "Select Id, Email from Users where Email = @Email;";
 
@@ -24,7 +24,7 @@ namespace Vita.Identity.Application.Users.Queries
             using var connection = new SqlConnection(_connectionStringProvider.ConnectionString);
             connection.Open();
 
-            return await connection.QueryFirstOrDefaultAsync<UserDto>(sql, new { Email = request.Email });
+            return await connection.QueryFirstOrDefaultAsync<UserDto>(sql, new { request.Email });
         }
     }
 }

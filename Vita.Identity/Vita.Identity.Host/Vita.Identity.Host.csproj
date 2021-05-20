@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vita.Identity.Application\Vita.Identity.Application.csproj" />
+    <ProjectReference Include="..\Vita.Identity.Application\Vita.Identity.Application.Sql.csproj" />
     <ProjectReference Include="..\Vita.Identity.Persistance\Vita.Identity.Persistance.Sql.csproj" />
   </ItemGroup>
 

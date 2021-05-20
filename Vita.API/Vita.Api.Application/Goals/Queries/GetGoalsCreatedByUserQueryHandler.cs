@@ -4,11 +4,12 @@ using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Api.Application.Abstractions.Goals.Queries;
-using Vita.Api.Application.Configuration;
+using Vita.Api.Application.Abstraction.Goals.Queries;
+using Vita.Api.Application.Goals.Queries;
+using Vita.Api.Application.Sql.Configuration;
 using Vita.Core.Pagination;
 
-namespace Vita.Api.Application.Goals.Queries
+namespace Vita.Api.Application.Sql.Goals.Queries
 {
     public class GetGoalsCreatedByUserQueryHandler : IGetGoalsCreatedByUserQueryHandler
     {

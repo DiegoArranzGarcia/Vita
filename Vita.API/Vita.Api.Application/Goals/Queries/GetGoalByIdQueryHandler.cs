@@ -3,10 +3,10 @@ using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Api.Application.Abstractions.Goals.Queries;
-using Vita.Api.Application.Configuration;
+using Vita.Api.Application.Abstraction.Goals.Queries;
+using Vita.Api.Application.Sql.Configuration;
 
-namespace Vita.Api.Application.Goals.Queries
+namespace Vita.Api.Application.Sql.Goals.Queries
 {
     public class GetGoalByIdQueryHandler : IGetGoalByIdQueryHandler
     {
@@ -23,11 +23,11 @@ namespace Vita.Api.Application.Goals.Queries
         }
 
         public async Task<GoalDto> Handle(GetGoalByIdQuery request, CancellationToken cancellationToken)
-        {          
+        {
             using var connection = new SqlConnection(_connectionStringProvider.ConnectionString);
             connection.Open();
 
-            return await connection.QueryFirstOrDefaultAsync<GoalDto>(sql, new { Id = request.Id });
+            return await connection.QueryFirstOrDefaultAsync<GoalDto>(sql, new { request.Id });
         }
     }
 }

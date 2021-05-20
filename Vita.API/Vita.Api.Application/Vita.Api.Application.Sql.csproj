@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Vita.Api.Application.Abstractions\Vita.Api.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\Vita.Api.Application.Abstraction\Vita.Api.Application.Abstraction.csproj" />
     <ProjectReference Include="..\Vita.Api.Domain\Vita.Api.Domain.csproj" />
   </ItemGroup>
 
