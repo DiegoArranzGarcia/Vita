@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using Vita.Api.Application.Abstraction.Categories.Commands;
+using Vita.Api.Application.Sql.Categories;
 using Vita.Api.Application.Sql.Configuration;
 using Vita.Api.Domain.Aggregates.Categories;
 using Vita.Api.Domain.Aggregates.Goals;
@@ -79,7 +80,7 @@ namespace Vita.Api.Host
 
         private void AddApplicationBootstrapping(IServiceCollection services)
         {
-            services.AddMediatR(typeof(CreateCategoryCommand));
+            services.AddMediatR(typeof(CreateCategoryCommand), typeof(CreateCategoryCommandHandler));
             services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("VitaApiDbContext")));
         }
 
