@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vita.Identity.Application.Configuration
+namespace Vita.Identity.Application.Sql.Configuration
 {
     public class ConnectionStringProvider : IConnectionStringProvider
     {

@@ -2,11 +2,12 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Vita.Identity.Application.Abstraction.Users.Queries;
 using Vita.Identity.Domain.Aggregates.Users;
 
-namespace Vita.Identity.Application.Users.Queries
+namespace Vita.Identity.Application.Sql.Users.Queries
 {
-    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDto>
+    public class GetUserByIdQueryHandler : IGetUserByIdQueryHandler
     {
         private readonly IUsersRepository _usersRepository;
 

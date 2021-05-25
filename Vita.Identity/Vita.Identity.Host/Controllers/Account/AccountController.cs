@@ -12,8 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
-using Vita.Identity.Application.Users.Commands;
-using Vita.Identity.Application.Users.Queries;
+using Vita.Identity.Application.Abstraction.Users;
+using Vita.Identity.Application.Abstraction.Users.Queries;
 using Vita.Identity.Host.Shared;
 
 namespace Vita.Identity.Host.Controllers.Account

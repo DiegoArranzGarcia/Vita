@@ -4,12 +4,14 @@ using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Api.Application.Configuration;
+using Vita.Api.Application.Abstraction.Goals.Queries;
+using Vita.Api.Application.Goals.Queries;
+using Vita.Api.Application.Sql.Configuration;
 using Vita.Core.Pagination;
 
-namespace Vita.Api.Application.Goals.Queries
+namespace Vita.Api.Application.Sql.Goals.Queries
 {
-    public class GetGoalsCreatedByUserQueryHandler : IRequestHandler<GetGoalsCreatedByUserQuery, PagedList<GoalDto>>
+    public class GetGoalsCreatedByUserQueryHandler : IGetGoalsCreatedByUserQueryHandler
     {
         private const string sql = @"select g.Id, g.Title, g.Description, g.CreatedOn, g.AimDate_Start as AimDateStart, g.AimDate_End as AimDateEnd, gs.Name as Status
                                        from Goals g

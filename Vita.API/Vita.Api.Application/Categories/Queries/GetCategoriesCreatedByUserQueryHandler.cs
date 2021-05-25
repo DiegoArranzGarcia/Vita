@@ -1,15 +1,15 @@
 ﻿using Dapper;
-using MediatR;
 using System;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using Vita.Api.Application.Configuration;
+using Vita.Api.Application.Abstraction.Categories.Queries;
+using Vita.Api.Application.Sql.Configuration;
 using Vita.Core.Pagination;
 
-namespace Vita.Api.Application.Categories.Queries
+namespace Vita.Api.Application.Sql.Categories
 {
-    public class GetCategoriesCreatedByUserQueryHandler : IRequestHandler<GetCategoriesCreatedByUserQuery, PagedList<CategoryDto>>
+    public class GetCategoriesCreatedByUserQueryHandler : IGetCategoriesCreatedByUserQueryHandler
     {
         private const string sql = "Select Id, Name, Color from Categories where CreatedBy = @UserId";
         private readonly IConnectionStringProvider _connectionStringProvider;
