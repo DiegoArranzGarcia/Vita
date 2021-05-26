@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Vita.Api.Application.Abstraction.Goals.Queries;
 using Vita.Api.Application.Goals.Queries;
 using Vita.Api.Application.Sql.Configuration;
+using Vita.Api.Domain.Aggregates.Goals;
 using Vita.Core.Pagination;
 
 namespace Vita.Api.Application.Sql.Goals.Queries
@@ -33,8 +34,10 @@ namespace Vita.Api.Application.Sql.Goals.Queries
             var sqlQuery = sql;
 
             if (query.StartDate.HasValue && query.EndDate.HasValue)
-                sqlQuery += $@" and ((g.AimDate_Start is null and g.AimDate_End is null) or 
-                                      (@Start <= g.AimDate_End and g.AimDate_Start <= @End))";
+                sqlQuery += $@" and (@Start <= g.AimDate_End and g.AimDate_Start <= @End)";
+
+            if (!query.ShowCompleted.HasValue || !query.ShowCompleted.Value)
+                sqlQuery += $@" and (g.GoalStatusId = {GoalStatus.ToDo.Id})";
 
             return (await connection.QueryAsync<GoalDto>(sqlQuery, new { UserId = query.CreatedBy, Start = query.StartDate, End = query.EndDate })).ToPagedList(query.PageNumber, query.PageSize);
         }

@@ -8,6 +8,7 @@ import { MenuOption } from './menu-option.model';
   encapsulation: ViewEncapsulation.None,
 })
 export class MenuComponent implements OnInit {
+  
   @Input() options: MenuOption;
 
   visible: boolean;
