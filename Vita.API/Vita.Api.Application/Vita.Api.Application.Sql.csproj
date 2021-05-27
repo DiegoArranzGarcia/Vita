@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vita.Api.Application.Abstraction\Vita.Api.Application.Abstraction.csproj" />
+    <ProjectReference Include="..\Vita.Api.Domain\Vita.Api.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

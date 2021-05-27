@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vita.Api.Application\Vita.Api.Application.csproj" />
+    <ProjectReference Include="..\Vita.Api.Application\Vita.Api.Application.Sql.csproj" />
     <ProjectReference Include="..\Vita.Api.Persistance.Sql\Vita.Api.Persistance.Sql.csproj" />
   </ItemGroup>
 

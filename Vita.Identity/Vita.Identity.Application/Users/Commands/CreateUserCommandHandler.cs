@@ -1,13 +1,13 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Vita.Identity.Application.Abstraction.Users;
 using Vita.Identity.Domain.Aggregates.Users;
 using Vita.Identity.Domain.Services;
 
-namespace Vita.Identity.Application.Users.Commands
+namespace Vita.Identity.Application.Sql.Users.Commands
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
+    public class CreateUserCommandHandler : ICreateUserCommandHandler
     {
         private readonly IUsersRepository _usersRepository;
         private readonly IPasswordService _passwordService;

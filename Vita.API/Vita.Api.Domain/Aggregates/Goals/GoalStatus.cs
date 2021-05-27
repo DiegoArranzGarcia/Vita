@@ -7,8 +7,8 @@ namespace Vita.Api.Domain.Aggregates.Goals
 {
     public class GoalStatus : Enumeration
     {
-        public static GoalStatus ToDo = new GoalStatus(1, nameof(ToDo).ToLowerInvariant());
-        public static GoalStatus Completed = new GoalStatus(2, nameof(Completed).ToLowerInvariant());
+        public static GoalStatus ToDo => new (1, nameof(ToDo).ToLowerInvariant());
+        public static GoalStatus Completed => new (2, nameof(Completed).ToLowerInvariant());
 
         public GoalStatus(int id, string name) : base(id, name)
         {

@@ -3,6 +3,7 @@ import { MenuOption } from 'src/app/shared/menu/menu-option.model';
 import { GoalService } from '../goal.service';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { Goal as Goal, GoalStatus } from '../goal.model';
 
 @Component({
   selector: 'vita-goal-card-menu',
@@ -10,10 +11,10 @@ import { ModalComponent } from 'src/app/shared/modal/modal.component';
   styleUrls: ['./goal-card-menu.component.sass'],
 })
 export class GoalCardMenuComponent implements OnInit {
-  @Input() id: string;
+  @Input() goal: Goal;
 
-  @Output() deleted = new EventEmitter<string>();
-  @Output() completed = new EventEmitter<string>();
+  @Output() deleted = new EventEmitter<Goal>();
+  @Output() completed = new EventEmitter<Goal>();
 
   @ViewChild('modal') modal: ModalComponent;
 
@@ -26,12 +27,13 @@ export class GoalCardMenuComponent implements OnInit {
     this.goalOptions = [
       {
         label: 'Complete Goal',
-        action: () => this.goalService.completeGoal(this.id).subscribe(_ => this.completed.emit(this.id)),
+        action: () => this.goalService.completeGoal(this.goal.id).subscribe(_ => this.completed.emit(this.goal)),
+        show: () => this.goal.status !== GoalStatus.Completed,
       },
       {
         label: 'Delete Goal',
         class: 'remove-option',
-        action: () => this.goalService.deleteGoal(this.id).subscribe(_ => this.deleted.emit(this.id)),
+        action: () => this.goalService.deleteGoal(this.goal.id).subscribe(_ => this.deleted.emit(this.goal)),
       },
     ];
   }

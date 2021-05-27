@@ -9,7 +9,6 @@ namespace Vita.Api.Domain.Test.Aggregates.Categories
         private string Color { get; set; } = "#FFFFFF";
         private Guid CreatedBy { get; set; } = Guid.NewGuid();
 
-
         public Category Create()
         {
             return new Category(Name, Color, CreatedBy);

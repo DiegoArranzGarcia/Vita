@@ -1,7 +1,8 @@
 <ul class="vita-menu">
-  <li *ngFor="let option of options" (click)="onOptionClicked(option)"
-    [ngClass]="[option.class ? 'menu__option ' + option.class : 'menu__option']">
-    <fa-icon *ngIf="option.icon" [icon]="option.icon" size="sm"></fa-icon>
-    <p>{{ option.label }}</p>
-  </li>
+  <ng-container *ngFor="let option of options" >
+    <li *ngIf="!option.show || option.show()" (click)="onOptionClicked(option)" [ngClass]="[option.class ? 'menu__option ' + option.class : 'menu__option']"> 
+      <fa-icon *ngIf="option.icon" [icon]="option.icon" size="sm"></fa-icon>
+      <p>{{ option.label }}</p>
+    </li>
+  </ng-container>
 </ul>

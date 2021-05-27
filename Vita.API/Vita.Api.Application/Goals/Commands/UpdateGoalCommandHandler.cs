@@ -2,10 +2,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Vita.Api.Application.Abstraction.Goals.Commands;
 using Vita.Api.Domain.Aggregates.Dates;
 using Vita.Api.Domain.Aggregates.Goals;
 
-namespace Vita.Api.Application.Goals.Commands
+namespace Vita.Api.Application.Sql.Goals.Commands
 {
     public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, bool>
     {

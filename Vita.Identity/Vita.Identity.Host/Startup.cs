@@ -14,8 +14,9 @@ using Serilog;
 using System;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using Vita.Identity.Application.Configuration;
-using Vita.Identity.Application.Users.Queries;
+using Vita.Identity.Application.Abstraction.Users.Queries;
+using Vita.Identity.Application.Sql.Configuration;
+using Vita.Identity.Application.Sql.Users.Queries;
 using Vita.Identity.Domain.Aggregates.Users;
 using Vita.Identity.Domain.Services;
 using Vita.Identity.Host.Claims;
@@ -90,7 +91,7 @@ namespace Vita.Identity.Host
 
         private void AddApplicationBootstrapping(IServiceCollection services)
         {
-            services.AddMediatR(typeof(GetUserByEmailQuery));
+            services.AddMediatR(typeof(GetUserByEmailQuery), typeof(GetUserByEmailQueryHandler));
             services.AddSingleton<IConnectionStringProvider>(new ConnectionStringProvider(Configuration.GetConnectionString("VitaIdentityDbContext")));
         }
 

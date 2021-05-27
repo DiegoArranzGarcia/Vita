@@ -14,7 +14,6 @@ namespace Vita.Api.Domain.Test.Aggregates.Categories
             var color = "#FFFFFF";
             var createdBy = Guid.NewGuid();
 
-
             var category = new CategoryBuilder().WithName(name)
                                                 .WithColor(color)
                                                 .WithCreatedBy(createdBy)

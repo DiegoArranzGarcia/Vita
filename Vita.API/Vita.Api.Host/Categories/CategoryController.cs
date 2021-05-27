@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Vita.Api.Application.Categories.Commands;
-using Vita.Api.Application.Categories.Queries;
+using Vita.Api.Application.Abstraction.Categories.Commands;
+using Vita.Api.Application.Abstraction.Categories.Queries;
 using Vita.Core.Pagination.Http.Headers;
 
 namespace Vita.Api.Host.Categories

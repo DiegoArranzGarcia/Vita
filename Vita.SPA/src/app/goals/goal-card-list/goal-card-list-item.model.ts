@@ -1,6 +1,6 @@
-import { GoalDto } from '../goal.model';
+import { Goal } from '../goal.model';
 
 export class GoalCardListItem {
-  public goal: GoalDto;
+  public goal: Goal;
   public hasChanged: boolean;
 }
