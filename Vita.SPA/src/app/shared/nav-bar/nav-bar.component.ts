@@ -18,6 +18,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
           height: '0px',
           opacity: '0',
           overflow: 'hidden',
+          width: '0px',
         })
       ),
       state(
