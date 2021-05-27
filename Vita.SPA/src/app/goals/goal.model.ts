@@ -3,7 +3,7 @@ export enum GoalStatus {
   ToDo = 'todo',
 }
 
-export class GoalDto {
+export class Goal {
   public id: string;
   public title: string;
   public description: string;

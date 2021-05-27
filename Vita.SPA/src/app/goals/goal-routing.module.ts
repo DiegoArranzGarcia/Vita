@@ -12,7 +12,7 @@ import { WeekGoalsHomeComponent } from './week-goals-home/week-goals-home.compon
 
 const routes: Routes = [
   { path: '', redirectTo: 'all', pathMatch: 'full' },
-  { path: 'all', component: GoalHomeComponent },
+  { path: 'all', component: GoalHomeComponent,  },
   { path: 'week', component: WeekGoalsHomeComponent },
 ];
 

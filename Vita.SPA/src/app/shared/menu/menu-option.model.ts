@@ -5,4 +5,5 @@ export class MenuOption {
   icon?: IconDefinition;
   class?: string;
   action?: () => void;
+  show?: () => boolean;
 }

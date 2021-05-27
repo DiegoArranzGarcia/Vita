@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { GoalService } from '../goal.service';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { CreateGoalDto, GoalDto } from '../goal.model';
+import { CreateGoalDto, Goal } from '../goal.model';
 import { UserService } from 'src/app/core/user/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -14,7 +14,7 @@ export class CreateGoalCardComponent implements OnInit {
   addIcon = faCheckCircle;
   goalForm: FormGroup;
 
-  @Output() created = new EventEmitter<GoalDto>();
+  @Output() created = new EventEmitter<Goal>();
 
   constructor(private _goalService: GoalService, private _userService: UserService) {}
 

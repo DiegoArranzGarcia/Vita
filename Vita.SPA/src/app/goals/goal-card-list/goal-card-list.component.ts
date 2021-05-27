@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GoalService } from '../goal.service';
-import { GoalDto } from '../goal.model';
+import { Goal } from '../goal.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,8 +12,9 @@ export class GoalCardListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() canCreate: boolean;
   @Input() startDate: Date;
   @Input() endDate: Date;
+  @Input() showCompleted: boolean;
 
-  _goals: GoalDto[];
+  _goals: Goal[];
 
   private getGoalsSubscription: Subscription;
 
@@ -27,7 +28,7 @@ export class GoalCardListComponent implements OnInit, OnChanges, OnDestroy {
     let startDateChange = changes['startDate'];
     let endDateChange = changes['endDate'];
 
-    if (startDateChange.currentValue && endDateChange.currentValue) {
+    if (startDateChange?.currentValue || endDateChange?.currentValue) {
       this.loadGoals();
     }
   }
@@ -37,20 +38,20 @@ export class GoalCardListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   loadGoals() {
-    this.getGoalsSubscription = this.goalService.getGoals(this.startDate, this.endDate).subscribe(goals => {
+    this.getGoalsSubscription = this.goalService.getGoals(this.startDate, this.endDate, this.showCompleted).subscribe(goals => {
       this._goals = goals;
     });
   }
 
-  handleOnCreatedGoal(goal: GoalDto) {
+  handleOnCreatedGoal(goal: Goal) {
     this._goals = [goal, ...this._goals];
   }
 
-  handleOnDeleteGoal(id: string) {
-    this._goals = this._goals.filter(x => x.id !== id);
+  handleOnDeleteGoal(goal: Goal) {
+    this._goals = this._goals.filter(x => x.id !== goal.id);
   }
 
-  handleOnChangedGoal(goal: GoalDto) {
+  handleOnChangedGoal(goal: Goal) {
     const index = this._goals.findIndex(x => x.id === goal.id);
     this._goals[index] = { ...goal };
   }

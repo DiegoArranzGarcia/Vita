@@ -27,12 +27,12 @@ namespace Vita.Api.Host.Goals
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGoalsAsync(DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
+        public async Task<IActionResult> GetGoalsAsync(DateTimeOffset? startDate = null, DateTimeOffset? endDate = null, bool? showCompleted = null)
         {
             if (!Guid.TryParse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out Guid userId))
                 return Unauthorized();
 
-            var getGoalsCreatedByUserQuery = new GetGoalsCreatedByUserQuery() { CreatedBy = userId, StartDate = startDate, EndDate = endDate };
+            var getGoalsCreatedByUserQuery = new GetGoalsCreatedByUserQuery() { CreatedBy = userId, StartDate = startDate, EndDate = endDate, ShowCompleted = showCompleted };
             var goals = await _mediator.Send(getGoalsCreatedByUserQuery);
 
             Response.AddPaginationMetadata(goals);

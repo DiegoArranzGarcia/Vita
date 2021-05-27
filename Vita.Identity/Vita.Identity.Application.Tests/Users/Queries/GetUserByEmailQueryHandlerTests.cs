@@ -1,4 +1,4 @@
-﻿namespace Vita.Api.Application.Sql.Tests.Goals.Queries
+﻿namespace Vita.Identity.Application.Sql.Tests.Users.Queries
 {
     class GetUserByEmailQueryHandlerTests
     {

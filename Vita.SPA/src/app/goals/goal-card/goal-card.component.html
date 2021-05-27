@@ -1,15 +1,15 @@
-<form [formGroup]="goalForm" (clickOutside)="onClickOutisde()">
+<form [formGroup]="goalForm" (clickOutside)="handleOnClickOutisde()">
   <vita-card meta="{{ goal.createdOn | amTimeAgo }}">
     <div vita-card-header class="vita-goal__header">
       <input formControlName="titleControl" spellcheck="false" />
       <div class="vita-goal__options">
-        <vita-goal-card-menu [id]="goal.id" (deleted)="handleOnDeleted($event)" (completed)="this.onUpdatedGoal()"></vita-goal-card-menu>
+        <vita-goal-card-menu [goal]="goal" (deleted)="handleOnDeleted($event)" (completed)="handleOnCompleted($event)"></vita-goal-card-menu>
       </div>
     </div>
     <textarea vita-card-content formControlName="descriptionControl" spellcheck="false"></textarea>
     <div vita-card-footer class="vita-goal__footer">
       <vita-goal-status [goalStatus]="goal.status"></vita-goal-status>
-      <vita-goal-card-aim-date [aimDate]="{ start: goal?.aimDateStart, end: goal?.aimDateEnd}" (aimDateChange)="onAimDateChange($event)"></vita-goal-card-aim-date>
+      <vita-goal-card-aim-date [aimDate]="{ start: goal?.aimDateStart, end: goal?.aimDateEnd}" (aimDateChange)="handleOnAimDateChange($event)"></vita-goal-card-aim-date>
     </div>    
   </vita-card>
 </form>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { GoalDto } from '../goal.model';
+import { Goal } from '../goal.model';
 import { GoalService } from '../goal.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -10,15 +10,12 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./goal-card.component.sass'],
   templateUrl: './goal-card.component.html',
 })
-export class GoalCardComponent implements OnInit, OnDestroy {
-  @Input() goal: GoalDto;
+export class GoalCardComponent implements OnInit {
+  @Input() goal: Goal;
   @Input() deletable: boolean;
 
-  @Output() deleted = new EventEmitter<string>();
-  @Output() changed = new EventEmitter<GoalDto>();
-
-  private updateGoalSubscription: Subscription;
-  private refreshGoalSubscription: Subscription;
+  @Output() deleted = new EventEmitter<Goal>();
+  @Output() changed = new EventEmitter<Goal>();
 
   goalForm: FormGroup;
 
@@ -31,46 +28,35 @@ export class GoalCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    if (this.updateGoalSubscription && !this.updateGoalSubscription.closed) this.updateGoalSubscription.unsubscribe();
-    if (this.refreshGoalSubscription && !this.refreshGoalSubscription.closed) this.refreshGoalSubscription.unsubscribe();
+  handleOnDeleted(goal: Goal) {
+    this.deleted.emit(goal);
   }
 
-  handleOnDeleted(id: string) {
-    this.deleted.emit(id);
-  }
-
-  submitForm() {
-    if (!this.goalForm.dirty) return;
-    if (!this.goalForm.valid) return this.restoreGoal();
-    this.updateGoalCard();
-  }
-
-  updateGoalCard() {
-    if (this.updateGoalSubscription && this.updateGoalSubscription.closed) return;
-
-    this.updateGoalSubscription = this.updateGoal().subscribe(x => {
-      this.goalForm.markAsPristine();
-      this.updateGoalSubscription = null;
-      this.onUpdatedGoal();
-    });
-  }
-
-  onUpdatedGoal() {
-    this.refreshGoalSubscription = this.refreshGoal().subscribe();
-  }
-
-  onClickOutisde() {
+  handleOnCompleted(goal: Goal) {
     this.submitForm();
   }
 
-  onAimDateChange(aimDate: { start: Date; end: Date }) {
-    this.goal.aimDateStart = aimDate?.start;
-    this.goal.aimDateEnd = aimDate?.end;
-    this.updateGoalCard();
+  handleOnClickOutisde() {
+    if (!this.goalForm.dirty) return;
+    if (!this.goalForm.valid) return this.restoreGoal();
+
+    this.submitForm();
   }
 
-  refreshGoal(): Observable<GoalDto> {
+  handleOnAimDateChange(aimDate: { start: Date; end: Date }) {
+    this.goal.aimDateStart = aimDate?.start;
+    this.goal.aimDateEnd = aimDate?.end;
+    this.submitForm();
+  }
+
+  submitForm() {
+    this.updateGoal().subscribe(x => {
+      this.goalForm.markAsPristine();
+      this.refreshGoal().subscribe();
+    });
+  }
+
+  refreshGoal(): Observable<Goal> {
     return this.goalService.getGoal(this.goal.id).pipe(
       map(goal => {
         this.changed.emit(goal);

@@ -2,7 +2,7 @@
   <div class="week-goals-home__header">
     <vita-week-selector [(week)]="_week"></vita-week-selector>
   </div>
-  <div class="week-goals-home__goals">
+  <div class="week-goals-home__goals" *ngIf="_week">
     <vita-goal-card-list [startDate]="_week.startDate" [endDate]="_week.endDate"></vita-goal-card-list>
   </div>
 </div>
